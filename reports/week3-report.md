@@ -20,7 +20,7 @@
 
 ## Progress & Issues
 - Emily: This week I have been learning more about Dart/Flutter for project implementation. Something I worked on is the requirements document, which outlines what the project will need as we move forward. There haven't been any issues yet since we are still very early in the project.
-- Pulkit:
+- Pulkit: Worked on requirements doc, and pushed a new flutter project to the git.
 - Simona:
 - Lauren:
 - Aditya:
@@ -28,7 +28,7 @@
 
 ## Next Steps
 - Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be cone through simple sketches, figma wireframes, or even simple layouts on Flutter.
-- Pulkit:
+- Pulkit: Work on a Flutter prototype and explore/integrate libraries and APIs we will use.
 - Simona:
 - Lauren:
 - Aditya:
