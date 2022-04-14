@@ -1,7 +1,7 @@
 # Team Report
 
 ## Last Week's Goals
-
+N/A
 ## Progress & Issues
 Completed requirements and policies document and submitted. We are currently at the start of our project, and are familiarizing ourselves with our tech stack. No issues at the moment, and workflow has been efficient.
 ## Next Steps
@@ -27,7 +27,7 @@ Focus on learning or reviewing Flutter and Dart. For front-end developers, plan 
 - Jesse: Worked on and finished requirements and policies document, reviewed Flutter documentation.
 
 ## Next Steps
-- Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be cone through simple sketches, figma wireframes, or even simple layouts on Flutter.
+- Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be done through simple sketches, figma wireframes, or even simple layouts on Flutter.
 - Pulkit: Work on a Flutter prototype and explore/integrate libraries and APIs we will use.
 - Simona:
 - Lauren:
