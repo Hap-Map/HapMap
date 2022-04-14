@@ -9,6 +9,8 @@ Completed requirements and policies document and submitted. We are currently at 
 ## Next Steps
 Focus on learning or reviewing Flutter and Dart. For front-end developers, plan to work on creating basic wireframes and designs. For back-end developers, plan to work on exploring Google APIs for the project.
 
+During our project meeting, we plan on first discussing any remaining concerns about software tools. Then, we will move onto reviewing the timeline for our project and the different tasks we will work on. At this point we might ask for some feedback from the project manager to help gauge which areas of the project might need the most attention.
+
 # Team Contributions
 
 ## Last Week's Goals
