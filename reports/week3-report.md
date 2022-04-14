@@ -17,7 +17,7 @@ N/A
 ## Progress & Issues
 - Emily: This week I have been learning more about Dart/Flutter for project implementation. Something I worked on is the requirements document, which outlines what the project will need as we move forward. There haven't been any issues yet since we are still very early in the project.
 - Pulkit: Worked on requirements doc, and pushed a new flutter project to the git.
-- Simona:
+- Simona: Worked on use cases, filling out the requirements document with the rest of group during meetings. We also decided on roles and project timeline to start the project.
 - Lauren: Worked on use cases identifying edge cases where an error should be thrown or user needs to provide more input. Set-up environment by downloading Andriod studio, Dart and Flutter. Researched Google Cloud services and familiarized with APIs. Without knowing how our project would integrate the google navigation APIs, it was hard to set a clear timeline/goals from the backend perspective. We now have a better idea of the request/responses of the APIS and can begin setting more defined goals.
 - Aditya: Worked on setting up the repository and organization for the project on GitHub. Also worked on the policies and requirements document.
 - Jesse: Worked on and finished requirements and policies document, attended weekly meetings, and reviewed Flutter documentation.
@@ -25,7 +25,7 @@ N/A
 ## Next Steps
 - Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be done through simple sketches, figma wireframes, or even simple layouts on Flutter.
 - Pulkit: Work on a Flutter prototype and explore/integrate libraries and APIs we will use.
-- Simona:
+- Simona: I will work on getting more familiar with Flutter and Dart, by using the resources Emily shared in the group. Potentially will work on the wireframe with other team members who are also Flutter Developers.
 - Lauren: 
   - Enable Google Navigation API
   - Prepare request to Navigation API. Start with hard coding then make dynamic based on current location and search.
