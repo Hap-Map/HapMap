@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hap_map/search_page.dart';
+import 'package:hap_map/settings_page.dart';
 
 void main() {
   runApp(const HapMap());
@@ -14,6 +15,7 @@ class HapMap extends StatelessWidget {
       initialRoute: SearchPage.id,
       routes: {
         SearchPage.id : (context) => const SearchPage(),
+        SettingsPage.id : (context) => const SettingsPage()
       },
     );
   }

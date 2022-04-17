@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+Widget PageBackground({required Widget child}) {
+    return Container(
+        decoration: const BoxDecoration(
+        gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: kBackgroundGradientColor,
+    ),
+    ),
+    child: SafeArea(child: child));
+}
 const kPrimaryColor = Colors.black;
 const kSecondaryColor = Colors.white;
 
