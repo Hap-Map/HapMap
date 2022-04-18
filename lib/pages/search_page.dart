@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hap_map/settings_page.dart';
+import 'package:hap_map/pages/settings_page.dart';
 
-import 'constants.dart';
+import '../constants.dart';
 
 class SearchPage extends StatefulWidget {
   static const id = 'search_page';

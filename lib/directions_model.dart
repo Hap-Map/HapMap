@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-//import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Step{
@@ -20,21 +17,23 @@ class Directions {
   final List<Step> totalSteps;
 
   const Directions({
-    @required this.totalDistance,
-    @required this.totalDuration,
-    @required this.totalSteps,
+    required this.totalDistance,
+    required this.totalDuration,
+    required this.totalSteps,
   });
 
   factory Directions.fromMap(Map<String, dynamic> map) {
     // Check if route is not available
-    if ((map['routes'] as List).isEmpty) return null;
+    if ((map['routes'] as List).isEmpty) {
+      throw Exception('null');
+    }
 
     // Get route information
     final data = Map<String, dynamic>.from(map['routes'][0]);
 
     String distance = '';
     String duration = '';
-    List<Step> steps = List();
+    List<Step> steps = [];
     if ((data['legs'] as List).isNotEmpty) {
       final leg = data['legs'][0];
       distance = leg['distance']['text'];
@@ -60,7 +59,7 @@ class Directions {
 
   @override
   String toString(){
-    return "{total dur: ${totalDuration}, total distance: ${totalDistance}, steps ${totalSteps.toString()}}";
+    return "{total dur: $totalDuration, total distance: $totalDistance, steps ${totalSteps.toString()}}";
   }
 }
 

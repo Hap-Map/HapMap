@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hap_map/search_page.dart';
-import 'package:hap_map/settings_page.dart';
+import 'package:hap_map/pages/search_page.dart';
+import 'package:hap_map/pages/settings_page.dart';
 
 void main() {
   runApp(const HapMap());
