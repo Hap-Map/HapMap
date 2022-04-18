@@ -1,11 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hap_map/directions_model.dart';
+import 'package:hap_map/MapsAPI.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -30,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key key, @required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -49,6 +53,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  LatLng _origin = LatLng(47.65367693981571, -122.30592421426051); // paul g. allen center
+  LatLng _dest = LatLng(47.650604202340155, -122.3025519645346); // Husky Stadium
+
 
   void _incrementCounter() {
     setState(() {
@@ -99,17 +106,25 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '...',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _getTrip,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  void _getTrip() async {
+    // Get directions
+    final directions = await MapsAPI().getDirections(origin: _origin, destination: _dest);
+    print(directions);
+    //setState(() => _info = directions!);
+  }
+
 }
