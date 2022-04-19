@@ -16,7 +16,8 @@ class MapsAPI {
       queryParameters: {
         'origin': '${origin.latitude},${origin.longitude}',
         'destination': '${destination.latitude},${destination.longitude}',
-        'key': 'AIzaSyBYjWOnNhxj6jWjjpdm-awhqXc82aDysfo',
+        // TODO: Add API Key for Google Cloud when running
+        'key': "",
         'mode': 'walking',
       },
     );
