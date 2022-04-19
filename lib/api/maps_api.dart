@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hap_map/directions_model.dart';
+import 'package:hap_map/api/directions_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapsAPI {
@@ -17,7 +17,7 @@ class MapsAPI {
         'origin': '${origin.latitude},${origin.longitude}',
         'destination': '${destination.latitude},${destination.longitude}',
         // TODO: Add API Key for Google Cloud when running
-        'key': "",
+        '.key': "",
         'mode': 'walking',
       },
     );
