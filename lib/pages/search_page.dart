@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hap_map/pages/settings_page.dart';
-
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import '../api/places_api.dart';
 import '../constants.dart';
 
 class SearchPage extends StatefulWidget {
@@ -15,21 +16,16 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Widget get searchBar => Expanded(
-        child: TextField(
-          controller: SearchPage.searchController,
-          decoration: const InputDecoration(
-              filled: true,
-              fillColor: kSecondaryColor,
-              prefixIcon: Icon(
-                Icons.search,
-                color: kPrimaryColor,
-              ),
-              border: OutlineInputBorder(
-                gapPadding: 0,
-              ),
-              hintText: 'Search'
-              //labelText: 'Search',
-              ),
+        child: TypeAheadField<Place?>(
+          suggestionsCallback: PlaceApi.getPlaceSuggestions,
+          itemBuilder: (context, Place? suggestion) {
+            final place = suggestion!;
+
+            return ListTile(
+              title: Text(place.name),
+            );
+          },
+          onSuggestionSelected: (Place? suggestion) {},
         ),
       );
   Widget get micButton => TextButton(
