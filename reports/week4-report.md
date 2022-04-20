@@ -8,10 +8,18 @@ During our project meeting, we plan on first discussing any remaining concerns a
 ## Progress & Issues
 We each worked on our respective front-end and back-end tasks. We currently have a fully setup working environment for our application implementation as well as a polished UI through Figma. 
 The frontend is currently implementing the various pages and has the basic skeleton programmed, and the backend is currently exploring the APIs to be used.
+- Everyone has their environment set up
+- Implemented basic layout of all the pages on Flutter
+- ImplementedTypeAhead Searchbar (only provides hard-code suggestions currently)
+- Not yet decided on the theme and colors of the application, but we know we intend to use visual accessibility friendly colors.
 
 ## Next Steps
 We plan on finishing the basic layout of our app within flutter (i.e. transfer our Figma design's buttons, text, etc.) and start implementing various functions. For the backend, we hope
 to get some workable data which we can test with our functions once they are implemented.
+- Work on integrating the Places Autocomplete API for our suggestions
+- Decide on and develop consistent styles, themes, icon(s) for our app
+- Add speech-to-text for audio input
+- Add widgets/text to the remaining pages
 
 # Team Contributions
 
@@ -35,7 +43,7 @@ to get some workable data which we can test with our functions once they are imp
 
 ## Progress & Issues
 - Emily: This week I have been learning more about Dart/Flutter for project implementation. Something I worked on is the requirements document, which outlines what the project will need as we move forward. There haven't been any issues yet since we are still very early in the project.
-- Pulkit: Worked on requirements doc, and pushed a new flutter project to the git.
+- Pulkit: Built a basic layout for each page in Flutter and added routes to finish the app's basic view flow.
 - Simona: I worked on updated the figma wireframe created by Jesse for more accessible design, and set up the Trello board for task management.
 - Lauren: Worked on use cases identifying edge cases where an error should be thrown or user needs to provide more input. Set-up environment by downloading Andriod studio, Dart and Flutter. Researched Google Cloud services and familiarized with APIs. Without knowing how our project would integrate the google navigation APIs, it was hard to set a clear timeline/goals from the backend perspective. We now have a better idea of the request/responses of the APIS and can begin setting more defined goals.
 - Aditya: Worked on setting up the repository and organization for the project on GitHub. Also worked on the policies and requirements document.
@@ -43,7 +51,7 @@ to get some workable data which we can test with our functions once they are imp
 
 ## Next Steps
 - Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be done through simple sketches, figma wireframes, or even simple layouts on Flutter.
-- Pulkit: Work on a Flutter prototype and explore/integrate libraries and APIs we will use.
+- Pulkit: Add functionality and styling to existing widgets, add functionality to the widgets using controllers and models.
 - Simona: I will work on styling the search page of the Flutter App
 - Lauren: 
   - Enable Google Navigation API
