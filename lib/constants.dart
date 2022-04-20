@@ -27,6 +27,7 @@ const kSubTitleStyle = TextStyle(
 );
 
 final kButtonStyle = TextButton.styleFrom(
+    padding: EdgeInsets.all(8.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10)
     ),
@@ -35,9 +36,10 @@ final kButtonStyle = TextButton.styleFrom(
 );
 
 final kRedButtonStyle = TextButton.styleFrom(
+    padding: EdgeInsets.all(8.0),
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10)
     ),
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.redAccent[700],
     primary: Colors.white
 );

@@ -29,7 +29,7 @@ class ConfirmPage extends StatelessWidget {
                         SizedBox(height: 50),
                         TextButton(onPressed: () {
                           Navigator.pushNamed(context, 'navigation_page');
-                        }, style: kButtonStyle ,child: Text('Begin Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
+                        }, style: kRedButtonStyle ,child: Text('Begin Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
                       ],
                     ),
                   ),

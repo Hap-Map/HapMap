@@ -22,10 +22,7 @@ class _NavigationPageState extends State<NavigationPage> {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: TextButton(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('End Navigation', style: kTitleStyle,),
-                ),
+                child: Text('End Navigation', style: kTitleStyle,),
                 onPressed: () {
                   Navigator.popUntil(context, ModalRoute.withName('search_page'));
                 },
