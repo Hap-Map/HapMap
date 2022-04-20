@@ -17,6 +17,11 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   Widget get searchBar => Expanded(
         child: TypeAheadField<Place?>(
+          textFieldConfiguration: TextFieldConfiguration(
+            onSubmitted: (search) {
+              Navigator.pushNamed(context, 'confirm_page');
+            }
+          ),
           suggestionsCallback: PlaceApi.getPlaceSuggestions,
           itemBuilder: (context, Place? suggestion) {
             final place = suggestion!;

@@ -33,3 +33,11 @@ final kButtonStyle = TextButton.styleFrom(
     backgroundColor: Colors.black,
     primary: Colors.white
 );
+
+final kRedButtonStyle = TextButton.styleFrom(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10)
+    ),
+    backgroundColor: Colors.red,
+    primary: Colors.white
+);
