@@ -10,12 +10,11 @@ We each worked on our respective front-end and back-end tasks. We currently have
 The frontend is currently implementing the various pages and has the basic skeleton programmed, and the backend is currently exploring the APIs to be used.
 - Everyone has their environment set up
 - Implemented basic layout of all the pages on Flutter
-- ImplementedTypeAhead Searchbar (only provides hard-code suggestions currently)
+- Implemented TypeAhead Searchbar (only provides hard-code suggestions currently)
 - Not yet decided on the theme and colors of the application, but we know we intend to use visual accessibility friendly colors.
 
 ## Next Steps
-We plan on finishing the basic layout of our app within flutter (i.e. transfer our Figma design's buttons, text, etc.) and start implementing various functions. For the backend, we hope
-to get some workable data which we can test with our functions once they are implemented.
+We plan on finishing the basic layout of our app within flutter (i.e. transfer our Figma design's buttons, text, etc.) and start implementing various functions. For the backend, we hope to get some workable data which we can test with our functions once they are implemented.
 - Work on integrating the Places Autocomplete API for our suggestions
 - Decide on and develop consistent styles, themes, icon(s) for our app
 - Add speech-to-text for audio input
@@ -51,7 +50,7 @@ to get some workable data which we can test with our functions once they are imp
 
 ## Next Steps
 - Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be done through simple sketches, figma wireframes, or even simple layouts on Flutter.
-- Pulkit: Add functionality and styling to existing widgets, add functionality to the widgets using controllers and models.
+- Pulkit: Add functionality and styling to existing widgets, connect widgets with controllers and models.
 - Simona: I will work on styling the search page of the Flutter App
 - Lauren: 
   - Enable Google Navigation API
