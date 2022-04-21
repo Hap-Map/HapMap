@@ -44,8 +44,8 @@ We plan on finishing the basic layout of our app within Flutter (i.e. transfer o
 - Emily: This week I have been learning more about how to use Dart/Flutter, exploring what widgets are available, and preparing sketches of the app. I added the TypeAhead widget to the search page to allow for auto-suggestions when the user is entering a query. Further work on this feature would be to make it visually appealing as well as connect it to the Google API and other pages of the app.
 - Pulkit: Built a basic layout for each page in Flutter and added routes to finish the app's basic view flow.
 - Simona: I worked on updated the figma wireframe created by Jesse for more accessible design, and set up the Trello board for task management.
-- Lauren: Integrated the Google Nagivation API and created directions model 
-- Aditya: Worked on setting up the repository and organization for the project on GitHub. Also worked on the policies and requirements document.
+- Lauren: Integrated the Google Navigation API and created directions model.
+- Aditya: Learned to work with Flutter and Dart, researched about more accessible app design and structure for screen-readers, and started working on speech-to-text integration.
 - Jesse: Designed the main Figma wireframe for our application and wrote draft for weekly report.
 
 ## Next Steps
@@ -59,7 +59,7 @@ We plan on finishing the basic layout of our app within Flutter (i.e. transfer o
   - Goals beyond next week
     - Get Maps API working for background of UI. Using polylines we want to be able to show the route which will update in real time using a users location
 - Aditya:
-  - Working on getting more familiarity with Flutter and Dart
-  - Starting Google Maps API integration into our project
-  - Working on other backend tasks and other project modules
+  - Working on implementing speech-to-text integration for the search bar
+  - Working on finding the route between two locations using the Directions API
+  - Integrating accessible design principles into the app modules
 - Jesse: Design an additional settings page for our application and start implementing various parts of the app through flutter.
