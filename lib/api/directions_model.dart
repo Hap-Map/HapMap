@@ -25,7 +25,7 @@ class Directions {
   factory Directions.fromMap(Map<String, dynamic> map) {
     // Check if route is not available
     if ((map['routes'] as List).isEmpty) {
-      throw Exception('null');
+      throw Exception('No Routes Match Query');
     }
 
     // Get route information
