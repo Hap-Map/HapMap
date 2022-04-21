@@ -11,10 +11,10 @@ The frontend is currently implementing the various pages and has the basic skele
 - Everyone has their environment set up
 - Implemented basic layout of all the pages on Flutter
 - Implemented TypeAhead Searchbar (only provides hard-code suggestions currently)
-- Not yet decided on the theme and colors of the application, but we know we intend to use visual accessibility friendly colors.
+- Not yet decided on the theme and colors of the application, but plan to choose visually-accessible colors.
 
 ## Next Steps
-We plan on finishing the basic layout of our app within flutter (i.e. transfer our Figma design's buttons, text, etc.) and start implementing various functions. For the backend, we hope to get some workable data which we can test with our functions once they are implemented.
+We plan on finishing the basic layout of our app within Flutter (i.e. transfer our Figma design's buttons, text, etc.) and start implementing various features. For the backend, we hope to get some workable data which we can test with our functions once they are implemented.
 - Work on integrating the Places Autocomplete API for our suggestions
 - Decide on and develop consistent styles, themes, icon(s) for our app
 - Add speech-to-text for audio input
@@ -41,7 +41,7 @@ We plan on finishing the basic layout of our app within flutter (i.e. transfer o
 - Jesse: Increase understanding of Flutter, Dart, and any additional relevant packages and libraries that could serve useful in our project. Focus on creating basic wireframes and design for application.
 
 ## Progress & Issues
-- Emily: This week I have been learning more about Dart/Flutter for project implementation. Something I worked on is the requirements document, which outlines what the project will need as we move forward. There haven't been any issues yet since we are still very early in the project.
+- Emily: This week I have been learning more about how to use Dart/Flutter, exploring what widgets are available, and preparing sketches of the app. I added the TypeAhead widget to the search page to allow for auto-suggestions when the user is entering a query. Further work on this feature would be to make it visually appealing as well as connect it to the Google API and other pages of the app.
 - Pulkit: Built a basic layout for each page in Flutter and added routes to finish the app's basic view flow.
 - Simona: I worked on updated the figma wireframe created by Jesse for more accessible design, and set up the Trello board for task management.
 - Lauren: Integrated the Google Nagivation API and created directions model 
@@ -49,7 +49,7 @@ We plan on finishing the basic layout of our app within flutter (i.e. transfer o
 - Jesse: Designed the main Figma wireframe for our application and wrote draft for weekly report.
 
 ## Next Steps
-- Emily: I plan on continuing to explore Flutter and Dart, as well as starting to work on the layout and wireframes for the application. This could be done through simple sketches, figma wireframes, or even simple layouts on Flutter.
+- Emily: Developing the initial layout and functionality of widgets for the navigation confirmation page and communicating with backend developers to facilitate integration of the Google APIs.
 - Pulkit: Add functionality and styling to existing widgets, connect widgets with controllers and models.
 - Simona: I will work on styling the search page of the Flutter App
 - Lauren: 
