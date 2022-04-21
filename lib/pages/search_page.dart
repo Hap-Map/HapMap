@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hap_map/pages/settings_page.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../api/places_api.dart';
+import '../api/place_api.dart';
+import '../api/place_model.dart';
 import '../constants.dart';
 
 class SearchPage extends StatefulWidget {
