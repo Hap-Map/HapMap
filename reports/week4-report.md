@@ -44,7 +44,7 @@ We plan on finishing the basic layout of our app within flutter (i.e. transfer o
 - Emily: This week I have been learning more about Dart/Flutter for project implementation. Something I worked on is the requirements document, which outlines what the project will need as we move forward. There haven't been any issues yet since we are still very early in the project.
 - Pulkit: Built a basic layout for each page in Flutter and added routes to finish the app's basic view flow.
 - Simona: I worked on updated the figma wireframe created by Jesse for more accessible design, and set up the Trello board for task management.
-- Lauren: Worked on use cases identifying edge cases where an error should be thrown or user needs to provide more input. Set-up environment by downloading Andriod studio, Dart and Flutter. Researched Google Cloud services and familiarized with APIs. Without knowing how our project would integrate the google navigation APIs, it was hard to set a clear timeline/goals from the backend perspective. We now have a better idea of the request/responses of the APIS and can begin setting more defined goals.
+- Lauren: Integrated the Google Nagivation API and created directions model 
 - Aditya: Worked on setting up the repository and organization for the project on GitHub. Also worked on the policies and requirements document.
 - Jesse: Designed the main Figma wireframe for our application and wrote draft for weekly report.
 
@@ -53,13 +53,11 @@ We plan on finishing the basic layout of our app within flutter (i.e. transfer o
 - Pulkit: Add functionality and styling to existing widgets, connect widgets with controllers and models.
 - Simona: I will work on styling the search page of the Flutter App
 - Lauren: 
-  - Enable Google Navigation API
-  - Prepare request to Navigation API. Start with hard coding then make dynamic based on current location and search.
-  - Organize response recieved into data that can be used by other parts of the application.  The data we can expect to receive includes: step-by-step directions (including HTML instructions and lat/long endpoints), ETA, total distance
-  - Goals beyond next week:
-    - Using the returned data from Google Navigation API, come up with a way to integrate Flutter location and haptic touch
-    - Determine how app should handle when a user takes a wrong turn
-    - Refine location for input and destination search (Google Places API)
+  - Implement Places API for suggestion search
+  - Create Place data object
+  - Use Place object returned from search and enable place_id search from Directions API
+  - Goals beyond next week
+    - Get Maps API working for background of UI. Using polylines we want to be able to show the route which will update in real time using a users location
 - Aditya:
   - Working on getting more familiarity with Flutter and Dart
   - Starting Google Maps API integration into our project
