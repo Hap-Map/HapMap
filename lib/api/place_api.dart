@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hap_map/api/place_model.dart';
+import 'package:hap_map/models/place_model.dart';
 import 'package:hap_map/api/.key/maps.dart';
 
 
