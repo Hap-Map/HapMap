@@ -7,11 +7,11 @@ import 'package:hap_map/models/place_model.dart';
 
 import 'package:hap_map/api/.key/maps.dart';
 
-class MapsAPI {
+class DirectionsAPI {
   static const String _directionsUrl = 'https://maps.googleapis.com/maps/api/directions/json?';
   late Dio _dio;
 
-  MapsAPI() {
+  DirectionsAPI() {
     _dio = Dio();
   }
 
