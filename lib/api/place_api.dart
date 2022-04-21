@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/api/place_model.dart';
+import 'package:hap_map/api/.key/maps.dart';
 
 
 class PlaceApi {
@@ -21,7 +22,7 @@ class PlaceApi {
         'input': input,
         'location': '${curLocation.latitude}, ${curLocation.longitude}',
         'radius': '$searchRadius',
-        'key': 'AIzaSyBYjWOnNhxj6jWjjpdm-awhqXc82aDysfo',
+        'key': MAPS_API_KEY,
       },
     );
 

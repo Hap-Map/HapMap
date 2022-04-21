@@ -5,6 +5,8 @@ import 'package:hap_map/api/directions_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/api/place_model.dart';
 
+import 'package:hap_map/api/.key/maps.dart';
+
 class MapsAPI {
   static const String _directionsUrl = 'https://maps.googleapis.com/maps/api/directions/json?';
   late Dio _dio;
@@ -21,8 +23,8 @@ class MapsAPI {
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': '${destination.latitude},${destination.longitude}',
-          // TODO: Add API Key for Google Cloud when running
-          'key': "",
+          // TODO: Add API Key to api/.key/maps.dart
+          'key': MAPS_API_KEY,
           'mode': 'walking',
         },
       );
@@ -32,8 +34,8 @@ class MapsAPI {
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': 'place_id:${destination.id}',
-          // TODO: Add API Key for Google Cloud when running
-          'key': "",
+          // TODO: Add API Key to api/.key/maps.dart
+          'key': MAPS_API_KEY,
           'mode': 'walking',
         },
       );
@@ -44,8 +46,8 @@ class MapsAPI {
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': destination,
-          // TODO: Add API Key for Google Cloud when running
-          'key': "",
+          // TODO: Add API Key to api/.key/maps.dart
+          'key': MAPS_API_KEY,
           'mode': 'walking',
         },
       );
