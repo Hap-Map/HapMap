@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hap_map/api/location_api.dart';
 import 'package:hap_map/pages/settings_page.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '../api/place_api.dart';
@@ -45,6 +46,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    LocationApi.getCurrentLocation();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: kPrimaryColor,
