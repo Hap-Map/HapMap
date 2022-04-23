@@ -14,7 +14,9 @@ Widget PageBackground({required Widget child}) {
 const kPrimaryColor = Colors.black;
 const kSecondaryColor = Colors.white;
 
-const kBackgroundGradientColor = <Color>[Colors.teal, Colors.indigoAccent];
+const lightGreen = Color(0xFFB7EEBC);
+const teal = Color(0xCC59B5AF);
+const kBackgroundGradientColor = <Color>[teal, lightGreen];
 
 const kTitleStyle = TextStyle(
 fontSize: 25,
@@ -31,8 +33,8 @@ final kButtonStyle = TextButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10)
     ),
-    backgroundColor: Colors.black,
-    primary: Colors.white
+    backgroundColor: Colors.white,
+    primary: Colors.black
 );
 
 final kRedButtonStyle = TextButton.styleFrom(

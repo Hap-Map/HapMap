@@ -6,8 +6,9 @@ import '../models/place_model.dart';
 import '../constants.dart';
 
 class SearchPage extends StatefulWidget {
+
   static const id = 'search_page';
-  static late final TextEditingController searchController =
+  static final TextEditingController searchController =
       TextEditingController();
   const SearchPage({Key? key}) : super(key: key);
 
@@ -15,10 +16,22 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
+
 class _SearchPageState extends State<SearchPage> {
   Widget get searchBar => Expanded(
         child: TypeAheadField<Place?>(
           textFieldConfiguration: TextFieldConfiguration(
+            controller: SearchPage.searchController,
+            autofocus: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              hintText: 'Where would you like to go?',
+              hintStyle: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
             onSubmitted: (search) {
               Navigator.pushNamed(context, 'confirm_page');
             }
@@ -28,12 +41,17 @@ class _SearchPageState extends State<SearchPage> {
             final place = suggestion!;
 
             return ListTile(
+              leading: const Icon(Icons.place),
               title: Text(place.name),
             );
           },
-          onSuggestionSelected: (Place? suggestion) {},
+          onSuggestionSelected: (Place? suggestion) {
+            final place = suggestion!;
+            SearchPage.searchController.text = place.name;
+          },
         ),
       );
+
   Widget get micButton => TextButton(
       // TODO: IMPLEMENT SPEECH TO TEXT
       onPressed: () {},
@@ -59,37 +77,32 @@ class _SearchPageState extends State<SearchPage> {
       body: PageBackground(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text('Where would you like to go?', style: kTitleStyle),
-            Column(
-              children: [
-                IntrinsicHeight(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [searchBar, micButton],
-                    ),
-                  ),
+            children: [
+              IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: searchBar
                 ),
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: TextButton(
-                        // TODO: IMPLEMENT TUTORIAL?
-                        onPressed: () {},
-                        style: kButtonStyle,
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'How to use HapMap?',
-                            style: kSubTitleStyle,
-                          ),
-                        )))
-              ],
-            ),
-          ],
+              ),
+              micButton,
+              Align(
+                alignment: Alignment.topCenter,
+                child: TextButton(
+                    // TODO: IMPLEMENT TUTORIAL?
+                    onPressed: () {},
+                    style: kButtonStyle,
+                    child: const Padding(
+                      padding: EdgeInsets.all(6.0),
+                      child: Text(
+                        'How to use HapMap?',
+                        style: kSubTitleStyle,
+                      ),
+              )))
+            ],
         ),
       ),
     );
   }
 }
+
+
