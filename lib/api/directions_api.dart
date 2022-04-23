@@ -1,5 +1,3 @@
-import 'dart:js_util';
-
 import 'package:dio/dio.dart';
 import 'package:hap_map/models/directions_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,7 +15,7 @@ class DirectionsAPI {
 
   Future<Directions?> getDirections({required LatLng origin, required destination,}) async {
     Response response;
-    if (instanceof(destination, LatLng)) {
+    if (destination.runtimeType == LatLng) {
       response = await _dio.get(
         _directionsUrl,
         queryParameters: {
@@ -28,7 +26,7 @@ class DirectionsAPI {
           'mode': 'walking',
         },
       );
-    } else if (instanceof(destination, Place)) {
+    } else if (destination.runtimeType == Place) {
       response = await _dio.get(
         _directionsUrl,
         queryParameters: {
@@ -39,7 +37,7 @@ class DirectionsAPI {
           'mode': 'walking',
         },
       );
-    } else if (instanceof(destination, String)) {
+    } else if (destination.runtimeType == String) {
       // should be an address string with + to denote spaces
       response = await _dio.get(
         _directionsUrl,
