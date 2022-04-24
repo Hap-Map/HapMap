@@ -20,39 +20,44 @@ class ConfirmPage extends StatelessWidget {
       body: PageBackground(
         child: Column(
           children: [
-            Align(alignment: Alignment.topLeft,child: BackButton()),
+            Align(alignment: Alignment.topLeft, child: BackButton()),
             Expanded(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // TODO: Get the chosen destination
-                        Text('DESTINATION', style: kTitleStyle,),
-                        SizedBox(height: 25),
-                        Text('Estimated Time: ' + getEstimatedTime().toString()
-                            + ' minutes',
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // TODO: Get the chosen destination
+                          Text('Destination:', style: kTitleStyle,),
+                          Text(_search, style: kTitleStyle, softWrap: true,),
+                          SizedBox(height: 25),
+                          Text('Estimated Time: ' + getEstimatedTime().toString()
+                              + ' minutes',
                             style: kSubTitleStyle,
                             textAlign: TextAlign.start,),
-                        // TODO: Get the current location displayed
-                        Text('Starting From: ' + _position.toString(),
+                          // TODO: Get the current location displayed
+                          Text('Starting From: ' + _position.toString(),
                             style: kSubTitleStyle,
-                            textAlign: TextAlign.start,),
-                        SizedBox(height: 25),
-                        TextButton(onPressed: () {
-                          Navigator.pushNamed(context, 'navigation_page');
-                        }, style: kRedButtonStyle ,child: Text('Start Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
-                      ],
+                            textAlign: TextAlign.start, softWrap: true,),
+                          SizedBox(height: 25),
+                          TextButton(onPressed: () {
+                            Navigator.pushNamed(context, 'navigation_page');
+                          }, style: kRedButtonStyle ,child: Text('Start Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              )
+              
             ),
           ],
         ),
