@@ -45,3 +45,7 @@ final kRedButtonStyle = TextButton.styleFrom(
     backgroundColor: Colors.redAccent[700],
     primary: Colors.white
 );
+
+final kInputBorderStyle = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+);

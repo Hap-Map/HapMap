@@ -47,7 +47,7 @@ class LocationApi {
 
   static Future<Position> getCurrentLocation() async {
     if (await getLocationPermission()) {
-      return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      return Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     } else {
       return Future.error('Unable to get user location');
     }

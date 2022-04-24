@@ -13,6 +13,9 @@ class ConfirmPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List _arguments = ModalRoute.of(context)!.settings.arguments as List;
+    Position _position = _arguments[0];
+    String _search = _arguments[1];
     return Scaffold(
       body: PageBackground(
         child: Column(
@@ -38,7 +41,7 @@ class ConfirmPage extends StatelessWidget {
                             style: kSubTitleStyle,
                             textAlign: TextAlign.start,),
                         // TODO: Get the current location displayed
-                        Text('Starting From: ' + _getUserLocation(),
+                        Text('Starting From: ' + _position.toString(),
                             style: kSubTitleStyle,
                             textAlign: TextAlign.start,),
                         SizedBox(height: 25),
