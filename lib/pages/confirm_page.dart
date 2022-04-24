@@ -24,11 +24,11 @@ class ConfirmPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text('Something goes here', style: kSubTitleStyle,),
+                        Text('LOCATION', style: kSubTitleStyle,),
                         SizedBox(height: 50),
                         TextButton(onPressed: () {
                           Navigator.pushNamed(context, 'navigation_page');
-                        }, style: kRedButtonStyle ,child: Text('Begin Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
+                        }, style: kRedButtonStyle ,child: Text('Start Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
                       ],
                     ),
                   ),
