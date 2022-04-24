@@ -25,7 +25,7 @@ class ConfirmPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: FittedBox(
-                  fit: BoxFit.scaleDown,
+                  fit: BoxFit.contain,
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
@@ -36,21 +36,31 @@ class ConfirmPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           // TODO: Get the chosen destination
-                          Text('Destination:', style: kTitleStyle,),
-                          Text(_search, style: kTitleStyle, softWrap: true,),
+                          Text('Destination:', style: kTitleStyle.copyWith(fontSize: 32),),
+                          Text(_search, style: kTitleStyle.copyWith(fontSize: 32), softWrap: true,),
                           SizedBox(height: 25),
-                          Text('Estimated Time: ' + getEstimatedTime().toString()
+                          Text('Estimated Time: '
+                              + getEstimatedTime().toString()
                               + ' minutes',
-                            style: kSubTitleStyle,
-                            textAlign: TextAlign.start,),
+                            style: kSubTitleStyle.copyWith(fontSize: 28),
+                            textAlign: TextAlign.start, softWrap: true,),
                           // TODO: Get the current location displayed
                           Text('Starting From: ' + _position.toString(),
-                            style: kSubTitleStyle,
+                            style: kSubTitleStyle.copyWith(fontSize: 28),
                             textAlign: TextAlign.start, softWrap: true,),
                           SizedBox(height: 25),
                           TextButton(onPressed: () {
                             Navigator.pushNamed(context, 'navigation_page');
-                          }, style: kRedButtonStyle ,child: Text('Start Navigation', style: kTitleStyle.copyWith(color: Colors.white),))
+                          }, style: kRedButtonStyle,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                                child: Text('Start Navigation',
+                                    style:
+                                    kTitleStyle.copyWith(color: Colors.white,
+                                        fontSize: 32)
+                                )
+                            ),
+                          )
                         ],
                       ),
                     ),
