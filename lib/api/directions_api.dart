@@ -54,6 +54,8 @@ class DirectionsAPI {
     }
     if (response.statusCode == 200) {
       return Directions.fromMap(response.data);
+    } else {
+      throw Exception('Invalid Response code from API- Direction Search');
     }
   }
 
