@@ -35,16 +35,19 @@ class ConfirmPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // TODO: Get the chosen destination
-                          Text('Destination:', style: kTitleStyle.copyWith(fontSize: 32),),
-                          Text(_search, style: kTitleStyle.copyWith(fontSize: 32), softWrap: true,),
+                          Text('Destination:',
+                            style: kTitleStyle.copyWith(fontSize: 32),),
+                          Text(_search,
+                            style: kTitleStyle.copyWith(fontSize: 32),
+                            softWrap: true,),
                           SizedBox(height: 25),
+                          // TODO: Get the estimated travel time
                           Text('Estimated Time: '
                               + getEstimatedTime().toString()
                               + ' minutes',
                             style: kSubTitleStyle.copyWith(fontSize: 28),
                             textAlign: TextAlign.start, softWrap: true,),
-                          // TODO: Get the current location displayed
+                          // TODO: Get the current location as address
                           Text('Starting From: ' + _position.toString(),
                             style: kSubTitleStyle.copyWith(fontSize: 28),
                             textAlign: TextAlign.start, softWrap: true,),
