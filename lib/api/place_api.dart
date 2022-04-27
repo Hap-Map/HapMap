@@ -37,7 +37,12 @@ class PlaceApi {
     }
   }
 
+  /*
+    TODO: Change to accept Position, i.e getAddress(Position p)
+          maybe overload with getAddress(double lat, double lng)
+  */
   static Future<String> getAddress(Place p) async {
+
     Dio _dio = Dio();
     Response response = await _dio.get(
       _addressUrl,

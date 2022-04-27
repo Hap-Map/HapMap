@@ -18,116 +18,109 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  String _search = "";
   late Position _startingPosition;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
-      LocationApi.getCurrentLocation().then((value) => _startingPosition = value);
+      LocationApi.getCurrentLocation().then((value) =>
+      _startingPosition = value);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            heroTag: 'btn1',
-            backgroundColor: kPrimaryColor,
-            child: const Icon(
-              Icons.mic,
-            ),
-            // TODO: IMPLEMENT SETTINGS PAGE
-            onPressed: () {
-              Navigator.pushNamed(context, SettingsPage.id);
-            },
-          ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FloatingActionButton(
-            heroTag: 'btn2',
-            backgroundColor: kPrimaryColor,
-            child: const Icon(
-              Icons.settings,
-            ),
-            // TODO: IMPLEMENT SETTINGS PAGE
-            onPressed: () {
-              Navigator.pushNamed(context, SettingsPage.id);
-            },
-          ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                heroTag: 'btn1',
+                backgroundColor: kPrimaryColor,
+                child: const Icon(
+                  Icons.mic,
+                  size: 30,
+                ),
+                // TODO: IMPLEMENT SPEECH-TO-TEXT
+                onPressed: () {},
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: FloatingActionButton(
+                    heroTag: 'btn2',
+                    backgroundColor: kPrimaryColor,
+                    child: const Icon(
+                      Icons.settings,
+                      size: 30,
+                    ),
+                    // TODO: IMPLEMENT SETTINGS PAGE
+                    onPressed: () {
+                      Navigator.pushNamed(context, SettingsPage.id);
+                    },
+                  ),
+                ),
+              ),
+            ]
         ),
-        ]
-      ),
-      body: PageBackground(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IntrinsicHeight(
-              child: Padding(
+        body: PageBackground(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
                   padding: const EdgeInsets.all(16.0), child: searchBar),
-            ),
-            micButton,
-            Align(
-                alignment: Alignment.topCenter,
-                child: TextButton(
-                    // TODO: IMPLEMENT TUTORIAL?
-                    onPressed: () {},
-                    style: kButtonStyle,
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Text(
-                        'How to use HapMap?',
-                        style: kSubTitleStyle,
-                      ),
-                    )))
-          ],
+              // TODO: ADD NO INPUT ERROR AND MAKE THIS BUTTON BEAUTIFUL
+              TextButton(onPressed: () => _search != ''? _onSubmitted(_search) : /* TODO: NO INPUT ERROR */ _search = '', child: Text('GO', style: kSubTitleStyle,), style: kRedButtonStyle,)
+            ],
+          ),
         ),
       ),
     );
   }
-  Widget get searchBar => TypeAheadField<Place?>(
-    textFieldConfiguration: TextFieldConfiguration(
-        controller: SearchPage.searchController,
-        autofocus: true,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          focusedBorder: kInputBorderStyle,
-          filled: true,
-          focusColor: Colors.black,
-          border: kInputBorderStyle,
-          hintText: 'Where would you like to go?',
-          hintStyle: const TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        onSubmitted: (search) {
-          Navigator.pushNamed(context, ConfirmPage.id, arguments: [_startingPosition, search]);
-        }),
-    suggestionsCallback: PlaceApi.getPlaceSuggestions,
-    itemBuilder: (context, Place? suggestion) {
-      final place = suggestion!;
+  void _onSubmitted (String search) {
+    Navigator.pushNamed(context, ConfirmPage.id,
+        arguments: [_startingPosition, search]);
+  }
 
-      return ListTile(
-        leading: const Icon(Icons.place),
-        title: Text(place.name),
+  Widget get searchBar =>
+      TypeAheadField<Place?>(
+        textFieldConfiguration: TextFieldConfiguration(
+            controller: SearchPage.searchController,
+            autofocus: false,
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              focusedBorder: kInputBorderStyle,
+              filled: true,
+              focusColor: Colors.black,
+              border: kInputBorderStyle,
+              hintText: 'Where would you like to go?',
+              hintStyle: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onSubmitted: _onSubmitted,
+        onChanged: (input) => _search = input),
+        suggestionsCallback: PlaceApi.getPlaceSuggestions,
+        itemBuilder: (context, Place? suggestion) {
+          final place = suggestion!;
+
+          return ListTile(
+            leading: const Icon(Icons.place),
+            title: Text(place.name),
+          );
+        },
+        onSuggestionSelected: (Place? suggestion) {
+          final place = suggestion!;
+          SearchPage.searchController.text = place.name;
+          _search = place.name;
+        },
       );
-    },
-    onSuggestionSelected: (Place? suggestion) {
-      final place = suggestion!;
-      SearchPage.searchController.text = place.name;
-    },
-  );
-
-  Widget get micButton => TextButton(
-    // TODO: IMPLEMENT SPEECH TO TEXT
-      onPressed: () {},
-      child: const Icon(
-        Icons.mic,
-        size: 40,
-      ),
-      style: kButtonStyle);
 }
