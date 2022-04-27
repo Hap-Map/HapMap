@@ -38,7 +38,7 @@ We plan on finishing the basic layout of our app within Flutter (i.e. transfer o
   - Working on getting more familiarity with Flutter and Dart
   - Starting Google Maps API integration into our project
   - Working on other backend tasks and other project modules
-- Jesse: Increase understanding of Flutter, Dart, and any additional relevant packages and libraries that could serve useful in our project. Focus on creating basic wireframes and design for application.
+- Jesse: Design an additional settings page for our application and start implementing various parts of the app through flutter.
 
 ## Progress & Issues
 - Emily: This week I have been learning more about how to use Dart/Flutter, exploring what widgets are available, and preparing sketches of the app. I added the TypeAhead widget to the search page to allow for auto-suggestions when the user is entering a query. Further work on this feature would be to make it visually appealing as well as connect it to the Google API and other pages of the app.
@@ -46,7 +46,7 @@ We plan on finishing the basic layout of our app within Flutter (i.e. transfer o
 - Simona: I finished styling the search page (the background color, search bar, buttons) and added the autofill after selecting a suggestion option
 - Lauren: Integrated the Google Navigation API and created directions model.
 - Aditya: Learned to work with Flutter and Dart, researched about more accessible app design and structure for screen-readers, and started working on speech-to-text integration.
-- Jesse: Designed the main Figma wireframe for our application and wrote draft for weekly report.
+- Jesse: Designed the settings page and helped write additional plans for developer and user documentation for our project within the group document
 
 ## Next Steps
 - Emily: Developing the initial layout and functionality of widgets for the navigation confirmation page and communicating with backend developers to facilitate integration of the Google APIs.
@@ -62,4 +62,4 @@ We plan on finishing the basic layout of our app within Flutter (i.e. transfer o
   - Working on implementing speech-to-text integration for the search bar
   - Working on finding the route between two locations using the Directions API
   - Integrating accessible design principles into the app modules
-- Jesse: Design an additional settings page for our application and start implementing various parts of the app through flutter.
+- Jesse: Start implementing the main navigation pages
