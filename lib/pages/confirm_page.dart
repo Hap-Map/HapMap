@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../api/location_api.dart';
 import '../api/directions_api.dart';
 import '../models/directions_model.dart';
+import '../models/place_model.dart';
 
 class ConfirmPage extends StatelessWidget {
   static const id = 'confirm_page';
@@ -15,7 +16,7 @@ class ConfirmPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List _arguments = ModalRoute.of(context)!.settings.arguments as List;
     Position _position = _arguments[0];
-    String _search = _arguments[1];
+    Place _search = _arguments[1];
     return Scaffold(
       body: PageBackground(
         child: Column(
@@ -37,7 +38,7 @@ class ConfirmPage extends StatelessWidget {
                         children: [
                           Text('Destination:',
                             style: kTitleStyle.copyWith(fontSize: 32),),
-                          Text(_search,
+                          Text(_search.name,
                             style: kTitleStyle.copyWith(fontSize: 32),
                             softWrap: true,),
                           SizedBox(height: 25),

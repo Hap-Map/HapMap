@@ -78,14 +78,14 @@ class _SearchPageState extends State<SearchPage> {
               Padding(
                   padding: const EdgeInsets.all(16.0), child: searchBar),
               // TODO: ADD NO INPUT ERROR AND MAKE THIS BUTTON BEAUTIFUL
-              TextButton(onPressed: () => _search != ''? _onSubmitted(_search) : /* TODO: NO INPUT ERROR */ _search = '', child: Text('GO', style: kSubTitleStyle,), style: kRedButtonStyle,)
+              //TextButton(onPressed: () => _search != ''? _onSubmitted(_search) : /* TODO: NO INPUT ERROR */ _search = '', child: Text('GO', style: kSubTitleStyle,), style: kRedButtonStyle,)
             ],
           ),
         ),
       ),
     );
   }
-  void _onSubmitted (String search) {
+  void _onSubmitted (Place search) {
     Navigator.pushNamed(context, ConfirmPage.id,
         arguments: [_startingPosition, search]);
   }
@@ -106,7 +106,6 @@ class _SearchPageState extends State<SearchPage> {
                 color: Colors.black,
               ),
             ),
-            onSubmitted: _onSubmitted,
         onChanged: (input) => _search = input),
         suggestionsCallback: PlaceApi.getPlaceSuggestions,
         itemBuilder: (context, Place? suggestion) {
@@ -121,6 +120,7 @@ class _SearchPageState extends State<SearchPage> {
           final place = suggestion!;
           SearchPage.searchController.text = place.name;
           _search = place.name;
+          _onSubmitted(suggestion);
         },
       );
 }
