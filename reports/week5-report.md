@@ -51,9 +51,9 @@ During our project meeting, we plan on first discussing any remaining concerns a
 - Jesse: Designed the settings page and helped write additional plans for developer and user documentation for our project within the group document
 
 ## Next Steps
-- Emily: I will address two bugs in the search page (moving them to github issues as needed):
-   - The user should be able to focus/unfocus from the search bar
-   - there should be a submit button
+- Emily: I will assist in styling and implementation of other pages and address bugs (moving them to github issues as needed):
+   - The submit/go button for search queries should be consistent with app styling
+   - Users should not be able to submit an empty search query
 - Pulkit: Complete flow of arguments from confirm page to navigation page, finish confirm page and help with navigation page's layout and widgets.
 - Simona: I will work on creating the setting page on Flutter, based on the wireframe Jesse designed last week
 - Lauren:
