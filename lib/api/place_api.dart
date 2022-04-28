@@ -1,25 +1,24 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/models/place_model.dart';
 import 'package:hap_map/api/.key/maps.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'location_api.dart';
 
 class PlaceApi {
   static const String _placesUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?';
   static const String _addressUrl = 'https://maps.googleapis.com/maps/api/place/details/json?';
   static const int searchRadius = 8000; // default search radius 8000 meters (5 miles) from current location
-  static const LatLng curLocation = LatLng(40.749155758479624, -73.98549273861835);
-
 
   static Future<List<Place?>> getPlaceSuggestions(input) async {
     Dio _dio = Dio();
+    Position position = await LocationApi.getCurrentLocation();
+
     Response response = await _dio.get(
       _placesUrl,
       queryParameters: {
         'input': input,
-        'location': '${curLocation.latitude}, ${curLocation.longitude}',
+        'location': '${position.latitude}, ${position.longitude}',
         'radius': '$searchRadius',
         'key': MAPS_API_KEY,
       },
