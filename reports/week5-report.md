@@ -47,7 +47,7 @@ During our project meeting, we plan on first discussing any remaining concerns a
 - Pulkit: Fixed bugs in the front-end, cleaned up some of the UI, added arguments from search page --> confirm page.
 - Simona: I finished styling the search page (the background color, search bar, buttons) and added the autofill after selecting a suggestion option
 - Lauren: Created Place API and place model. Wrote up architecture design doc for backend.
-- Aditya: Learned to work with Flutter and Dart, researched about more accessible app design and structure for screen-readers, and started working on speech-to-text integration.
+- Aditya: Created the Location API which has functions to (1) ask the user for location permission, (2) ask the user to enable location services if permission granted, (3) get the user's current location, and (4) the ability to add listeners to get continuous updates when the user's location changes. Worked on the software design doc.
 - Jesse: Designed the settings page and helped write additional plans for developer and user documentation for our project within the group document
 
 ## Next Steps
@@ -62,7 +62,6 @@ During our project meeting, we plan on first discussing any remaining concerns a
     - Integrate location with Maps API
     - Work on backend testing suite for API endpoints to make sure APIs work as expected
 - Aditya:
-  - Working on implementing speech-to-text integration for the search bar
-  - Working on finding the route between two locations using the Directions API
-  - Integrating accessible design principles into the app modules
+    - Implementing speech-to-text integration for the search bar
+    - Adding a text-to-speech API for the app
 - Jesse: Start implementing the main navigation pages
