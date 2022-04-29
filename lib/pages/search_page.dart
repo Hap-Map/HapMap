@@ -75,6 +75,11 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Align(alignment: Alignment.topRight, child: FloatingActionButton(onPressed: () {  },
+                mini: true,
+                shape: CircleBorder(),
+                backgroundColor: Colors.grey[800],
+              child: Text('?', style: TextStyle(color: Colors.white, fontSize: 25),),)),
               Padding(
                   padding: const EdgeInsets.all(16.0), child: searchBar),
               Expanded(child: Image(image: AssetImage('images/hapmap_logo.png'),))
