@@ -77,6 +77,7 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               Padding(
                   padding: const EdgeInsets.all(16.0), child: searchBar),
+              Expanded(child: Image(image: AssetImage('images/hapmap_logo.png'),))
               // TODO: ADD NO INPUT ERROR AND MAKE THIS BUTTON BEAUTIFUL
               //TextButton(onPressed: () => _search != ''? _onSubmitted(_search) : /* TODO: NO INPUT ERROR */ _search = '', child: Text('GO', style: kSubTitleStyle,), style: kRedButtonStyle,)
             ],
