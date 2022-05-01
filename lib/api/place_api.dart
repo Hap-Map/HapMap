@@ -22,7 +22,7 @@ class PlaceApi {
       queryParameters: {
         'input': input,
         'location': '${position.latitude}, ${position.longitude}',
-        'radius': 'searchRadius',
+        'radius': '$searchRadius',
         'key': MAPS_API_KEY,
       },
     );

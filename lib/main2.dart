@@ -48,7 +48,6 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
     initializeLocation();
-   // initializeRoute();
   }
 
   initializeLocation() async {
