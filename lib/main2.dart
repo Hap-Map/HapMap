@@ -32,6 +32,7 @@ class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
 
   final LatLng destPoint = const LatLng(37.79237188407873, -122.41017632083135);  // Tonga Room San Francisco
+  final LatLng defaultOrigin = const LatLng(37.78677662333202, -122.40303174175692);
 
   late Position _startingPosition;
   var currentLat;
@@ -47,7 +48,8 @@ class MapSampleState extends State<MapSample> {
   @override
   void initState() {
     super.initState();
-    initializeLocation();
+   // initializeLocation();
+    initializeDefault();
   }
 
   initializeLocation() async {
@@ -72,6 +74,28 @@ class MapSampleState extends State<MapSample> {
           position: destPoint,
         );
       });
+    });
+  }
+
+  initializeDefault() {
+    setState(() {
+      currentLat = defaultOrigin.latitude;
+      currentLong = defaultOrigin.longitude;
+
+      _cameraPosition = CameraPosition(
+          tilt: 192,
+          target: defaultOrigin,
+          zoom: 20.0);
+
+      _origin = Marker(
+        markerId: MarkerId("Origin"),
+        position: defaultOrigin
+      );
+
+      _destination = Marker(
+        markerId: MarkerId("Destination"),
+        position: destPoint
+      );
     });
   }
 
@@ -134,7 +158,7 @@ class MapSampleState extends State<MapSample> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _tryRoute,
+        onPressed: _tryDefualtRoute,
         label: const Text('Route'),
         icon: const Icon(Icons.map),
       ),
@@ -144,6 +168,13 @@ class MapSampleState extends State<MapSample> {
 
   _tryRoute() async {
     Directions? dir = await DirectionsAPI().getDirections(origin: _startingPosition, destination: destPoint);
+    setState(() {
+      _directions = dir!;
+    });
+  }
+
+  _tryDefualtRoute() async {
+    Directions? dir = await DirectionsAPI().getDirections(origin: defaultOrigin, destination: destPoint);
     setState(() {
       _directions = dir!;
     });
