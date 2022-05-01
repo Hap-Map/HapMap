@@ -13,7 +13,7 @@ class DirectionsAPI {
     _dio = Dio();
   }
 
-  Future<Directions?> getDirections({required LatLng origin, required destination,}) async {
+  Future<Directions?> getDirections({required origin, required destination,}) async {
     Response response;
     if (destination.runtimeType == LatLng) {
       response = await _dio.get(

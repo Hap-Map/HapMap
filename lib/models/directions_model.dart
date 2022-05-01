@@ -6,9 +6,14 @@ class Step{
   final String duration;
   final String distance;
   final String htmlInstructions;
-  final String maneuver;
 
-  Step(this.startLocation, this.endLocation, this.duration, this.distance, this.htmlInstructions, this.maneuver);
+  Step(this.startLocation, this.endLocation, this.duration, this.distance, this.htmlInstructions);
+
+  @override
+  String toString(){
+    return "{start: $startLocation, end: $endLocation, dur: $duration, distance: $distance, html: $htmlInstructions}}";
+  }
+
 }
 
 class Directions {
@@ -23,30 +28,29 @@ class Directions {
   });
 
   factory Directions.fromMap(Map<String, dynamic> map) {
-    // Check if route is not available
-    if ((map['routes'] as List).isEmpty) {
-      throw Exception('No Routes Match Query');
-    }
-
-    // Get route information
-    final data = Map<String, dynamic>.from(map['routes'][0]);
-
     String distance = '';
     String duration = '';
     List<Step> steps = [];
-    if ((data['legs'] as List).isNotEmpty) {
-      final leg = data['legs'][0];
-      distance = leg['distance']['text'];
-      duration = leg['duration']['text'];
-      for(var i in leg['steps']) {
-        steps.add(Step(
-            LatLng(i['start_location']['lat'], i['start_location']['lng']),
-            LatLng(i['end_location']['lat'], i['end_location']['lng']),
-            i['duration']['text'],
-            i['distance']['text'],
-            i['html_instructions'],
-            i['maneuver'])
-        );
+
+    if ((map['routes'] as List).isNotEmpty) {
+      // Get route information
+      final data = Map<String, dynamic>.from(map['routes'][0]);
+
+      if ((data['legs'] as List).isNotEmpty) {
+        final leg = data['legs'][0];
+        distance = leg['distance']['text'];
+        duration = leg['duration']['text'];
+        for (var i in leg['steps']) {
+          Step s = (Step(
+              LatLng(i['start_location']['lat'], i['start_location']['lng']),
+              LatLng(i['end_location']['lat'], i['end_location']['lng']),
+              i['duration']['text'],
+              i['distance']['text'],
+              i['html_instructions'],
+          ));
+          //print(s);
+          steps.add(s);
+        }
       }
     }
 
@@ -55,6 +59,15 @@ class Directions {
       totalDuration: duration,
       totalSteps: steps,
     );
+  }
+
+  List<LatLng> getPolylines() {
+    List<LatLng> points = [];
+    for (Step s in totalSteps) {
+      points.add(LatLng(s.startLocation.latitude, s.startLocation.longitude));
+      points.add(LatLng(s.endLocation.latitude, s.endLocation.longitude));
+    }
+    return points;
   }
 
   @override

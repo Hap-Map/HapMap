@@ -11,4 +11,16 @@ class Place {
       id: entry['place_id'],
     );
   }
+
+  factory Place.fromNearby(Map<String, dynamic> entry) {
+    return Place(
+      name : entry['name'],
+      id: entry['place_id'],
+    );
+  }
+
+  @override
+  String toString(){
+    return "{name: $name, id: $id}";
+  }
 }
