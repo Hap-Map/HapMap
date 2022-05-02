@@ -14,6 +14,7 @@ class HapMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: const Key('HapMap'),
       initialRoute: SearchPage.id,
       routes: {
         SearchPage.id : (context) => const SearchPage(),
