@@ -13,9 +13,9 @@ class PlaceApi {
   static const String _nearbySearchUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
   static const int searchRadius = 8000; // default search radius 8000 meters (5 miles) from current location
 
-  static Future<List<Place?>> getPlaceSuggestions(input) async {
+  static Future<List<Place?>> getPlaceSuggestions(input, {position}) async {
     Dio _dio = Dio();
-    Position position = await LocationApi.getCurrentLocation();
+    position ??= await LocationApi.getCurrentLocation();
 
     Response response = await _dio.get(
       _placeSuggestionsUrl,
@@ -40,8 +40,8 @@ class PlaceApi {
   }
 
   // Returns the address of current location
-  static Future<String> getNearbyAddress() async {
-    Position position = await LocationApi.getCurrentLocation();
+  static Future<String> getNearbyAddress({position}) async {
+    position ??= await LocationApi.getCurrentLocation();
     Place nearestPlace = await getPlace(position);
     return getAddress(nearestPlace);
   }
