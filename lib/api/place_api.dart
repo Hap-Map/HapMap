@@ -13,9 +13,9 @@ class PlaceApi {
   static const String _nearbySearchUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
   static const int searchRadius = 8000; // default search radius 8000 meters (5 miles) from current location
 
-  static Future<List<Place?>> getPlaceSuggestions(input) async {
+  static Future<List<Place?>> getPlaceSuggestions(input, {position}) async {
     Dio _dio = Dio();
-    Position position = await LocationApi.getCurrentLocation();
+    position ??= await LocationApi.getCurrentLocation();
 
     Response response = await _dio.get(
       _placeSuggestionsUrl,
@@ -39,18 +39,11 @@ class PlaceApi {
     }
   }
 
-  /*
-    TODO: Change to accept Position, i.e getAddress(Position p)
-          maybe overload with getAddress(double lat, double lng)
-  */
-
-  // Returns the address of the nearest place to position
-  static Future<String> getNearbyAddress(Position position) async {
-    Place nearbyPlace = await nearbySearch(position);
-    if (nearbyPlace.name != NO_RESULTS_FOUND) {
-      return getAddress(nearbyPlace);
-    }
-    throw Exception("No Results Found- No Address nearby");
+  // Returns the address of current location
+  static Future<String> getNearbyAddress({position}) async {
+    position ??= await LocationApi.getCurrentLocation();
+    Place nearestPlace = await getPlace(position);
+    return getAddress(nearestPlace);
   }
 
   // Returns the address of any place ID
@@ -73,10 +66,10 @@ class PlaceApi {
     }
   }
 
-  // Returns a place_id and description (place) of nearest google place
+  // Returns a place_id and description (place) of nearest place to position
   // Input must have a latitude and longitude (either Position or LatLng)
-  // Used as a helper function for getNearbyAdress but can also be used to get the place ID of the nearest location
-  static Future<Place> nearbySearch(position) async {
+  // Used as a helper function for getNearbyAddress but can also be used to get the place ID of a specific position
+  static Future<Place> getPlace(position) async {
     Dio _dio = Dio();
     Response response;
     if (position.runtimeType == Position || position.runtimeType == LatLng) {
