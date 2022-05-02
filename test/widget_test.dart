@@ -7,24 +7,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import 'package:hap_map/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('HapMap loading smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const HapMap());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that HapMap is loaded and that the three buttons are showing
+    expect(find.byKey(const Key('HapMap')), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsNWidgets(3));
+    expect(find.byKey(Key('SearchField')), findsOneWidget);
   });
 }
