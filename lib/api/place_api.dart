@@ -39,18 +39,11 @@ class PlaceApi {
     }
   }
 
-  /*
-    TODO: Change to accept Position, i.e getAddress(Position p)
-          maybe overload with getAddress(double lat, double lng)
-  */
-
-  // Returns the address of the nearest place to position
-  static Future<String> getNearbyAddress(Position position) async {
-    Place nearbyPlace = await nearbySearch(position);
-    if (nearbyPlace.name != NO_RESULTS_FOUND) {
-      return getAddress(nearbyPlace);
-    }
-    throw Exception("No Results Found- No Address nearby");
+  // Returns the address of current location
+  static Future<String> getNearbyAddress() async {
+    Position position = await LocationApi.getCurrentLocation();
+    Place nearestPlace = await getPlace(position);
+    return getAddress(nearestPlace);
   }
 
   // Returns the address of any place ID
@@ -73,10 +66,10 @@ class PlaceApi {
     }
   }
 
-  // Returns a place_id and description (place) of nearest google place
+  // Returns a place_id and description (place) of nearest place to position
   // Input must have a latitude and longitude (either Position or LatLng)
-  // Used as a helper function for getNearbyAdress but can also be used to get the place ID of the nearest location
-  static Future<Place> nearbySearch(position) async {
+  // Used as a helper function for getNearbyAddress but can also be used to get the place ID of a specific position
+  static Future<Place> getPlace(position) async {
     Dio _dio = Dio();
     Response response;
     if (position.runtimeType == Position || position.runtimeType == LatLng) {
