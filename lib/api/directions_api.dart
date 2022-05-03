@@ -3,7 +3,7 @@ import 'package:hap_map/api/location_api.dart';
 import 'package:hap_map/models/directions_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/models/place_model.dart';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/api/.key/maps.dart';
 
 class DirectionsAPI {
@@ -15,22 +15,13 @@ class DirectionsAPI {
   }
 
 
-  Future<Directions?> getDirections({origin, required destination,}) async {
-    origin ??= await LocationApi.getCurrentLocation();
+  Future<Directions?> getDirections({LatLng? origin, required Place destination,}) async {
+    if (origin == null) {
+      Position position = await LocationApi.getCurrentLocation();
+      origin = LatLng(position.latitude, position.longitude);
+    }
 
-    Response response;
-    if (destination.runtimeType == LatLng) {
-      response = await _dio.get(
-        _directionsUrl,
-        queryParameters: {
-          'origin': '${origin.latitude},${origin.longitude}',
-          'destination': '${destination.latitude},${destination.longitude}',
-          'key': MAPS_API_KEY,
-          'mode': 'walking',
-        },
-      );
-    } else if (destination.runtimeType == Place) {
-      response = await _dio.get(
+    Response response = await _dio.get(
         _directionsUrl,
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
@@ -38,10 +29,8 @@ class DirectionsAPI {
           'key': MAPS_API_KEY,
           'mode': 'walking',
         },
-      );
-    } else {
-      throw Exception('Invalid destination. Unable to search');
-    }
+    );
+
     if (response.statusCode == 200) {
       return Directions.fromMap(response.data);
     } else {
