@@ -98,6 +98,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget get searchBar =>
       TypeAheadField<Place?>(
+        key: const Key('SearchField'),
         textFieldConfiguration: TextFieldConfiguration(
             controller: SearchPage.searchController,
             autofocus: false,
