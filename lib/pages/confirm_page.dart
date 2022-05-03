@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hap_map/api/directions_api.dart';
-import 'package:hap_map/constants.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hap_map/constants.dart';
+
 import '../api/location_api.dart';
-import '../api/directions_api.dart';
-import '../models/directions_model.dart';
 import '../models/place_model.dart';
 
 class ConfirmPage extends StatelessWidget {
@@ -83,14 +80,14 @@ class ConfirmPage extends StatelessWidget {
   // TODO: replace dest with chosen destination's lat/long
   // issue: not actually getting the positions, only going to the second return
   int getEstimatedTime() {
-    LocationApi.getCurrentLocation().then((Position location) {
-      var og = LatLng(location.latitude, location.longitude);
-      var dest = LatLng(og.latitude, og.longitude);
-      Future<Directions?> dir = DirectionsAPI().getDirections(origin: og, destination: dest);
-      dir.then((Directions? d) {
-        return d!.totalDuration;
-      });
-    });
+    // LocationApi.getCurrentLocation().then((Position location) {
+    //   var og = LatLng(location.latitude, location.longitude);
+    //   var dest = LatLng(og.latitude, og.longitude);
+    //   Future<Directions?> dir = DirectionsAPI().getDirections(origin: og, destination: dest);
+    //   dir.then((Directions? d) {
+    //     return d!.totalDuration;
+    //   });
+    // });
     return -1;
   }
 
