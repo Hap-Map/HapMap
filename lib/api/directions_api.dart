@@ -37,5 +37,5 @@ class DirectionsAPI {
       throw Exception('Invalid Response code from API- Direction Search');
     }
   }
-  
+
 }
