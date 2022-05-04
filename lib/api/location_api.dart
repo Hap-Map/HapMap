@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as l;
+import 'package:permission_handler/permission_handler.dart';
 
 class LocationApi {
 
@@ -55,8 +55,10 @@ class LocationApi {
 
   static startLocationUpdates() async {
     if (await getLocationPermission()) {
-      positionStream ??= Geolocator.getPositionStream(desiredAccuracy: LocationAccuracy.high,
-                distanceFilter: 100).listen(
+      positionStream ??= Geolocator.getPositionStream(locationSettings: LocationSettings(
+          accuracy: LocationAccuracy.bestForNavigation,
+          distanceFilter: 100
+      )).listen(
                     (Position? position) {
                   for (var onLocationUpdateListener in LocationApi
                       .onLocationUpdateListeners) {
