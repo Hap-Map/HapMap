@@ -15,8 +15,12 @@ We each worked on our respective front-end and back-end tasks. Frontend is finis
 Current issues to be addressed are:
 - Location listeners are not being triggered in latest commits
 - Widgets are missing accessibility tags for screen-readers
+- Unit tests fail in CI due to missing API key
 
 ## Next Steps
+We plan on finishing the essential features and pages of the application for the upcoming beta release. Specifically, this would include a working navigation page and working navigation along a route. This includes tasks like getting and updating directions, styling the page, adding haptic touch, and including text-to-speech for announcements. We will also continue to add tests and work on getting them to run in CI.
+
+During our project meeting, we plan on oing progress checks. Then, we will move onto identifying key tasks that still need to be completed and setting deadlines for when each should be done. A third topic to consider is how to record the demo for the beta release.
 
 # Team Contributions
 
@@ -37,5 +41,6 @@ Current issues to be addressed are:
 - Jesse: Start implementing the main navigation pages
 
 ## Progress & Issues
+
 
 ## Next Steps
