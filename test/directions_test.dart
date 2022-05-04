@@ -32,19 +32,19 @@ void main() {
 
   test('Normal Case', () async {
       Directions? result = await DirectionsAPI().getDirections(origin: origin, destination: destPlace);
-      expect(result?.equals(normalCaseDirections), equals(true));
+      expect(result, normalCaseDirections);
   });
 
 
   test('origin == destination', () async {
       Directions? result = await DirectionsAPI().getDirections(origin: origin, destination: originPlace);
-      expect(result?.equals(originEqualsDest), equals(true));
+      expect(result, originEqualsDest);
   });
 
 
   test('No Routes', () async {
       Directions? result = await DirectionsAPI().getDirections(origin: origin, destination: noRoutePlace);
-      expect(result?.equals(noRouteDirection), equals(true));
+      expect(result, noRouteDirection);
   });
 
 }
