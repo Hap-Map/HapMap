@@ -9,11 +9,12 @@ once they are implemented, as well as expanded functionality to format data on d
 - Add speech-to-text for audio input
 - Add widgets/text to the remaining pages
 
-During our project meeting, we plan on first discussing any remaining concerns about software tools, and then doing progress checks. Then, we will 
-move onto reviewing the timeline for our project and the different tasks we will work on.
-
 ## Progress & Issues
+We each worked on our respective front-end and back-end tasks. Frontend is finishing the navigation and confirmation pages, such as implementing the user navigation. Backend is setting up APIs for integration with navigation and fixing API-related issues as they come up. A continuous integration pipeline has also been added, along with unit tests.
 
+Current issues to be addressed are:
+- Location listeners are not being triggered in latest commits
+- Widgets are missing accessibility tags for screen-readers
 
 ## Next Steps
 
