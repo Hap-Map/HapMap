@@ -49,7 +49,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Jesse: Successfully implemented the navigation page main layout to match the Figma. Current trying to fix spacing issues and to format padding/spacing for all devices.
 
 ## Next Steps
-- Emily:
+- Emily: Figure out how to set up usage of Github secrets in CI. I will also start addressing issues such as missing accessibility tags.
 - Puklit:
 - Simona:
 - Lauren:
