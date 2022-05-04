@@ -65,7 +65,6 @@ class Directions {
       // Get route information
       final data = Map<String, dynamic>.from(map['routes'][0]);
       polylineStr = data['overview_polyline']['points'];
-
       if ((data['legs'] as List).isNotEmpty) {
         final leg = data['legs'][0];
         distance = leg['distance']['text'];
@@ -100,13 +99,13 @@ class Directions {
 
   @override
   String toString(){
-    return "{total dur: $totalDuration, total distance: $totalDistance, steps ${totalSteps.toString()}}";
+    return "{total dur: $totalDuration, total distance: $totalDistance, steps ${totalSteps.toString()}, polyline: $polylineEncoded";
   }
 
   bool equals(other) {
     if (other != null && other.runtimeType == Directions) {
       if (totalDistance == other.totalDistance && totalDuration == other.totalDuration) {
-        if (other.totalSteps != null && totalSteps.length == other.totalSteps.length) {
+        if (other.totalSteps != null && totalSteps.length == other.totalSteps.length && polylineEncoded == other.polylineEncoded) {
           for (int i = 0; i < totalSteps.length; i++) {
             if (!totalSteps[i].equals(otherStep: other.totalSteps[i])) {
               return false;
