@@ -41,6 +41,11 @@ During our project meeting, we plan on oing progress checks. Then, we will move 
 - Jesse: Start implementing the main navigation pages
 
 ## Progress & Issues
-
+- Emily: We decided to forgo the 'submit' button on the search page and instead only submit if a user selects one of the suggested locations, so I shifted to setting up widget tests and continuous integration on Github. Current issues with CI are how some API-related tests rely on the API key.
+- Puklit:
+- Simona:
+- Lauren:
+- Aditya:
+- Jesse:
 
 ## Next Steps
