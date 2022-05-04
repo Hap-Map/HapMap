@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hap_map/api/location_api.dart';
 import 'package:hap_map/pages/settings_page.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:geolocator/geolocator.dart';
+
 import '../api/place_api.dart';
-import '../models/place_model.dart';
 import '../constants.dart';
+import '../models/place_model.dart';
 import 'confirm_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -19,15 +19,16 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String _search = "";
-  late Position _startingPosition;
+  Place? _startingPlace;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      LocationApi.getCurrentLocation().then((value) =>
-      _startingPosition = value);
+      LocationApi.getCurrentLocation().then((location) =>
+      PlaceApi.getPlace(location).then((place) => _startingPlace = place));
     });
+    LocationApi.startLocationUpdates();
   }
 
   @override
@@ -91,9 +92,16 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-  void _onSubmitted (Place search) {
-    Navigator.pushNamed(context, ConfirmPage.id,
-        arguments: [_startingPosition, search]);
+  void _onSubmitted (Place search) async {
+    if (_startingPlace == null) {
+      await LocationApi.getCurrentLocation().then((loc) => {
+      PlaceApi.getPlace(loc).then((place) => Navigator.pushNamed(context, ConfirmPage.id,
+      arguments: [place, search]))
+      });
+    } else {
+      Navigator.pushNamed(context, ConfirmPage.id,
+          arguments: [_startingPlace, search]);
+    }
   }
 
   Widget get searchBar =>
