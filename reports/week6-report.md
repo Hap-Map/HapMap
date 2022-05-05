@@ -44,7 +44,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Emily: We decided to forgo the 'submit' button on the search page and instead only submit if a user selects one of the suggested locations, so I shifted to setting up widget tests and continuous integration on Github. Current issues with CI are how some API-related tests rely on the API key. I also helped with updating the confirmation page to display the user's current address instead of latitude/longitude values.
 - Puklit:
 - Simona:
-- Lauren:
+- Lauren: Started working on tests for the API models. Was able to refactor the models to take an optional parameter for origin so we could test by hardcoding the location. Since the directions model returns very detailed information about routes, getting tests that test for equivalency was difficult. I'm also not sure how to test for some of the edge cases and if the tests are robust enough? I was also able to get a map for the UI going with polylines. The polylines that were drawn using the step points weren't accurate enough (causing the polylines for the route to be off by a noticable amount). Had to work to debug this issue but theyre working now.
 - Aditya:
 - Jesse: Successfully implemented the navigation page main layout to match the Figma. Current trying to fix spacing issues and to format padding/spacing for all devices.
 
@@ -53,5 +53,8 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Puklit:
 - Simona:
 - Lauren:
+    - Continue working on tests for the places and directions (adding more cases)
+    - Work on navigation tests + demoing route using location on map
+    - Updating documentation
 - Aditya:
 - Jesse: Perfect the navigation page UI interface through changing spacing and start working on the tutorial pages once complete.
