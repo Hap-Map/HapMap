@@ -45,7 +45,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Puklit:
 - Simona:
 - Lauren: Started working on tests for the API models. Was able to refactor the models to take an optional parameter for origin so we could test by hardcoding the location. Since the directions model returns very detailed information about routes, getting tests that test for equivalency was difficult. I'm also not sure how to test for some of the edge cases and if the tests are robust enough? I was also able to get a map for the UI going with polylines. The polylines that were drawn using the step points weren't accurate enough (causing the polylines for the route to be off by a noticable amount). Had to work to debug this issue but theyre working now.
-- Aditya:
+- Aditya: We decided to use the inbuilt speech-to-text in the keyboard for now. Started working on adding a vibrations API. Also started debugging the location API and worked on an invalid argument issue that was crashing the app.
 - Jesse: Successfully implemented the navigation page main layout to match the Figma. Current trying to fix spacing issues and to format padding/spacing for all devices.
 
 ## Next Steps
@@ -57,4 +57,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
     - Work on navigation tests + demoing route using location on map
     - Updating documentation
 - Aditya:
+    - Working on debugging the location listeners so that they are triggered correctly
+    - Adding the vibration API
+    - Adding the haptic touch API
 - Jesse: Perfect the navigation page UI interface through changing spacing and start working on the tutorial pages once complete.
