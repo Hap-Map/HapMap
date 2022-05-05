@@ -45,7 +45,8 @@ class _ConfirmPageState extends State<ConfirmPage> {
             _positionName = place.name;
           }));
 
-      LocationApi.getCurrentLocation().then((pos) => setState(() {
+      LocationApi.startLocationUpdates();
+      LocationApi.addOnLocationUpdateListener((pos) => setState(() {
             _position = pos;
             PlaceApi.getPlace(_position).then((place) => setState(() {
                   _positionName = place.name;
@@ -107,6 +108,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         SizedBox(height: 25),
                         TextButton(
                           onPressed: () {
+                            LocationApi.stopLocationUpdates();
                             Navigator.pushNamed(context, NavigationPage.id,
                                 arguments: [
                                   _position,
