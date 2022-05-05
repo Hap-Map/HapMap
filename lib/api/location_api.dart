@@ -55,7 +55,7 @@ class LocationApi {
 
   static startLocationUpdates() async {
     if (await getLocationPermission()) {
-      positionStream ??= Geolocator.getPositionStream(locationSettings: LocationSettings(
+      positionStream ??= Geolocator.getPositionStream(locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.bestForNavigation,
           distanceFilter: 100
       )).listen(
