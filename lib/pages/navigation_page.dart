@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
+import 'package:hap_map/models/directions_model.dart';
 
 import '../api/location_api.dart';
 import '../api/place_api.dart';
@@ -18,6 +19,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Position? _currentPosition;
   String _currentPositionName = "Finding Current Location...";
   String _destination = "Loading Destination...";
+  Directions? _directions;
 
   _NavigationPageState() {
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
@@ -31,6 +33,7 @@ class _NavigationPageState extends State<NavigationPage> {
       _currentPosition = _arguments[0];
       _currentPositionName = _arguments[1];
       _destination = _arguments[2].name;
+      _directions = _arguments[3];
     }
 
     return Scaffold(
