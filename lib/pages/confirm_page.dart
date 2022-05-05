@@ -5,6 +5,7 @@ import 'package:hap_map/constants.dart';
 import 'package:hap_map/pages/navigation_page.dart';
 
 import '../api/directions_api.dart';
+import '../api/location_api.dart';
 import '../api/place_api.dart';
 import '../models/directions_model.dart';
 import '../models/place_model.dart';
@@ -42,6 +43,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
 
       PlaceApi.getPlace(_position).then((place) => setState(() {
             _positionName = place.name;
+          }));
+
+      LocationApi.getCurrentLocation().then((pos) => setState(() {
+            _position = pos;
+            PlaceApi.getPlace(_position).then((place) => setState(() {
+                  _positionName = place.name;
+                }));
           }));
 
       DirectionsAPI()
