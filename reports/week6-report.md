@@ -42,7 +42,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Progress & Issues
 - Emily: We decided to forgo the 'submit' button on the search page and instead only submit if a user selects one of the suggested locations, so I shifted to setting up widget tests and continuous integration on Github. Current issues with CI are how some API-related tests rely on the API key. I also helped with updating the confirmation page to display the user's current address instead of latitude/longitude values.
-- Puklit:
+- Pulkit: Worked on the confirmation page, using the location listener api to display the current address.
 - Simona: worked on integrating API calls (place & direction API) to the confirmation page and navigation page. did not figure it out fully yet. But we have the functions written. Just need to find better ways to pass varaibles between different files.
 - Lauren: Started working on tests for the API models. Was able to refactor the models to take an optional parameter for origin so we could test by hardcoding the location. Since the directions model returns very detailed information about routes, getting tests that test for equivalency was difficult. I'm also not sure how to test for some of the edge cases and if the tests are robust enough? I was also able to get a map for the UI going with polylines. The polylines that were drawn using the step points weren't accurate enough (causing the polylines for the route to be off by a noticable amount). Had to work to debug this issue but theyre working now.
 - Aditya: We decided to use the inbuilt speech-to-text in the keyboard for now. Started working on adding a vibrations API. Also started debugging the location API and worked on an invalid argument issue that was crashing the app.
@@ -50,7 +50,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Next Steps
 - Emily: Figure out how to set up usage of Github secrets in CI. I will also start addressing issues such as missing accessibility tags.
-- Puklit:
+- Puklit: Finish the confirmation page and start work on the navigation page.
 - Simona: will work with Pulkit on fully integrating the APIs to navigation page -> find out ways to offer directions & haptic feedback to user step by step
 - Lauren:
     - Continue working on tests for the places and directions (adding more cases)
