@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/models/place_model.dart';
-import 'package:hap_map/api/.key/maps.dart';
+//import 'package:hap_map/api/.key/maps.dart';
 import 'package:geolocator/geolocator.dart';
 import 'location_api.dart';
+import 'package:hap_map/secrets.dart';
 
 class PlaceApi {
   static const String NO_RESULTS_FOUND = 'No Results Found';
