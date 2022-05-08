@@ -30,6 +30,8 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
+    double elementHeightSpacing = deviceHeight * 0.05;
+    double innerBoxTextWidth = deviceWidth * 0.65;
     if (_currentPosition == null) {
       List _arguments = ModalRoute.of(context)!.settings.arguments as List;
       _currentPosition = _arguments[0];
@@ -42,7 +44,7 @@ class _NavigationPageState extends State<NavigationPage> {
         body: PageBackground(
             child: Column(
       children: [
-        SizedBox(height: deviceHeight * 0.05),
+        SizedBox(height: elementHeightSpacing),
         Align(
           alignment: Alignment.topCenter,
           child: SizedBox(
@@ -62,7 +64,7 @@ class _NavigationPageState extends State<NavigationPage> {
             ),
           ),
         ),
-        SizedBox(height: deviceHeight * 0.05),
+        SizedBox(height: elementHeightSpacing),
         Container(
             height: deviceHeight * 0.4,
             width: deviceWidth * 0.8,
@@ -85,7 +87,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 children: [
                   FittedBox(
                     child: Container(
-                      width: deviceWidth * 0.65,
+                      width: innerBoxTextWidth,
                       child: Text("To: " + _destination,
                       style: TextStyle(
                           fontSize: 26,
@@ -94,7 +96,7 @@ class _NavigationPageState extends State<NavigationPage> {
                       textAlign: TextAlign.left))),
                   FittedBox(
                     child: Container(
-                        width: deviceWidth * 0.65,
+                        width: innerBoxTextWidth,
                         child: Text("NOW: Prepare to turn right onto NE 45th St",
                           style: TextStyle(
                             fontSize: 20,
@@ -103,7 +105,7 @@ class _NavigationPageState extends State<NavigationPage> {
                       textAlign: TextAlign.left))),
                   FittedBox(
                     child: Container(
-                        width: deviceWidth * 0.65,
+                        width: innerBoxTextWidth,
                         child: Text("Current Location: " + _currentPositionName,
                           style: TextStyle(
                               fontSize: 20,
