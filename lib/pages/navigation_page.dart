@@ -28,6 +28,10 @@ class _NavigationPageState extends State<NavigationPage> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double elementHeightSpacing = deviceHeight * 0.05;
+    double innerBoxTextWidth = deviceWidth * 0.65;
     if (_currentPosition == null) {
       List _arguments = ModalRoute.of(context)!.settings.arguments as List;
       _currentPosition = _arguments[0];
@@ -40,10 +44,12 @@ class _NavigationPageState extends State<NavigationPage> {
         body: PageBackground(
             child: Column(
       children: [
+        SizedBox(height: elementHeightSpacing),
         Align(
           alignment: Alignment.topCenter,
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
+          child: SizedBox(
+            height: deviceHeight * 0.07,
+            width: deviceWidth * 0.5,
             child: TextButton(
               child: const Text(
                 'End Navigation',
@@ -58,10 +64,10 @@ class _NavigationPageState extends State<NavigationPage> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: elementHeightSpacing),
         Container(
-            height: 300.0,
-            width: 360.0,
+            height: deviceHeight * 0.4,
+            width: deviceWidth * 0.8,
             color: Colors.transparent,
             child: Container(
               decoration: BoxDecoration(
@@ -79,24 +85,33 @@ class _NavigationPageState extends State<NavigationPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("To: " + _destination,
+                  FittedBox(
+                    child: Container(
+                      width: innerBoxTextWidth,
+                      child: Text("To: " + _destination,
                       style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
-                      textAlign: TextAlign.left),
-                  Text("NOW: Prepare to turn right onto NE 45th St",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                      textAlign: TextAlign.left),
-                  Text("Current Location: " + _currentPositionName,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                      textAlign: TextAlign.left),
+                      textAlign: TextAlign.left))),
+                  FittedBox(
+                    child: Container(
+                        width: innerBoxTextWidth,
+                        child: Text("NOW: Prepare to turn right onto NE 45th St",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      textAlign: TextAlign.left))),
+                  FittedBox(
+                    child: Container(
+                        width: innerBoxTextWidth,
+                        child: Text("Current Location: " + _currentPositionName,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black),
+                      textAlign: TextAlign.left))),
                 ],
               ),
             )),
