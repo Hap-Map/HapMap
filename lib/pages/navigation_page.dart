@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/main.dart';
@@ -45,6 +45,14 @@ class _NavigationPageState extends State<NavigationPage> {
     style: kRedButtonStyle,
   );
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    LocationApi.addOnLocationUpdateListener(onLocationUpdated);
+    LocationApi.startLocationUpdates();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +64,6 @@ class _NavigationPageState extends State<NavigationPage> {
       _directions = _arguments[3];
       _iter = DirectionsIterator(_directions);
     }
-
 
     return Scaffold(
       body: PageBackground(
