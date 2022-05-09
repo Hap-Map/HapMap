@@ -7,6 +7,7 @@ import 'package:hap_map/pages/navigation_page.dart';
 import '../api/directions_api.dart';
 import '../api/location_api.dart';
 import '../api/place_api.dart';
+import '../main.dart';
 import '../models/directions_model.dart';
 import '../models/place_model.dart';
 
