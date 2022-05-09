@@ -117,7 +117,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                                   _directions
                                 ]);
                           },
-                          style: kRedButtonStyle,
+                          style: kBlueButtonStyle,
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text('Start Navigation',
