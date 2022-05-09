@@ -1,8 +1,7 @@
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter/foundation.dart';
 
-const int epsilon = 1; // degrees we allow step coordinates to differ
 
 class Step{
   final LatLng startLocation;
@@ -18,27 +17,18 @@ class Step{
     return "{start: $startLocation, end: $endLocation, dur: $duration, distance: $distance, html: $htmlInstructions}}";
   }
 
-  bool equals({otherStep}) {
-    if (otherStep != null && otherStep.runtimeType == Step) {
-      if (compareLatLng(o1: startLocation, o2: otherStep.startLocation)) {
-        if (compareLatLng(o1: endLocation, o2: otherStep.endLocation)) {
-          if (duration == otherStep.duration && distance == otherStep.distance && htmlInstructions == otherStep.htmlInstructions) {
-                return true;
-              }
-            }
-          }
-        }
-    return false;
-  }
+  @override
+  bool operator ==(Object other) =>
+      other is Step &&
+      startLocation == other.startLocation &&
+      endLocation == other.endLocation &&
+      duration == other.duration &&
+      distance == other.distance &&
+      htmlInstructions == other.htmlInstructions;
 
-  bool compareLatLng({required LatLng o1, required LatLng o2}) {
-    if (o1.runtimeType == LatLng && o2.runtimeType == LatLng) {
-      if(Geolocator.distanceBetween(o1.latitude, o1.longitude, o2.latitude, o2.longitude) < epsilon) {
-        return true;
-      }
-    }
-    return false;
-  }
+
+  @override
+  int get hashCode => htmlInstructions.hashCode;
 }
 
 class Directions {
@@ -102,20 +92,79 @@ class Directions {
     return "{total dur: $totalDuration, total distance: $totalDistance, steps ${totalSteps.toString()}, polyline: $polylineEncoded";
   }
 
-  bool equals(other) {
-    if (other != null && other.runtimeType == Directions) {
-      if (totalDistance == other.totalDistance && totalDuration == other.totalDuration) {
-        if (other.totalSteps != null && totalSteps.length == other.totalSteps.length && polylineEncoded == other.polylineEncoded) {
-          for (int i = 0; i < totalSteps.length; i++) {
-            if (!totalSteps[i].equals(otherStep: other.totalSteps[i])) {
-              return false;
-            }
-          }
-          return true;
-        }
-      }
+  @override operator==(Object other) =>
+    other is Directions &&
+    totalDistance == other.totalDistance &&
+    totalDuration == other.totalDuration &&
+    totalSteps.length == other.totalSteps.length &&
+    polylineEncoded == other.polylineEncoded &&
+    listEquals(totalSteps, other.totalSteps);
+
+  @override
+  int get hashCode => polylineEncoded.hashCode;
+}
+
+class DirectionsIterator {
+  late Directions directions;
+  late int index;
+  late int numSteps;
+
+  DirectionsIterator(Directions? d) {
+    directions = d!;
+    index = 0;
+    numSteps = directions.totalSteps.length;
+  }
+
+  bool moveNext() {
+    if (index >= numSteps) {
+      return false;
+    }
+    index++;
+    return true;
+  }
+
+  bool hasNext() {
+    if (index < numSteps) {
+      return true;
     }
     return false;
   }
+
+  String getStepStr() {
+    if (index >= numSteps) {
+      // iterator has reached end of steps so return empty string so last step isnt displayed
+      return "";
+    }
+    return directions.totalSteps[index].htmlInstructions;
+  }
+
+  String getStepTime() {
+    if (index >= numSteps) {
+      return "";
+    }
+    return directions.totalSteps[index].duration;
+  }
+
+  String getStepDistance() {
+    if (index >= numSteps) {
+      return "";
+    }
+    return directions.totalSteps[index].distance;
+  }
+
+  LatLng? getStepEnd() {
+    if (numSteps == 0) {
+      // If there are no routes available, total steps is empty
+      // We therefore don't have a step destination point or destination point
+      // This case shouldn't happen since we don't search for locations that are unreachable
+      return null;
+    }
+    if (index >= numSteps) {
+      // returns destination point if last step has been reached
+      return directions.totalSteps[numSteps == 0 ? 0 : numSteps - 1].endLocation;
+    }
+    return directions.totalSteps[index].endLocation;
+  }
+  
 }
 
