@@ -20,10 +20,10 @@ class HapMap extends StatelessWidget {
       key: const Key('HapMap'),
       initialRoute: SearchPage.id,
       routes: {
-        SearchPage.id : (context) => const SearchPage(),
-        SettingsPage.id : (context) => const SettingsPage(),
-        ConfirmPage.id : (context) =>  ConfirmPage(),
-        NavigationPage.id : (context) => const NavigationPage()
+        SearchPage.id: (context) => const SearchPage(),
+        SettingsPage.id: (context) => const SettingsPage(),
+        ConfirmPage.id: (context) => ConfirmPage(),
+        NavigationPage.id: (context) => const NavigationPage()
       },
     );
   }

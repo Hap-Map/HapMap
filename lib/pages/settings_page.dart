@@ -3,6 +3,7 @@ import 'package:hap_map/constants.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = 'settings_page';
+
   const SettingsPage({Key? key}) : super(key: key);
 
   @override

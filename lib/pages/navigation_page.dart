@@ -64,76 +64,87 @@ class _NavigationPageState extends State<NavigationPage> {
     }
 
     return Scaffold(
-      body: PageBackground(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        body: PageBackground(
+            child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
           children: [
-            Column(
-              children: [
-                Card(
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
-                  shadowColor: Colors.blueGrey,
-                  child: MergeSemantics(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+              shadowColor: Colors.blueGrey,
+              child: MergeSemantics(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: DEVICE_WIDTH,
+                          child: Html(
+                              data: _destination_reached
+                                  ? '<html><body></b>Destination Reached</b></body></html>'
+                                  : _iter!.getStepStr(),
+                              style: {
+                                "body": Style(
+                                    fontSize: FontSize(25),
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                    textAlign: TextAlign.center)
+                              }),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: DEVICE_WIDTH,
+                              child: Text(
+                                  _destination != null
+                                      ? "To: " + _destination!.name
+                                      : "Loading Destination...",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
+                                  textAlign: TextAlign.center)),
+                          Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              width: DEVICE_WIDTH,
-                              child: Html(data: _destination_reached? '<html><body></b>Destination Reached</b></body></html>' : _iter!.getStepStr(),
-                                  style: {
-                                    "body" : Style(
-                                        fontSize: FontSize(25),
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                        textAlign: TextAlign.center)
-                                  }),
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                  width: DEVICE_WIDTH,
-                                  child: Text(_destination != null? "To: " + _destination!.name : "Loading Destination...",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                      textAlign: TextAlign.center)),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    width: DEVICE_WIDTH,
-                                    child: Text(_current != null? "Current Location: " + _current!.name: "Finding Current Location...",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black),
-                                        textAlign: TextAlign.center)),
-                              ),
-                            ],
+                                width: DEVICE_WIDTH,
+                                child: Text(
+                                    _current != null
+                                        ? "Current Location: " + _current!.name
+                                        : "Finding Current Location...",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                    textAlign: TextAlign.center)),
                           ),
-                        ),
-                      ],),
-                  ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                endNavigationButton,
-              ],
+              ),
             ),
-      Semantics(
-        child: TextButton(
-          onPressed: () {  },
-          child: Icon(Icons.touch_app_rounded, color: Colors.white, size: 100,),
-          style: TextButton.styleFrom(
-            shape: CircleBorder(),
-            backgroundColor: kHapticTouchIconColor
-          )
-
+            endNavigationButton,
+          ],
         ),
-        label: 'Keep finger on the screen for haptic feedback',
-      ),
+        Semantics(
+          child: TextButton(
+              onPressed: () {},
+              child: Icon(
+                Icons.touch_app_rounded,
+                color: Colors.white,
+                size: 100,
+              ),
+              style: TextButton.styleFrom(
+                  shape: CircleBorder(),
+                  backgroundColor: kHapticTouchIconColor)),
+          label: 'Keep finger on the screen for haptic feedback',
+        ),
       ],
     )));
   }
