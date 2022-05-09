@@ -13,10 +13,10 @@ HapMap is a sensory navigation application that makes independent travel more ac
 
 ## How to Build
 1. Clone the repository
-2. Create private folder in the api directory called .key such that the path is `/api/.key`
-3. Add one API key for Google Places and Directions to a dart file in `/api/.key` such that `MAPS_API_KEY="API KEY"`
+2. Create private folder in the api directory called .key such that the path is `lib/api/.key`
+3. Add one API key for Google Places and Directions to a dart file in `lib/api/.key` such that `MAPS_API_KEY="API KEY"`
 4. Open an iOS or Android emulator or connect a physical device (such as in Android Studio)
-5. In the command line, navigate to the HapMap directory and run 'bash clean_and_run.sh' to build the app
+5. In the command line, navigate to the HapMap directory and run `bash clean_and_run.sh` to build the app
 
 ## How to Test
 1. See the "How to Build" section for instructions to set up the project locally
