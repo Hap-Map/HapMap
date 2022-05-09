@@ -85,11 +85,12 @@ class _NavigationPageState extends State<NavigationPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+
                   FittedBox(
                     child: Container(
                       width: innerBoxTextWidth,
                       child: Text("To: " + _destination,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
@@ -97,7 +98,7 @@ class _NavigationPageState extends State<NavigationPage> {
                   FittedBox(
                     child: Container(
                         width: innerBoxTextWidth,
-                        child: Text("NOW: Prepare to turn right onto NE 45th St",
+                        child: const Text("NOW: Prepare to turn right onto NE 45th St",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
@@ -107,19 +108,20 @@ class _NavigationPageState extends State<NavigationPage> {
                     child: Container(
                         width: innerBoxTextWidth,
                         child: Text("Current Location: " + _currentPositionName,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: Colors.black),
                       textAlign: TextAlign.left))),
-                ],
+              ],
               ),
             )),
-        IconButton(
-          icon: Image.asset('images/hapticTouchButton.png'),
-          iconSize: 250,
-          onPressed: () {},
-          alignment: Alignment.bottomCenter,
+        Semantics(
+            child: const Image(
+              image: AssetImage('images/hapticTouchButton.png'),
+              height: 250,
+              alignment: Alignment.bottomCenter),
+          label: 'Keep finger on the screen for haptic feedback',
         )
       ],
     )));

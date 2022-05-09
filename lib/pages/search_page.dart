@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hap_map/api/location_api.dart';
 import 'package:hap_map/pages/settings_page.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -44,9 +45,12 @@ class _SearchPageState extends State<SearchPage> {
                     borderRadius: BorderRadius.circular(100)),
                 heroTag: 'btn1',
                 backgroundColor: kPrimaryColor,
-                child: const Icon(
-                  Icons.mic,
-                  size: 30,
+                child: Semantics(
+                  child: const Icon(
+                    Icons.mic,
+                    size: 30,
+                  ),
+                  label: 'Speak',
                 ),
                 // TODO: IMPLEMENT SPEECH-TO-TEXT
                 onPressed: () {},
@@ -55,17 +59,20 @@ class _SearchPageState extends State<SearchPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: FittedBox(
                   fit: BoxFit.cover,
-                  child: FloatingActionButton(
-                    heroTag: 'btn2',
-                    backgroundColor: kPrimaryColor,
-                    child: const Icon(
-                      Icons.settings,
-                      size: 30,
+                  child: Semantics(
+                    child: FloatingActionButton(
+                      heroTag: 'btn2',
+                      backgroundColor: kPrimaryColor,
+                      child: const Icon(
+                        Icons.settings,
+                        size: 30,
+                      ),
+                      // TODO: IMPLEMENT SETTINGS PAGE
+                      onPressed: () {
+                        Navigator.pushNamed(context, SettingsPage.id);
+                      },
                     ),
-                    // TODO: IMPLEMENT SETTINGS PAGE
-                    onPressed: () {
-                      Navigator.pushNamed(context, SettingsPage.id);
-                    },
+                    label: 'Settings',
                   ),
                 ),
               ),
@@ -75,11 +82,14 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Align(alignment: Alignment.topRight, child: FloatingActionButton(onPressed: () {  },
-                mini: true,
-                shape: CircleBorder(),
-                backgroundColor: Colors.grey[800],
-              child: Text('?', style: TextStyle(color: Colors.white, fontSize: 25),),)),
+              Semantics(
+                child: Align(alignment: Alignment.topRight, child: FloatingActionButton(onPressed: () {  },
+                  mini: true,
+                  shape: CircleBorder(),
+                  backgroundColor: Colors.grey[800],
+                  child: Text('?', style: TextStyle(color: Colors.white, fontSize: 25),),)),
+                label: 'Help'
+              ),
               Padding(
                   padding: const EdgeInsets.all(16.0), child: searchBar),
               Expanded(child: Image(image: AssetImage('images/hapmap_logo.png'),))
@@ -118,16 +128,21 @@ class _SearchPageState extends State<SearchPage> {
         itemBuilder: (context, Place? suggestion) {
           final place = suggestion!;
 
-          return ListTile(
-            leading: const Icon(Icons.place),
-            title: Text(place.name),
-          );
+          return Semantics(
+              label: 'Search Suggestion',
+              child: ListTile(
+                leading: const Icon(Icons.place),
+                title: Text(place.name)
+              )
+            );
+
         },
         onSuggestionSelected: (Place? suggestion) {
           final place = suggestion!;
           SearchPage.searchController.text = place.name;
           _search = place.name;
           _onSubmitted(suggestion);
+          SemanticsService.announce("Searching destination", TextDirection.ltr);
         },
       );
 }
