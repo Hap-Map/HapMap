@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/constants.dart';
+import 'package:hap_map/main.dart';
 import 'package:hap_map/pages/navigation_page.dart';
 
 import '../api/directions_api.dart';
@@ -72,25 +73,30 @@ class _ConfirmPageState extends State<ConfirmPage> {
             Align(alignment: Alignment.topLeft, child: BackButton()),
             Expanded(
                 child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(8.0),
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
                           'Destination:',
-                          style: kTitleStyle.copyWith(fontSize: 32),
+                          style: kTitleStyle.copyWith(fontSize: 32, fontWeight: FontWeight.w700),
+                          textAlign: TextAlign.center,
                         ),
-                        Text(
-                          _destinationName,
-                          style: kTitleStyle.copyWith(fontSize: 32),
-                          softWrap: true,
+                        Container(
+                          width: DEVICE_WIDTH,
+                          child: Text(
+                            _destinationName,
+                            style: kTitleStyle.copyWith(fontSize: 25),
+                            softWrap: true,
+                              textAlign: TextAlign.center
+                          ),
                         ),
                         SizedBox(height: 25),
                         Text(

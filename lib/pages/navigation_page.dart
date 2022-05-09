@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
+import 'package:hap_map/main.dart';
 import 'package:hap_map/models/directions_model.dart';
 
 import '../api/location_api.dart';
@@ -27,12 +28,22 @@ class _NavigationPageState extends State<NavigationPage> {
     LocationApi.startLocationUpdates();
   }
 
+  get endNavigationButton => TextButton(
+        child: const Text(
+          'End Navigation',
+          style: kTitleStyle,
+        ),
+        onPressed: () {
+          LocationApi.stopLocationUpdates();
+          LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+          Navigator.popUntil(context, ModalRoute.withName('search_page'));
+          SemanticsService.announce("Ending navigation", TextDirection.ltr);
+        },
+        style: kRedButtonStyle,
+      );
+
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double elementHeightSpacing = deviceHeight * 0.05;
-    double innerBoxTextWidth = deviceWidth * 0.65;
     if (_currentPosition == null) {
       List _arguments = ModalRoute.of(context)!.settings.arguments as List;
       _currentPosition = _arguments[0];
@@ -45,87 +56,62 @@ class _NavigationPageState extends State<NavigationPage> {
         body: PageBackground(
             child: Column(
       children: [
-        SizedBox(height: elementHeightSpacing),
-        Align(
-          alignment: Alignment.topCenter,
-          child: SizedBox(
-            height: deviceHeight * 0.07,
-            width: deviceWidth * 0.5,
-            child: TextButton(
-              child: const Text(
-                'End Navigation',
-                style: kTitleStyle,
-              ),
-              onPressed: () {
-                LocationApi.stopLocationUpdates();
-                LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
-                Navigator.popUntil(context, ModalRoute.withName('search_page'));
-                SemanticsService.announce("Ending navigation", TextDirection.ltr);
-              },
-              style: kRedButtonStyle,
-            ),
-          ),
-        ),
-        SizedBox(height: elementHeightSpacing),
-        Container(
-            height: deviceHeight * 0.4,
-            width: deviceWidth * 0.8,
-            color: Colors.transparent,
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xfff7f9f7),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: MergeSemantics(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FittedBox(
+        Card(
+          margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+          shadowColor: Colors.blueGrey,
+          child: MergeSemantics(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      width: DEVICE_WIDTH,
+                      child: Text("NOW: Prepare to turn right onto NE 45th St",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black),
+                          textAlign: TextAlign.center)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    children: [
+                      Container(
+                          width: DEVICE_WIDTH,
+                          child: Text("To: " + _destination,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center)),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Container(
-                            width: innerBoxTextWidth,
-                            child: Text("To: " + _destination,
-                                style: const TextStyle(
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                                textAlign: TextAlign.left))),
-                    FittedBox(
-                        child: Container(
-                            width: innerBoxTextWidth,
-                            child: const Text("NOW: Prepare to turn right onto NE 45th St",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black),
-                                textAlign: TextAlign.left))),
-                    FittedBox(
-                        child: Container(
-                            width: innerBoxTextWidth,
+                            width: DEVICE_WIDTH,
                             child: Text("Current Location: " + _currentPositionName,
-                                style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
                                     color: Colors.black),
-                                textAlign: TextAlign.left))),
-                  ],
+                                textAlign: TextAlign.center)),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            )),
+            ],
+          ),
+        ),
+        endNavigationButton,
         Semantics(
-            child: const Image(
-              image: AssetImage('images/hapticTouchButton.png'),
-              height: 250,
-              alignment: Alignment.bottomCenter),
+          child: const Image(
+            image: AssetImage('images/hapticTouchButton.png'),
+            height: 250,
+            alignment: Alignment.bottomCenter),
           label: 'Keep finger on the screen for haptic feedback',
-        )
+        ),
       ],
     )));
   }
