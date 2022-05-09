@@ -1,5 +1,5 @@
 # HapMap
-<img src="https://media.discordapp.net/attachments/780970726781222943/965747054762659840/Screen_Shot_2022-04-18_at_3.53.54_PM.png" alt="hapmap_logo" width="200"/>
+<img src="https://github.com/Hap-Map/HapMap/blob/main/images/hapmap_logo.png?raw=true" alt="hapmap_logo" width="200"/>
 HapMap is a sensory navigation application that makes independent travel more accessible for low-vision individuals. It utilizes a combination of auditory, haptic, and vibration cues to inform users of their route. For example: as the user approaches a turn, the frequency of the haptic feedback increases to indicate their proximity to the turn. This reduces the uncertainty that comes with standard navigation systems that may abruptly give instructions.
 
 ## Repo Layout
