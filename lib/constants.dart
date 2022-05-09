@@ -14,6 +14,8 @@ Widget PageBackground({required Widget child}) {
 const kPrimaryColor = Colors.black;
 const kSecondaryColor = Colors.white;
 
+final kHapticTouchIconColor = Colors.indigo.shade600;
+
 const lightGreen = Color(0xFFB7EEBC);
 const teal = Color(0xCC59B5AF);
 const kBackgroundGradientColor = <Color>[teal, lightGreen];
