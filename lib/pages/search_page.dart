@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hap_map/api/location_api.dart';
-import 'package:hap_map/pages/settings_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hap_map/api/location_api.dart';
+import 'package:hap_map/pages/settings_page.dart';
 import '../api/place_api.dart';
-import '../models/place_model.dart';
 import '../constants.dart';
+import '../main.dart';
+import '../models/place_model.dart';
 import 'confirm_page.dart';
 
 class SearchPage extends StatefulWidget {
+
   static const id = 'search_page';
   static final TextEditingController searchController = TextEditingController();
   const SearchPage({Key? key}) : super(key: key);
@@ -33,6 +36,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    DEVICE_WIDTH = MediaQuery.of(context).size.width;
+    DEVICE_HEIGHT = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -116,11 +121,23 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget get searchBar =>
       TypeAheadField<Place?>(
+        hideOnLoading: true,
         key: const Key('SearchField'),
         textFieldConfiguration: TextFieldConfiguration(
             controller: SearchPage.searchController,
             autofocus: false,
             decoration: InputDecoration(
+              suffix: IconButton(
+                padding: EdgeInsets.zero,
+                constraints: BoxConstraints(),
+                icon: Icon(Icons.cancel,),
+                onPressed: () {
+                  setState(() {
+                    SearchPage.searchController.text = '';
+                    _search = '';
+                  });
+                },
+              ),
               fillColor: Colors.white,
               focusedBorder: kInputBorderStyle,
               filled: true,
