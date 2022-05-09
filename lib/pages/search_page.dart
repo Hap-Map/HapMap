@@ -124,7 +124,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget get searchBar =>
       TypeAheadField<Place?>(
-        hideOnLoading: true,
+        hideOnLoading: false,
         key: const Key('SearchField'),
         textFieldConfiguration: TextFieldConfiguration(
             controller: SearchPage.searchController,

@@ -33,6 +33,8 @@
 
 # Api key
 lib/api/.key
+**/android/app/src/main/AndroidManifest.xml
+**/ios/Runner/AppDelegate.swift
 
 # Web related
 lib/generated_plugin_registrant.dart
