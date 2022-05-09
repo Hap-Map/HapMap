@@ -7,7 +7,7 @@ HapMap is a sensory navigation application that makes independent travel more ac
 - **HapMap/lib/API/** Files related to Google Maps API endpoint and returned data structures \
 - **HapMap/lib/pages** Layouts and functionality for front-end UI \
 - **HapMap/lib/constants.dart** global constants \
-- **HapMap/lib/main.dart** Application entry point\
+- **HapMap/lib/main.dart** Application entry point \
 **HapMap/reports**: Weekly reports and meeting agenda
 
 ## How to Build
