@@ -5,6 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/api/location_api.dart';
 import 'package:hap_map/pages/settings_page.dart';
+
 import '../api/place_api.dart';
 import '../constants.dart';
 import '../main.dart';
@@ -28,9 +29,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      LocationApi.getCurrentLocation().then((value) =>
-      _startingPosition = value);
+    LocationApi.startLocationUpdates();
+    LocationApi.addOnLocationUpdateListener((pos) {
+      setState(() {
+        _startingPosition = pos;
+      });
     });
   }
 

@@ -21,7 +21,7 @@ class NavigationPage extends StatefulWidget {
 }
 
 double METERS_TO_UPDATE_PLACE = 100;
-double METERS_EPSILON = 10;
+double METERS_EPSILON = 2.5;
 
 class _NavigationPageState extends State<NavigationPage> {
   Position? _lastPosUpdated;
@@ -145,10 +145,12 @@ class _NavigationPageState extends State<NavigationPage> {
       if (_iter!.hasNext()) {
         setState(() {
           _iter!.moveNext();
+          updatePlace(pos);
         });
-        updatePlace(pos);
       } else {
-        _destination_reached = true;
+        setState(() {
+          _destination_reached = true;
+        });
       }
     }
     if (isFarEnough(_lastPosUpdated!, pos)) {
