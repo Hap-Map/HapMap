@@ -4,6 +4,9 @@ import 'package:hap_map/pages/navigation_page.dart';
 import 'package:hap_map/pages/search_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
+double DEVICE_WIDTH = double.infinity;
+double DEVICE_HEIGHT = double.infinity;
+
 void main() {
   runApp(const HapMap());
 }
@@ -19,7 +22,7 @@ class HapMap extends StatelessWidget {
       routes: {
         SearchPage.id : (context) => const SearchPage(),
         SettingsPage.id : (context) => const SettingsPage(),
-        ConfirmPage.id : (context) => const ConfirmPage(),
+        ConfirmPage.id : (context) =>  ConfirmPage(),
         NavigationPage.id : (context) => const NavigationPage()
       },
     );
