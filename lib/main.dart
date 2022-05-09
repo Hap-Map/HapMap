@@ -4,8 +4,6 @@ import 'package:hap_map/pages/navigation_page.dart';
 import 'package:hap_map/pages/search_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
-double DEVICE_WIDTH = 0;
-double DEVICE_HEIGHT = 0;
 void main() {
   runApp(const HapMap());
 }

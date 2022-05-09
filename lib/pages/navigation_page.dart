@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/main.dart';
@@ -28,17 +29,18 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   get endNavigationButton => TextButton(
-        child: const Text(
-          'End Navigation',
-          style: kTitleStyle,
-        ),
-        onPressed: () {
-          LocationApi.stopLocationUpdates();
-          LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
-          Navigator.popUntil(context, ModalRoute.withName('search_page'));
-        },
-        style: kRedButtonStyle,
-      );
+    child: const Text(
+      'End Navigation',
+      style: kTitleStyle,
+    ),
+    onPressed: () {
+      LocationApi.stopLocationUpdates();
+      LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+      Navigator.popUntil(context, ModalRoute.withName('search_page'));
+      SemanticsService.announce("Ending navigation", TextDirection.ltr);
+    },
+    style: kRedButtonStyle,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +53,17 @@ class _NavigationPageState extends State<NavigationPage> {
     }
 
     return Scaffold(
-        body: PageBackground(
-            child: Column(
-      children: [
-        Card(
-          margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
-          shadowColor: Colors.blueGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
+      body: PageBackground(
+        child: Column(
+          children: [
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+              shadowColor: Colors.blueGrey,
+              child: MergeSemantics(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                     width: DEVICE_WIDTH,
@@ -97,24 +100,25 @@ class _NavigationPageState extends State<NavigationPage> {
                   ],
                 ),
               ),
-            ],
-          ),
+          ],),
         ),
-        endNavigationButton,
-        IconButton(
-          icon: Image.asset('images/hapticTouchButton.png'),
-          iconSize: 250,
-          onPressed: () {},
-          alignment: Alignment.bottomCenter,
-        )
+      ),
+      endNavigationButton,
+      Semantics(
+        child: const Image(
+            image: AssetImage('images/hapticTouchButton.png'),
+            height: 250,
+            alignment: Alignment.bottomCenter),
+        label: 'Keep finger on the screen for haptic feedback',
+      ),
       ],
     )));
   }
 
   onLocationUpdated(pos) {
     PlaceApi.getPlace(pos).then((place) => setState(() {
-          _currentPosition = pos;
-          _currentPositionName = place.name;
-        }));
+      _currentPosition = pos;
+      _currentPositionName = place.name;
+    }));
   }
 }
