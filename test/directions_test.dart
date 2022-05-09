@@ -26,7 +26,7 @@ void main() {
 
   Directions normalCaseDirections = Directions(totalDistance: "0.2 mi", totalDuration: "3 mins", totalSteps: normalCaseSteps, polylineEncoded: "{hzaHd|niVFQT{@_@SCEB_@@O@GSGUCc@CW@]Du@Ie@W_@SUU");
 
-  Directions originEqualsDest = Directions(totalDistance: "1 min", totalDuration: "338 ft", totalSteps: originEqualsDestSteps, polylineEncoded: "{hzaHd|niVFQT{@_@SCEB_@@O@GSGEA");
+  Directions originEqualsDest = Directions(totalDistance: "338 ft", totalDuration: "1 min", totalSteps: originEqualsDestSteps, polylineEncoded: "{hzaHd|niVFQT{@_@SCEB_@@O@GSGEA");
 
   Directions noRouteDirection = const Directions(totalDistance: "", totalDuration: "", totalSteps: [], polylineEncoded: "");
 
