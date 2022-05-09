@@ -53,26 +53,29 @@ class _SearchPageState extends State<SearchPage> {
                   label: 'Speak',
                 ),
                 // TODO: IMPLEMENT SPEECH-TO-TEXT
-                onPressed: () {},
+                onPressed: () {
+                  SemanticsService.announce("Enabling Speech-to-text", TextDirection.ltr);
+                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: FittedBox(
                   fit: BoxFit.cover,
-                  child: Semantics(
                     child: FloatingActionButton(
                       heroTag: 'btn2',
                       backgroundColor: kPrimaryColor,
-                      child: const Icon(
-                        Icons.settings,
-                        size: 30,
-                      ),
-                      // TODO: IMPLEMENT SETTINGS PAGE
+                      child: Semantics(
+                        child: const Icon(
+                          Icons.settings,
+                          size: 30,
+                        ),
+                        // TODO: IMPLEMENT SETTINGS PAGE
+                        label: 'Settings'
+                    ),
                       onPressed: () {
                         Navigator.pushNamed(context, SettingsPage.id);
-                      },
-                    ),
-                    label: 'Settings',
+                        SemanticsService.announce("Opening settings page", TextDirection.ltr);
+                      }
                   ),
                 ),
               ),
@@ -82,13 +85,18 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Semantics(
-                child: Align(alignment: Alignment.topRight, child: FloatingActionButton(onPressed: () {  },
-                  mini: true,
-                  shape: CircleBorder(),
-                  backgroundColor: Colors.grey[800],
-                  child: Text('?', style: TextStyle(color: Colors.white, fontSize: 25),),)),
-                label: 'Help'
+                Align(
+                    alignment: Alignment.topRight,
+                    child: FloatingActionButton(
+                      onPressed: () {  },
+                    mini: true,
+                    shape: CircleBorder(),
+                    backgroundColor: Colors.grey[800],
+                      child: Semantics(
+                        label: 'Help',
+                        child: Text('?', style: TextStyle(color: Colors.white, fontSize: 25),),
+                    ),
+                ),
               ),
               Padding(
                   padding: const EdgeInsets.all(16.0), child: searchBar),
@@ -123,18 +131,19 @@ class _SearchPageState extends State<SearchPage> {
                 color: Colors.black,
               ),
             ),
-        onChanged: (input) => _search = input),
+        onChanged: (input) => _search = input
+        ),
         suggestionsCallback: PlaceApi.getPlaceSuggestions,
         itemBuilder: (context, Place? suggestion) {
           final place = suggestion!;
 
           return Semantics(
-              label: 'Search Suggestion',
+              label: 'Search Suggestions',
               child: ListTile(
-                leading: const Icon(Icons.place),
-                title: Text(place.name)
+                  leading: const Icon(Icons.place),
+                  title: Text(place.name)
               )
-            );
+          );
 
         },
         onSuggestionSelected: (Place? suggestion) {

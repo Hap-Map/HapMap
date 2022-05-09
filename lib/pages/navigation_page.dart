@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
@@ -59,6 +60,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 LocationApi.stopLocationUpdates();
                 LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
                 Navigator.popUntil(context, ModalRoute.withName('search_page'));
+                SemanticsService.announce("Ending navigation", TextDirection.ltr);
               },
               style: kRedButtonStyle,
             ),
@@ -82,38 +84,39 @@ class _NavigationPageState extends State<NavigationPage> {
                   ),
                 ],
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-
-                  FittedBox(
-                    child: Container(
-                      width: innerBoxTextWidth,
-                      child: Text("To: " + _destination,
-                      style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.left))),
-                  FittedBox(
-                    child: Container(
-                        width: innerBoxTextWidth,
-                        child: const Text("NOW: Prepare to turn right onto NE 45th St",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                      textAlign: TextAlign.left))),
-                  FittedBox(
-                    child: Container(
-                        width: innerBoxTextWidth,
-                        child: Text("Current Location: " + _currentPositionName,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black),
-                      textAlign: TextAlign.left))),
-              ],
+              child: MergeSemantics(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FittedBox(
+                        child: Container(
+                            width: innerBoxTextWidth,
+                            child: Text("To: " + _destination,
+                                style: const TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                                textAlign: TextAlign.left))),
+                    FittedBox(
+                        child: Container(
+                            width: innerBoxTextWidth,
+                            child: const Text("NOW: Prepare to turn right onto NE 45th St",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                textAlign: TextAlign.left))),
+                    FittedBox(
+                        child: Container(
+                            width: innerBoxTextWidth,
+                            child: Text("Current Location: " + _currentPositionName,
+                                style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                textAlign: TextAlign.left))),
+                  ],
+                ),
               ),
             )),
         Semantics(
