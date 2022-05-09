@@ -24,6 +24,7 @@ double METERS_TO_UPDATE_PLACE = 100;
 double METERS_EPSILON = 10;
 
 class _NavigationPageState extends State<NavigationPage> {
+  Position? _lastPosUpdated;
   Position? _currentPosition;
   Place? _current;
   Place? _destination;
@@ -64,6 +65,7 @@ class _NavigationPageState extends State<NavigationPage> {
     if (_currentPosition == null) {
       List _arguments = ModalRoute.of(context)!.settings.arguments as List;
       _currentPosition = _arguments[0];
+      _lastPosUpdated = _currentPosition;
       _current = _arguments[1];
       _destination = _arguments[2];
       _directions = _arguments[3];
@@ -136,22 +138,21 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   onLocationUpdated(Position pos) {
-    Position _old = _currentPosition!;
     setState(() {
       _currentPosition = pos;
     });
-    if (isFarEnough(_old, pos)) {
-      PlaceApi.getPlace(pos).then((place) =>
-          setState(() {
-            _currentPosition = pos;
-            _current = place;
-          }));
-    } else if (isCloseEnough(_iter!.getStepEnd()!, pos)) {
+    if (isCloseEnough(_iter!.getStepEnd()!, pos)) {
       if (_iter!.hasNext()) {
-        _iter!.moveNext();
+        setState(() {
+          _iter!.moveNext();
+        });
+        updatePlace(pos);
       } else {
         _destination_reached = true;
       }
+    }
+    if (isFarEnough(_lastPosUpdated!, pos)) {
+      updatePlace(pos);
     }
   }
 
@@ -168,6 +169,15 @@ class _NavigationPageState extends State<NavigationPage> {
 
   bool isCloseEnough(LatLng p1, Position p2) {
     return distanceLatLng(p1, p2) < METERS_EPSILON;
+  }
+
+  void updatePlace(Position pos) {
+    PlaceApi.getPlace(pos).then((place) =>
+        setState(() {
+          _currentPosition = pos;
+          _lastPosUpdated = _currentPosition;
+          _current = place;
+        }));
   }
 
 }
