@@ -32,33 +32,24 @@ class _NavigationPageState extends State<NavigationPage> {
   DirectionsIterator? _iter;
   bool _destination_reached = false;
 
-  _NavigationPageState() {
-    LocationApi.addOnLocationUpdateListener(onLocationUpdated);
-    LocationApi.startLocationUpdates();
-  }
-
   get endNavigationButton => TextButton(
-    child: const Text(
-      'End Navigation',
-      style: kTitleStyle,
-    ),
-    onPressed: () {
-      LocationApi.stopLocationUpdates();
-      LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
-      Navigator.popUntil(context, ModalRoute.withName('search_page'));
-      SemanticsService.announce("Ending navigation", TextDirection.ltr);
-    },
-    style: kRedButtonStyle,
-  );
+        child: const Text(
+          'End Navigation',
+          style: kTitleStyle,
+        ),
+        onPressed: () {
+          Navigator.popUntil(context, ModalRoute.withName('search_page'));
+          SemanticsService.announce("Ending navigation", TextDirection.ltr);
+        },
+        style: kRedButtonStyle,
+      );
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
-    LocationApi.startLocationUpdates();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,66 +64,76 @@ class _NavigationPageState extends State<NavigationPage> {
     }
 
     return Scaffold(
-      body: PageBackground(
-        child: Column(
-          children: [
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
-              shadowColor: Colors.blueGrey,
-              child: MergeSemantics(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+        body: PageBackground(
+            child: Column(
+      children: [
+        Card(
+          margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+          shadowColor: Colors.blueGrey,
+          child: MergeSemantics(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    width: DEVICE_WIDTH,
-                    child: Html(data: _destination_reached? '<html><body></b>Destination Reached</b></body></html>' : _iter!.getStepStr(),
-                        style: {
-                            "body" : Style(
-                            fontSize: FontSize(25),
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                        textAlign: TextAlign.center)
-                        }),
-              )),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  children: [
-                    Container(
-                        width: DEVICE_WIDTH,
-                        child: Text(_destination != null? "To: " + _destination!.name : "Loading Destination...",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                            textAlign: TextAlign.center)),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: DEVICE_WIDTH,
+                      child: Html(
+                          data: _destination_reached
+                              ? '<html><body></b>Destination Reached</b></body></html>'
+                              : _iter!.getStepStr(),
+                          style: {
+                            "body": Style(
+                                fontSize: FontSize(25),
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black,
+                                textAlign: TextAlign.center)
+                          }),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    children: [
+                      Container(
                           width: DEVICE_WIDTH,
-                          child: Text(_current != null? "Current Location: " + _current!.name: "Finding Current Location...",
+                          child: Text(
+                              _destination != null
+                                  ? "To: " + _destination!.name
+                                  : "Loading Destination...",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                               textAlign: TextAlign.center)),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            width: DEVICE_WIDTH,
+                            child: Text(
+                                _current != null
+                                    ? "Current Location: " + _current!.name
+                                    : "Finding Current Location...",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                                textAlign: TextAlign.center)),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-          ],),
+              ],
+            ),
+          ),
         ),
-      ),
-      endNavigationButton,
-      Semantics(
-        child: const Image(
-            image: AssetImage('images/hapticTouchButton.png'),
-            height: 250,
-            alignment: Alignment.bottomCenter),
-        label: 'Keep finger on the screen for haptic feedback',
-      ),
+        endNavigationButton,
+        Semantics(
+          child: const Image(
+              image: AssetImage('images/hapticTouchButton.png'),
+              height: 250,
+              alignment: Alignment.bottomCenter),
+          label: 'Keep finger on the screen for haptic feedback',
+        ),
       ],
     )));
   }
@@ -161,10 +162,13 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   double distance(Position p1, Position p2) {
-    return Geolocator.distanceBetween(p1.latitude, p1.longitude, p2.latitude, p2.longitude);
+    return Geolocator.distanceBetween(
+        p1.latitude, p1.longitude, p2.latitude, p2.longitude);
   }
+
   double distanceLatLng(LatLng p1, Position p2) {
-    return Geolocator.distanceBetween(p1.latitude, p1.longitude, p2.latitude, p2.longitude);
+    return Geolocator.distanceBetween(
+        p1.latitude, p1.longitude, p2.latitude, p2.longitude);
   }
 
   bool isCloseEnough(LatLng p1, Position p2) {
@@ -172,12 +176,10 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   void updatePlace(Position pos) {
-    PlaceApi.getPlace(pos).then((place) =>
-        setState(() {
+    PlaceApi.getPlace(pos).then((place) => setState(() {
           _currentPosition = pos;
           _lastPosUpdated = _currentPosition;
           _current = place;
         }));
   }
-
 }
