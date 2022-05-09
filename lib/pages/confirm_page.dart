@@ -22,10 +22,9 @@ class ConfirmPage extends StatefulWidget {
 
 class _ConfirmPageState extends State<ConfirmPage> {
   Position? _position;
-  String _positionName = "Finding Current Location...";
+  Place? _current;
   Place? _destination;
-  String _destinationName = "Loading Destination...";
-  String _estimatedTime = "Loading Estimated Time...";
+  String? _estimatedTime;
   Directions? _directions;
 
   @override
@@ -38,19 +37,18 @@ class _ConfirmPageState extends State<ConfirmPage> {
 
       setState(() {
         _destination = _arguments[1];
-        _destinationName = _arguments[1].name;
         _position = _arguments[0];
       });
 
       PlaceApi.getPlace(_position).then((place) => setState(() {
-            _positionName = place.name;
+        _current = place;
           }));
 
       LocationApi.startLocationUpdates();
       LocationApi.addOnLocationUpdateListener((pos) => setState(() {
             _position = pos;
             PlaceApi.getPlace(_position).then((place) => setState(() {
-                  _positionName = place.name;
+              _current = place;
                 }));
           }));
 
@@ -92,7 +90,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         Container(
                           width: DEVICE_WIDTH,
                           child: Text(
-                            _destinationName,
+                            _destination != null? _destination!.name : "Loading Destination...",
                             style: kTitleStyle.copyWith(fontSize: 25),
                             softWrap: true,
                               textAlign: TextAlign.center
@@ -100,13 +98,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         ),
                         SizedBox(height: 25),
                         Text(
-                          'Estimated Time: ' + _estimatedTime,
+                          _estimatedTime != null? 'Estimated Time: ' + _estimatedTime! : "Loading Estimated Time...",
                           style: kSubTitleStyle.copyWith(fontSize: 28),
                           textAlign: TextAlign.start,
                           softWrap: true,
                         ),
                         Text(
-                          'Starting From: ' + _positionName,
+                          _current != null? 'Starting From: ' + _current!.name : "Finding Current Location..." ,
                           style: kSubTitleStyle.copyWith(fontSize: 28),
                           textAlign: TextAlign.start,
                           softWrap: true,
@@ -118,7 +116,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                             Navigator.pushNamed(context, NavigationPage.id,
                                 arguments: [
                                   _position,
-                                  _positionName,
+                                  _current,
                                   _destination,
                                   _directions
                                 ]);

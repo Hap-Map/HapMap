@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/main.dart';
@@ -6,6 +7,7 @@ import 'package:hap_map/models/directions_model.dart';
 
 import '../api/location_api.dart';
 import '../api/place_api.dart';
+import '../models/place_model.dart';
 
 class NavigationPage extends StatefulWidget {
   static const id = 'navigation_page';
@@ -18,9 +20,10 @@ class NavigationPage extends StatefulWidget {
 
 class _NavigationPageState extends State<NavigationPage> {
   Position? _currentPosition;
-  String _currentPositionName = "Finding Current Location...";
-  String _destination = "Loading Destination...";
+  Place? _current;
+  Place? _destination;
   Directions? _directions;
+  DirectionsIterator? _iter;
 
   _NavigationPageState() {
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
@@ -40,15 +43,18 @@ class _NavigationPageState extends State<NavigationPage> {
         style: kRedButtonStyle,
       );
 
+
   @override
   Widget build(BuildContext context) {
     if (_currentPosition == null) {
       List _arguments = ModalRoute.of(context)!.settings.arguments as List;
       _currentPosition = _arguments[0];
-      _currentPositionName = _arguments[1];
-      _destination = _arguments[2].name;
+      _current = _arguments[1];
+      _destination = _arguments[2];
       _directions = _arguments[3];
+      _iter = DirectionsIterator(_directions);
     }
+
 
     return Scaffold(
         body: PageBackground(
@@ -64,20 +70,22 @@ class _NavigationPageState extends State<NavigationPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                     width: DEVICE_WIDTH,
-                    child: Text("NOW: Prepare to turn right onto NE 45th St",
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
-                        textAlign: TextAlign.center)),
-              ),
+                    child: Html(data: _iter!.getStepStr(),
+                        style: {
+                            "body" : Style(
+                            fontSize: FontSize(25),
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        textAlign: TextAlign.center)
+                        }),
+              )),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   children: [
                     Container(
                         width: DEVICE_WIDTH,
-                        child: Text("To: " + _destination,
+                        child: Text(_destination != null? "To: " + _destination!.name : "Loading Destination...",
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -87,7 +95,7 @@ class _NavigationPageState extends State<NavigationPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                           width: DEVICE_WIDTH,
-                          child: Text("Current Location: " + _currentPositionName,
+                          child: Text(_current != null? "Current Location: " + _current!.name: "Finding Current Location...",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
@@ -113,8 +121,10 @@ class _NavigationPageState extends State<NavigationPage> {
 
   onLocationUpdated(pos) {
     PlaceApi.getPlace(pos).then((place) => setState(() {
-          _currentPosition = pos;
-          _currentPositionName = place.name;
+         _currentPosition = pos;
+          _current = place;
+          // TODO: CHECK IF END OF STEP IS REACHED AND UPDATE
         }));
   }
+
 }
