@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/constants.dart';
+import 'package:hap_map/main.dart';
 import 'package:hap_map/models/directions_model.dart';
 
 import '../api/location_api.dart';
@@ -26,6 +27,19 @@ class _NavigationPageState extends State<NavigationPage> {
     LocationApi.startLocationUpdates();
   }
 
+  get endNavigationButton => TextButton(
+        child: const Text(
+          'End Navigation',
+          style: kTitleStyle,
+        ),
+        onPressed: () {
+          LocationApi.stopLocationUpdates();
+          LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+          Navigator.popUntil(context, ModalRoute.withName('search_page'));
+        },
+        style: kRedButtonStyle,
+      );
+
   @override
   Widget build(BuildContext context) {
     if (_currentPosition == null) {
@@ -40,66 +54,53 @@ class _NavigationPageState extends State<NavigationPage> {
         body: PageBackground(
             child: Column(
       children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: TextButton(
-              child: const Text(
-                'End Navigation',
-                style: kTitleStyle,
+        Card(
+          margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+          shadowColor: Colors.blueGrey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    width: DEVICE_WIDTH,
+                    child: Text("NOW: Prepare to turn right onto NE 45th St",
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                        textAlign: TextAlign.center)),
               ),
-              onPressed: () {
-                LocationApi.stopLocationUpdates();
-                LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
-                Navigator.popUntil(context, ModalRoute.withName('search_page'));
-              },
-              style: kRedButtonStyle,
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  children: [
+                    Container(
+                        width: DEVICE_WIDTH,
+                        child: Text("To: " + _destination,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                            textAlign: TextAlign.center)),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          width: DEVICE_WIDTH,
+                          child: Text("Current Location: " + _currentPositionName,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 10),
-        Container(
-            height: 300.0,
-            width: 360.0,
-            color: Colors.transparent,
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xfff7f9f7),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("To: " + _destination,
-                      style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      textAlign: TextAlign.left),
-                  Text("NOW: Prepare to turn right onto NE 45th St",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                      textAlign: TextAlign.left),
-                  Text("Current Location: " + _currentPositionName,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                      textAlign: TextAlign.left),
-                ],
-              ),
-            )),
+        endNavigationButton,
         IconButton(
           icon: Image.asset('images/hapticTouchButton.png'),
           iconSize: 250,

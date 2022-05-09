@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/api/location_api.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
 import '../api/place_api.dart';
 import '../constants.dart';
+import '../main.dart';
 import '../models/place_model.dart';
 import 'confirm_page.dart';
 
 class SearchPage extends StatefulWidget {
+
   static const id = 'search_page';
   static final TextEditingController searchController = TextEditingController();
   const SearchPage({Key? key}) : super(key: key);
@@ -19,20 +23,21 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String _search = "";
-  Place? _startingPlace;
+  late Position _startingPosition;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      LocationApi.getCurrentLocation().then((location) =>
-      PlaceApi.getPlace(location).then((place) => _startingPlace = place));
+      LocationApi.getCurrentLocation().then((value) =>
+      _startingPosition = value);
     });
-    LocationApi.startLocationUpdates();
   }
 
   @override
   Widget build(BuildContext context) {
+    DEVICE_WIDTH = MediaQuery.of(context).size.width;
+    DEVICE_HEIGHT = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -92,25 +97,30 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-  void _onSubmitted (Place search) async {
-    if (_startingPlace == null) {
-      await LocationApi.getCurrentLocation().then((loc) => {
-      PlaceApi.getPlace(loc).then((place) => Navigator.pushNamed(context, ConfirmPage.id,
-      arguments: [place, search]))
-      });
-    } else {
-      Navigator.pushNamed(context, ConfirmPage.id,
-          arguments: [_startingPlace, search]);
-    }
+  void _onSubmitted (Place search) {
+    Navigator.pushNamed(context, ConfirmPage.id,
+        arguments: [_startingPosition, search]);
   }
 
   Widget get searchBar =>
       TypeAheadField<Place?>(
+        hideOnLoading: true,
         key: const Key('SearchField'),
         textFieldConfiguration: TextFieldConfiguration(
             controller: SearchPage.searchController,
             autofocus: false,
             decoration: InputDecoration(
+              suffix: IconButton(
+                padding: EdgeInsets.zero,
+                constraints: BoxConstraints(),
+                icon: Icon(Icons.cancel,),
+                onPressed: () {
+                  setState(() {
+                    SearchPage.searchController.text = '';
+                    _search = '';
+                  });
+                },
+              ),
               fillColor: Colors.white,
               focusedBorder: kInputBorderStyle,
               filled: true,
