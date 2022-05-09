@@ -24,11 +24,11 @@ void main() {
                                   Step(const LatLng(47.6534267, -122.3056207), const LatLng(47.65340920000001, -122.3053086), "1 min", "115 ft", "Head <b>east</b> toward <b>E Stevens Way NE</b><div style=\"font-size:0.9em\">Take the stairs</div>"),
                                   Step(const LatLng(47.65340920000001, -122.3053086), const LatLng(47.65353820000001, -122.3052619), "1 min", "56 ft", "Turn <b>left</b> onto <b>E Stevens Way NE</b><div style=\"font-size:0.9em\">Destination will be on the right</div>")];
 
-  Directions normalCaseDirections = Directions(totalDistance: "0.2 mi", totalDuration: "3 mins", totalSteps: normalCaseSteps);
+  Directions normalCaseDirections = Directions(totalDistance: "0.2 mi", totalDuration: "3 mins", totalSteps: normalCaseSteps, polylineEncoded: "{hzaHd|niVFQT{@_@SCEB_@@O@GSGUCc@CW@]Du@Ie@W_@SUU");
 
-  Directions originEqualsDest = Directions(totalDistance: "1 min", totalDuration: "338 ft", totalSteps: originEqualsDestSteps);
+  Directions originEqualsDest = Directions(totalDistance: "338 ft", totalDuration: "1 min", totalSteps: originEqualsDestSteps, polylineEncoded: "{hzaHd|niVFQT{@_@SCEB_@@O@GSGEA");
 
-  Directions noRouteDirection = const Directions(totalDistance: "", totalDuration: "", totalSteps: []);
+  Directions noRouteDirection = const Directions(totalDistance: "", totalDuration: "", totalSteps: [], polylineEncoded: "");
 
   test('Normal Case', () async {
       Directions? result = await DirectionsAPI().getDirections(origin: origin, destination: destPlace);
