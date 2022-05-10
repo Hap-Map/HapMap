@@ -23,7 +23,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String _search = "";
-  late Position _startingPosition;
+  Position? _startingPosition;
 
   @override
   void initState() {

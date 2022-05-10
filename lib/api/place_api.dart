@@ -26,7 +26,7 @@ class PlaceApi {
       _placeSuggestionsUrl,
       queryParameters: {
         'input': input,
-        'location': '${position.latitude}, ${position.longitude}',
+        'location': '${position?.latitude}, ${position?.longitude}',
         'radius': '$searchRadius',
         'key': MAPS_API_KEY,
       },
