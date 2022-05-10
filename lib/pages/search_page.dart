@@ -116,6 +116,12 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+  }
+
   getLocationPermission() {
     LocationApi.getLocationPermission().then((permissionGiven) => {
           if (!permissionGiven) {getLocationPermission()}

@@ -128,6 +128,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
     );
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+  }
+
   onLocationUpdated(Position pos) {
     setState(() {
       _position = pos;

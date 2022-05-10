@@ -149,6 +149,12 @@ class _NavigationPageState extends State<NavigationPage> {
     )));
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+  }
+
   onLocationUpdated(Position pos) {
     setState(() {
       _currentPosition = pos;
