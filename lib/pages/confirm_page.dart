@@ -133,7 +133,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
       _position = pos;
       PlaceApi.getPlace(_position).then((place) => setState(() {
             _current = place;
-            getDirections(_current, _destination);
+            getDirections(_position, _destination);
           }));
     });
   }
