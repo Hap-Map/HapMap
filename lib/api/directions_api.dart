@@ -4,7 +4,8 @@ import 'package:hap_map/models/directions_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/models/place_model.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hap_map/api/.key/maps.dart';
+//import 'package:hap_map/api/.key/maps.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DirectionsAPI {
   static const String _directionsUrl = 'https://maps.googleapis.com/maps/api/directions/json?';
@@ -26,7 +27,7 @@ class DirectionsAPI {
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': 'place_id:${destination.id}',
-          'key': MAPS_API_KEY,
+          'key': dotenv.env['MAPS_API_KEY'],
           'mode': 'walking',
         },
     );

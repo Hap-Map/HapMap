@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:hap_map/pages/confirm_page.dart';
 import 'package:hap_map/pages/navigation_page.dart';
@@ -7,7 +8,8 @@ import 'package:hap_map/pages/settings_page.dart';
 double DEVICE_WIDTH = double.infinity;
 double DEVICE_HEIGHT = double.infinity;
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const HapMap());
 }
 

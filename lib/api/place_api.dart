@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hap_map/models/place_model.dart';
-import 'package:hap_map/api/.key/maps.dart';
+//import 'package:hap_map/api/.key/maps.dart';
 import 'package:geolocator/geolocator.dart';
 import 'location_api.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class PlaceApi {
   static const String NO_RESULTS_FOUND = 'No Results Found';
@@ -23,7 +24,7 @@ class PlaceApi {
         'input': input,
         'location': '${position.latitude}, ${position.longitude}',
         'radius': '$searchRadius',
-        'key': MAPS_API_KEY,
+        'key': dotenv.env['MAPS_API_KEY'],
       },
     );
 
@@ -53,7 +54,7 @@ class PlaceApi {
       _addressUrl,
       queryParameters: {
         'place_id': p.id,
-        'key': MAPS_API_KEY,
+        'key': dotenv.env['MAPS_API_KEY'],
       },
     );
 
@@ -78,7 +79,7 @@ class PlaceApi {
         queryParameters: {
           'location': '${position.latitude}, ${position.longitude}',
           'rankby': 'distance',
-          'key': MAPS_API_KEY,
+          'key': dotenv.env['MAPS_API_KEY'],
         },
       );
     } else {

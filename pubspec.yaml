@@ -43,6 +43,7 @@ dependencies:
   flutter_typeahead: ^3.2.4
   geolocator: ^8.2.0
   flutter_html: ^2.2.1
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
   assets:
     - images/hapmap_logo.png
     - images/hapticTouchButton.png
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -113,12 +113,14 @@ class DirectionsIterator {
     directions = d!;
     index = 0;
     numSteps = directions.totalSteps.length;
+    print(d);
   }
 
   bool moveNext() {
     if (index >= numSteps) {
       return false;
     }
+    print(index);
     index++;
     return true;
   }
@@ -161,7 +163,7 @@ class DirectionsIterator {
     }
     if (index >= numSteps) {
       // returns destination point if last step has been reached
-      return directions.totalSteps[numSteps == 0 ? 0 : numSteps - 1].endLocation;
+      return null;
     }
     return directions.totalSteps[index].endLocation;
   }
