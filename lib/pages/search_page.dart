@@ -28,6 +28,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    getLocationPermission();
     LocationApi.startLocationUpdates();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
   }
@@ -113,6 +114,12 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
     );
+  }
+
+  getLocationPermission() {
+    LocationApi.getLocationPermission().then((permissionGiven) => {
+          if (!permissionGiven) {getLocationPermission()}
+        });
   }
 
   onLocationUpdated(Position pos) {
