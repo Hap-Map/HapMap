@@ -41,27 +41,12 @@ class _ConfirmPageState extends State<ConfirmPage> {
       });
 
       PlaceApi.getPlace(_position).then((place) => setState(() {
-        _current = place;
+            _current = place;
           }));
 
-      // LocationApi.startLocationUpdates();
-      // LocationApi.addOnLocationUpdateListener((pos) => setState(() {
-      //       _position = pos;
-      //       PlaceApi.getPlace(_position).then((place) => setState(() {
-      //         _current = place;
-      //           }));
-      //     }));
+      LocationApi.addOnLocationUpdateListener(onLocationUpdated);
 
-      DirectionsAPI()
-          .getDirections(
-              origin: LatLng(origin.latitude, origin.longitude),
-              destination: destination)
-          .then((directions) {
-        setState(() {
-          _directions = directions;
-          _estimatedTime = directions!.totalDuration;
-        });
-      });
+      getDirections(origin, destination);
     }
 
     return Scaffold(
@@ -89,21 +74,26 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         Container(
                           width: DEVICE_WIDTH,
                           child: Text(
-                            _destination != null? _destination!.name : "Loading Destination...",
-                            style: kTitleStyle.copyWith(fontSize: 25),
-                            softWrap: true,
-                              textAlign: TextAlign.center
-                          ),
+                              _destination != null
+                                  ? _destination!.name
+                                  : "Loading Destination...",
+                              style: kTitleStyle.copyWith(fontSize: 25),
+                              softWrap: true,
+                              textAlign: TextAlign.center),
                         ),
                         SizedBox(height: 25),
                         Text(
-                          _estimatedTime != null? 'Estimated Time: ' + _estimatedTime! : "Loading Estimated Time...",
+                          _estimatedTime != null
+                              ? 'Estimated Time: ' + _estimatedTime!
+                              : "Loading Estimated Time...",
                           style: kSubTitleStyle.copyWith(fontSize: 28),
                           textAlign: TextAlign.start,
                           softWrap: true,
                         ),
                         Text(
-                          _current != null? 'Starting From: ' + _current!.name : "Finding Current Location..." ,
+                          _current != null
+                              ? 'Starting From: ' + _current!.name
+                              : "Finding Current Location...",
                           style: kSubTitleStyle.copyWith(fontSize: 28),
                           textAlign: TextAlign.start,
                           softWrap: true,
@@ -111,7 +101,6 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         SizedBox(height: 25),
                         TextButton(
                           onPressed: () {
-                            LocationApi.stopLocationUpdates();
                             Navigator.pushNamed(context, NavigationPage.id,
                                 arguments: [
                                   _position,
@@ -137,5 +126,35 @@ class _ConfirmPageState extends State<ConfirmPage> {
         ),
       ),
     );
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+  }
+
+  onLocationUpdated(Position pos) {
+    setState(() {
+      _position = pos;
+      PlaceApi.getPlace(_position).then((place) => setState(() {
+            _current = place;
+            getDirections(_position, _destination);
+          }));
+    });
+  }
+
+  getDirections(origin, destination) {
+    DirectionsAPI()
+        .getDirections(
+            origin: LatLng(origin.latitude, origin.longitude),
+            destination: destination)
+        .then((directions) {
+      setState(() {
+        _directions = directions;
+        _estimatedTime = directions!.totalDuration;
+      });
+    });
   }
 }

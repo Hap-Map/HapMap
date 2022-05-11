@@ -1,27 +1,32 @@
 import 'dart:async';
+
 import 'package:dio/dio.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hap_map/models/place_model.dart';
-import 'package:hap_map/api/.key/maps.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hap_map/api/.key/maps.dart';
+import 'package:hap_map/models/place_model.dart';
+
 import 'location_api.dart';
 
 class PlaceApi {
   static const String NO_RESULTS_FOUND = 'No Results Found';
-  static const String _placeSuggestionsUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?';
-  static const String _addressUrl = 'https://maps.googleapis.com/maps/api/place/details/json?';
-  static const String _nearbySearchUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
-  static const int searchRadius = 8000; // default search radius 8000 meters (5 miles) from current location
+  static const String _placeSuggestionsUrl =
+      'https://maps.googleapis.com/maps/api/place/autocomplete/json?';
+  static const String _addressUrl =
+      'https://maps.googleapis.com/maps/api/place/details/json?';
+  static const String _nearbySearchUrl =
+      "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+  static const int searchRadius =
+      8000; // default search radius 8000 meters (5 miles) from current location
 
-  static Future<List<Place?>> getPlaceSuggestions(input, {position}) async {
+  static Future<List<Place?>> getPlaceSuggestions(input, position) async {
     Dio _dio = Dio();
-    position ??= await LocationApi.getCurrentLocation();
 
     Response response = await _dio.get(
       _placeSuggestionsUrl,
       queryParameters: {
         'input': input,
-        'location': '${position.latitude}, ${position.longitude}',
+        'location': '${position?.latitude}, ${position?.longitude}',
         'radius': '$searchRadius',
         'key': MAPS_API_KEY,
       },
@@ -82,7 +87,8 @@ class PlaceApi {
         },
       );
     } else {
-      throw Exception("Unsupported input- Nearby Search needs input with latitude and longitude");
+      throw Exception(
+          "Unsupported input- Nearby Search needs input with latitude and longitude");
     }
 
     if (response.statusCode == 200) {
