@@ -35,7 +35,5 @@ jobs:
       - name: Install app dependencies
         run: flutter pub get
       - name: Test app
-#         env:
-#           MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         run: flutter test
         
