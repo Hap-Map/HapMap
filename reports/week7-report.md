@@ -36,7 +36,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Emily: The continuous integration configuration is fixed, so now the CI is fully functional and tests can run. I also worked on identifying and adding accessibility tags to widgets in the app.
 - Pulkit:
 - Simona:
-- Lauren:
+- Lauren: Learned how to use the Android simulator to demo route. Helped to try to solve the issue of the API key and github CI build. Created directions iterator for navigation. Found the issue with navigation steps not updating (not fixed yet but we at least know where the bug is)
 - Aditya:
 - Jesse:
 
@@ -44,6 +44,6 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Emily: I will start implementing other aspects of the app, such as the settings or help pages. I will also continue to do periodic manual accessibility testing as more features are added.
 - Pulkit:
 - Simona:
-- Lauren:
+- Lauren: Work on resolving issue of iterating through navigation steps. This needs some planning as far as implementation and use cases go as it involves multiple parts of our program working together simultaneously. Once that's fixed it would be great to start adding some more tests for testing the API endpoints and the iterator so we can ensure expected behavior.
 - Aditya:
 - Jesse:
