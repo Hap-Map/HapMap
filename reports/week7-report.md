@@ -38,6 +38,9 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Simona:
 - Lauren: Learned how to use the Android simulator to demo route. Helped to try to solve the issue of the API key and github CI build. Created directions iterator for navigation. Found the issue with navigation steps not updating (not fixed yet but we at least know where the bug is)
 - Aditya:
+    - Implemented active loading, updates, and passing of locations, direction, and estimated time across all pages whenever user's location changes so that the user can see their current location and get updated steps based on the new location. 
+    - Worked on location listeners so that they are triggered correctly and start on app launch.
+    - Implemented opening of app settings if location permission is denied.
 - Jesse:
 
 ## Next Steps
@@ -46,4 +49,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Simona:
 - Lauren: Work on resolving issue of iterating through navigation steps. This needs some planning as far as implementation and use cases go as it involves multiple parts of our program working together simultaneously. Once that's fixed it would be great to start adding some more tests for testing the API endpoints and the iterator so we can ensure expected behavior.
 - Aditya:
+    - Working on the use case when the user denies location permission even after app settings is launched.
+    - Adding the vibration API.
+    - Adding the haptic touch API.
 - Jesse:
