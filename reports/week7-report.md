@@ -41,7 +41,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
     - Implemented active loading, updates, and passing of locations, direction, and estimated time across all pages whenever user's location changes so that the user can see their current location and get updated steps based on the new location. 
     - Worked on location listeners so that they are triggered correctly and start on app launch.
     - Implemented opening of app settings if location permission is denied.
-- Jesse:
+- Jesse: Updated navigation page UI to be cleaner and worked on beta release presentation slides and video
 
 ## Next Steps
 - Emily: I will start implementing other aspects of the app, such as the settings or help pages. I will also continue to do periodic manual accessibility testing as more features are added.
@@ -52,4 +52,4 @@ During our project meeting, we plan on doing progress checks. Then, we will move
     - Working on the use case when the user denies location permission even after app settings is launched.
     - Adding the vibration API.
     - Adding the haptic touch API.
-- Jesse:
+- Jesse: Will work on the navigation page to fix up any issues and/or implement the tutorial pages. 
