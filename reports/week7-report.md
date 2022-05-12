@@ -35,7 +35,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 ## Progress & Issues
 - Emily: The continuous integration configuration is fixed, so now the CI is fully functional and tests can run. I also worked on identifying and adding accessibility tags to widgets in the app.
 - Pulkit:
-- Simona:
+- Simona: Did accessibility testing with Talkback and added Semantics/accessibility tags to widgets
 - Lauren: Learned how to use the Android simulator to demo route. Helped to try to solve the issue of the API key and github CI build. Created directions iterator for navigation. Found the issue with navigation steps not updating (not fixed yet but we at least know where the bug is)
 - Aditya:
     - Implemented active loading, updates, and passing of locations, direction, and estimated time across all pages whenever user's location changes so that the user can see their current location and get updated steps based on the new location. 
@@ -46,7 +46,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 ## Next Steps
 - Emily: I will start implementing other aspects of the app, such as the settings or help pages. I will also continue to do periodic manual accessibility testing as more features are added.
 - Pulkit:
-- Simona:
+- Simona: Build on setting pages if needed, work with other team members on finishing up the haptic feedback
 - Lauren: Work on resolving issue of iterating through navigation steps. This needs some planning as far as implementation and use cases go as it involves multiple parts of our program working together simultaneously. Once that's fixed it would be great to start adding some more tests for testing the API endpoints and the iterator so we can ensure expected behavior.
 - Aditya:
     - Working on the use case when the user denies location permission even after app settings is launched.
