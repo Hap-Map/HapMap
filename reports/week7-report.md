@@ -20,7 +20,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Last Week's Goals
 - Emily: Figure out how to set up usage of Github secrets in CI. I will also start addressing issues such as missing accessibility tags.
-- Puklit: Finish the confirmation page and start work on the navigation page.
+- Pulkit: Finish the confirmation page and start work on the navigation page.
 - Simona: will work with Pulkit on fully integrating the APIs to navigation page -> find out ways to offer directions & haptic feedback to user step by step
 - Lauren:
     - Continue working on tests for the places and directions (adding more cases)
@@ -34,7 +34,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Progress & Issues
 - Emily: The continuous integration configuration is fixed, so now the CI is fully functional and tests can run. I also worked on identifying and adding accessibility tags to widgets in the app.
-- Pulkit:
+- Pulkit: Wrote frontend logic for navigation page but some possibly backend bugs prevent directions from working properly.
 - Simona: Did accessibility testing with Talkback and added Semantics/accessibility tags to widgets
 - Lauren: Learned how to use the Android simulator to demo route. Helped to try to solve the issue of the API key and github CI build. Created directions iterator for navigation. Found the issue with navigation steps not updating (not fixed yet but we at least know where the bug is)
 - Aditya:
@@ -45,7 +45,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Next Steps
 - Emily: I will start implementing other aspects of the app, such as the settings or help pages. I will also continue to do periodic manual accessibility testing as more features are added.
-- Pulkit:
+- Pulkit: Debug navigation page, finish basic functional implementation of the app
 - Simona: Build on setting pages if needed, work with other team members on finishing up the haptic feedback
 - Lauren: Work on resolving issue of iterating through navigation steps. This needs some planning as far as implementation and use cases go as it involves multiple parts of our program working together simultaneously. Once that's fixed it would be great to start adding some more tests for testing the API endpoints and the iterator so we can ensure expected behavior.
 - Aditya:
