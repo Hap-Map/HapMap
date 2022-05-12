@@ -33,7 +33,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Jesse: Perfect the navigation page UI interface through changing spacing and start working on the tutorial pages once complete.
 
 ## Progress & Issues
-- Emily:
+- Emily: The continuous integration configuration is fixed, so now the CI is fully functional and tests can run. I also worked on identifying and adding accessibility tags to widgets in the app.
 - Pulkit:
 - Simona:
 - Lauren:
@@ -41,7 +41,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Jesse:
 
 ## Next Steps
-- Emily:
+- Emily: I will start implementing other aspects of the app, such as the settings or help pages. I will also continue to do periodic manual accessibility testing as more features are added.
 - Pulkit:
 - Simona:
 - Lauren:
