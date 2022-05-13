@@ -4,9 +4,6 @@ import 'package:hap_map/pages/navigation_page.dart';
 import 'package:hap_map/pages/search_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
-double DEVICE_WIDTH = double.infinity;
-double DEVICE_HEIGHT = double.infinity;
-
 void main() {
   runApp(const HapMap());
 }
