@@ -54,11 +54,11 @@ class _ConfirmPageState extends State<ConfirmPage> {
           children: [
             Align(alignment: Alignment.topLeft, child: BackButton()),
             Expanded(
-                child: Padding(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Card(
+              child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
@@ -89,13 +89,17 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           textAlign: TextAlign.start,
                           softWrap: true,
                         ),
-                        Text(
-                          _current != null
-                              ? 'Starting From: ' + _current!.name
-                              : "Finding Current Location...",
-                          style: kSubTitleStyle.copyWith(fontSize: 28),
-                          textAlign: TextAlign.start,
-                          softWrap: true,
+                        SizedBox(height: 8),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            _current != null
+                                ? 'Starting From: ' + _current!.name
+                                : "Finding Current Location...",
+                            style: kSubTitleStyle.copyWith(fontSize: 24),
+                            textAlign: TextAlign.center,
+                            softWrap: true,
+                          ),
                         ),
                         SizedBox(height: 25),
                         TextButton(
@@ -118,9 +122,9 @@ class _ConfirmPageState extends State<ConfirmPage> {
                       ],
                     ),
                   ),
-                ),
               ),
-            )),
+            ),
+                )),
           ],
         ),
       ),
