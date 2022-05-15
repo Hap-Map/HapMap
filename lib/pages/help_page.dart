@@ -1,34 +1,75 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hap_map/constants.dart';
 
-class HelpPage extends StatelessWidget {
+class HelpPage extends StatefulWidget {
   static const id = 'help_page';
+
   const HelpPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
+  State<StatefulWidget> createState() => _HelpPage();
+}
 
+class _HelpPage extends State<HelpPage> {
+  List<String> _instructions = [];
+
+  Future<List<String>> _loadInstructions() async {
+    List<String> instructions = [];
+    await DefaultAssetBundle.of(context)
+        .loadString('assets/how-to-use.txt').then((i) {
+      for (String dir in const LineSplitter().convert(i)) {
+        instructions.add(dir);
+      }
+    });
+    return instructions;
+  }
+
+  @override
+  void initState() {
+    _setup();
+    super.initState();
+  }
+
+  _setup() async {
+    // Retrieve the questions (Processed in the background)
+    List<String> instructions = await _loadInstructions();
+
+    // Notify the UI and display the questions
+    setState(() {
+      _instructions = instructions;
+    });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: PageBackground(
           child: Column(
             children: [
               const Align(alignment: Alignment.topLeft, child: BackButton()),
-              Text("Help",
-              style: kTitleStyle.copyWith(fontSize: 32.0),
+              const Text(
+                "How to Use HapMap:",
+                style: kTitleStyle,
               ),
-              SizedBox(height: 25),
-              const Padding(
-                padding: EdgeInsets.all(24.0),
+              const SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child:  Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "How to Use HapMap:",
-                    style: kTitleStyle,
+                  child: Column(
+                    children: [for(var i in _instructions)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Text(i,
+                          style: kBodyStyle,),
+                      )
+                    ],
                   ),
                 ),
               ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               TextButton(
                 onPressed: (){},
                 style: kBlueButtonStyle,
@@ -36,7 +77,15 @@ class HelpPage extends StatelessWidget {
                     padding: EdgeInsets.all(8.0),
                     child: Text('Start Tutorial',
                         style: kTitleStyle)),
-              )
+              ),
+              const Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Text("For any issues with this app, "
+                    "submit your feedback on our official "
+                    "Github Repository's issues tab here: "
+                    "https://github.com/Hap-Map/HapMap",
+                  textAlign: TextAlign.center,),
+              ),
             ],
           )),
     );
