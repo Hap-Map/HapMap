@@ -1,0 +1,4 @@
+1. Enter a destination of choice in the search bar. A list of suggested addresses to should appear. If no suggestions appear, make sure the address is valid and walkable.
+2. Select the correct address from the suggestions to submit. This takes you to the confirmation page.
+3. Review the destination address, travel time, and current location. Press the "Start Navigation" button.
+4. Follow the route to the destination. Keep finger on the screen for haptic feedback. If needed, press the "End Navigation" button to end navigation and go back to the search page.
