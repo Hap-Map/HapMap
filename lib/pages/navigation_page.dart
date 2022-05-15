@@ -4,7 +4,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:hap_map/constants.dart';
-import 'package:hap_map/main.dart';
 import 'package:hap_map/models/directions_model.dart';
 
 import '../api/location_api.dart';
@@ -80,7 +79,7 @@ class _NavigationPageState extends State<NavigationPage> {
                     Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          width: DEVICE_WIDTH,
+                          width: MediaQuery.of(context).size.width,
                           child: Html(
                               data: _destination_reached
                                   ? '<html><body></b>Destination Reached</b></body></html>'
@@ -98,7 +97,7 @@ class _NavigationPageState extends State<NavigationPage> {
                       child: Column(
                         children: [
                           Container(
-                              width: DEVICE_WIDTH,
+                              width: MediaQuery.of(context).size.width,
                               child: Text(
                                   _destination != null
                                       ? "To: " + _destination!.name
@@ -111,7 +110,7 @@ class _NavigationPageState extends State<NavigationPage> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                                width: DEVICE_WIDTH,
+                                width: MediaQuery.of(context).size.width,
                                 child: Text(
                                     _current != null
                                         ? "Current Location: " + _current!.name
