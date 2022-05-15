@@ -27,6 +27,10 @@ const kSubTitleStyle = TextStyle(
   fontSize: 20,
 );
 
+const kBodyStyle = TextStyle(
+  fontSize: 16,
+);
+
 final kButtonStyle = TextButton.styleFrom(
     padding: EdgeInsets.all(8.0),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
