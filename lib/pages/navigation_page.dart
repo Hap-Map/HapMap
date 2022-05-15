@@ -21,7 +21,7 @@ class NavigationPage extends StatefulWidget {
 }
 
 double METERS_TO_UPDATE_PLACE = 100;
-double METERS_EPSILON = 2.5;
+double METERS_EPSILON = 3;
 
 class _NavigationPageState extends State<NavigationPage> {
   Position? _lastPosUpdated;
@@ -30,7 +30,8 @@ class _NavigationPageState extends State<NavigationPage> {
   Place? _destination;
   Directions? _directions;
   DirectionsIterator? _iter;
-  bool _destination_reached = false;
+  bool _destinationReached = false; // if final destination has been reached
+  bool _endReached = true; // if step end has been reached
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -82,7 +83,7 @@ class _NavigationPageState extends State<NavigationPage> {
                         child: Container(
                           width: DEVICE_WIDTH,
                           child: Html(
-                              data: _destination_reached
+                              data: _destinationReached
                                   ? '<html><body></b>Destination Reached</b></body></html>'
                                   : _iter!.getStepStr(),
                               style: {
@@ -158,19 +159,28 @@ class _NavigationPageState extends State<NavigationPage> {
   onLocationUpdated(Position pos) {
     setState(() {
       _currentPosition = pos;
+      if (!_endReached && isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
+        _endReached = true;
+      }
+
     });
-    if (isCloseEnough(_iter!.getStepEnd()!, pos)) {
+
+    if (_endReached && !isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
+      // go onto next instruction when user has reached previous step
+      // but has also moved far enough away to receive next instruction
       if (_iter!.hasNext()) {
         setState(() {
           _iter!.moveNext();
           updatePlace(pos);
+          _endReached = false;
         });
       } else {
         setState(() {
-          _destination_reached = true;
+          _destinationReached = true;
         });
       }
     }
+
     if (isFarEnough(_lastPosUpdated!, pos)) {
       updatePlace(pos);
     }
@@ -186,12 +196,14 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   double distanceLatLng(LatLng p1, Position p2) {
-    return Geolocator.distanceBetween(
+    var dist = Geolocator.distanceBetween(
         p1.latitude, p1.longitude, p2.latitude, p2.longitude);
+    print(dist);
+    return dist;
   }
 
-  bool isCloseEnough(LatLng p1, Position p2) {
-    return distanceLatLng(p1, p2) < METERS_EPSILON;
+  bool isCloseEnough(LatLng? p1, Position p2) {
+    return distanceLatLng(p1!, p2) < METERS_EPSILON;
   }
 
   void updatePlace(Position pos) {

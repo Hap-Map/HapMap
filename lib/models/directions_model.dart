@@ -119,6 +119,7 @@ class DirectionsIterator {
     if (index >= numSteps) {
       return false;
     }
+    print("move next");
     index++;
     return true;
   }
@@ -131,6 +132,7 @@ class DirectionsIterator {
   }
 
   String getStepStr() {
+    print(index);
     if (index >= numSteps) {
       // iterator has reached end of steps so return empty string so last step isnt displayed
       return "";
@@ -159,11 +161,18 @@ class DirectionsIterator {
       // This case shouldn't happen since we don't search for locations that are unreachable
       return null;
     }
-    if (index >= numSteps) {
-      // returns destination point if last step has been reached
-      return directions.totalSteps[numSteps == 0 ? 0 : numSteps - 1].endLocation;
-    }
+    assert(index < numSteps);
+    print(directions.totalSteps[index].endLocation);
     return directions.totalSteps[index].endLocation;
+  }
+
+  LatLng? getStepStart() {
+    if (numSteps == 0) {
+      return null;
+    }
+    assert(index < numSteps);
+    print(directions.totalSteps[index].startLocation);
+    return directions.totalSteps[index].startLocation;
   }
   
 }
