@@ -8,7 +8,6 @@ import 'package:hap_map/pages/settings_page.dart';
 
 import '../api/place_api.dart';
 import '../constants.dart';
-import '../main.dart';
 import '../models/place_model.dart';
 import 'confirm_page.dart';
 
@@ -36,8 +35,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    DEVICE_WIDTH = MediaQuery.of(context).size.width;
-    DEVICE_HEIGHT = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
