@@ -43,6 +43,7 @@ dependencies:
   flutter_typeahead: ^3.2.4
   geolocator: ^8.2.0
   flutter_html: ^2.2.1
+  url_launcher: ^6.1.2
 
 dev_dependencies:
   flutter_test:
