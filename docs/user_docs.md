@@ -1,8 +1,14 @@
-# user documentation
+# User Documentation
 
 ## What is HapMap (high-level description)
+HapMap is a sensory navigation mobile application that makes independent travel more accessible for low-vision individuals.
+It utilizes a combination of auditory, haptic, and vibration cues to inform users of their route.
+This reduces the uncertainty that comes with standard navigation systems that may abruptly give instructions. The application
+supports searching for locations and helping provide real-time feedback to the user through these mediums, through a simple
+user interface.
 
 ## Installation
+Download MapMap for free from the Google Play Store or App Store today!
 
 ## Run HapMap
 
