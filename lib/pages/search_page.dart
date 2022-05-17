@@ -152,6 +152,7 @@ class _SearchPageState extends State<SearchPage> {
                 constraints: BoxConstraints(),
                 icon: const Icon(
                   Icons.cancel,
+                  semanticLabel: 'cancel'
                 ),
                 onPressed: () {
                   setState(() {
