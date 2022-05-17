@@ -52,9 +52,18 @@ Network requests sent to the APIs are not tested but the resulting data members 
 When adding unit tests, instead of using the location service API, hard coded co-ordinate points can be passed in as an optional parameter. To do this, import the LatLng package [latlng](https://pub.dev/packages/latlng) and create a LatLng object to simulate the user's current location. For any method that relies on this service, pass the hard coded location in as the position. The API call will use the latitude and longitude as if it came from the location API, allowing for a deterministic unit testing that does not depend on the location API. 
 
 ## Build Release
-Building a release will depend on the operating system the device uses. This Flutter project can be built for both iOS and Android. Depending on which platform is being used, there may be additional requirements.
+Before building a release, run the application locally from an IDE to ensure all features are functioning as expected and that the tests pass.
 
-See the official Flutter documentation:
+Building a release will depend on the operating system the device uses. This Flutter project can be built for both iOS and Android. Depending on which platform is being used, there may be additional requirements. However, there are common tasks across those two platforms when preparing to build:
+* Choose an icon for the application. We recommend using our official logo, which can be found in `images/hapmap_logo.png`.
+* Update the build version number. Instructions are included in the official Flutter documentation below.
+* Deploy the application to an app distributor.
+
+To build for Android, an App Bundle or APK will need to be made. After everything is completed, the application will be ready to download from the Google Play store. See the official Flutter documentation (linked below) for more details.
+
+To build for iOS, HapMap needs to be registered on the App Store. After everything is completed, the application will be ready to download from the App Store. See the official Flutter documentation (linked below) for more details.
+
+Official Flutter documentation:
 * [Build and Release for Android](https://docs.flutter.dev/deployment/android#building-the-app-for-release)
 * [Build and Release for iOS](https://docs.flutter.dev/deployment/ios)
 
