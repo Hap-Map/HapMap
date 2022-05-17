@@ -44,5 +44,6 @@ Navigate to the "Code" button on the repository. Ensure it is on the main branch
 
 ## Add New Tests
 New tests can be added under the lib/test folder, either by adding a new .dart file or creating a new test case under an existing file. Tests that use the directions API or places API can be added to the directions_test.dart and places_test.dart files respectively. New test files should import the Dart/Flutter test package (https://pub.dev/packages/test). Network requests sent to the APIs are not tested but the resulting data members are. Models are tested via unit tests and compared using hard coded values expected to result from the returned json string. This is to ensure all data returned from APIs follows the expected format used by the rest of the application.
+To test for equivalency, models have a built in equals method that can be used with the expect method from the dart/flutter test package. Instead of using the location service API, hard coded co-ordinate points can be used as a parameter using the LatLng package (https://pub.dev/packages/latlng) to simulate a user's location for any method that relies on this service.  
 
 ## Build Release
