@@ -45,3 +45,10 @@ Navigate to the "Code" button on the repository. Ensure it is on the main branch
 ## Add New Tests
 
 ## Build Release
+Building a release will depend on the operating system the device uses. This Flutter project can be built for both iOS and Android. Depending on which platform is being used, there may be additional requirements.
+
+See the official Flutter documentation:
+* [Build and Release for Android](https://docs.flutter.dev/deployment/android#building-the-app-for-release)
+* [Build and Release for iOS](https://docs.flutter.dev/deployment/ios)
+
+As a final sanity check, be sure to download the release onto a device and ensure that everything works as expected.
