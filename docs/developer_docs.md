@@ -20,10 +20,13 @@ Navigate to the "Code" button on the repository. Ensure it is on the main branch
     * **confirm_page.dart** - user confirms their destination details
     * **navigation_page.dart** - user navigates to their destination, with navigation cues dictating the route
     * **settings_page.dart** - user controls app settings like haptic/vibrations/shake etc.
+    * **help_page.dart** - tutorial & instructions on how to use the app
   * **constants.dart** - holds constant widget data to be accessed from all the pages
   * **main.dart** - initializes the app, defines the routes/flow of the app
 * **images** - contains image data for the app
   * **hapmap_logo.png** - hapmap logo
+* **assets** - other asset files
+  * **how-to-use-text** - instructions displayed on the help page
 * **ios** - contains build data for the ios app
   * **Runner/AppDelegate.swift** - provide the Google Maps API key here
   * **Podfile** - defines the dependencies for the xcode project
