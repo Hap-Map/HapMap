@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/api/location_api.dart';
+import 'package:hap_map/pages/help_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
 import '../api/place_api.dart';
@@ -86,7 +87,10 @@ class _SearchPageState extends State<SearchPage> {
               Align(
                 alignment: Alignment.topRight,
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, HelpPage.id);
+                    SemanticsService.announce("Opening help page", TextDirection.ltr);
+                  },
                   mini: true,
                   shape: CircleBorder(),
                   backgroundColor: Colors.grey[800],
