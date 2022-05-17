@@ -68,7 +68,6 @@ flutter:
 
   assets:
     - images/hapmap_logo.png
-    - images/hapticTouchButton.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
