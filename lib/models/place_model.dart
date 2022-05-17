@@ -23,4 +23,12 @@ class Place {
   String toString(){
     return "{name: $name, id: $id}";
   }
+
+  @override operator==(Object other) =>
+      other is Place &&
+          name == other.name &&
+          id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
