@@ -42,6 +42,7 @@ Navigate to the "Code" button on the repository. Ensure it is on the main branch
 * **clean_and_run.sh** - cleans, rebuilds, and runs flutter (must have a device open)
 * **pubspec.yaml** - declare the applications library, assets, and sdk dependencies
 ## Build HapMap
+Refer the README.md file for instructions on [how to build](https://github.com/Hap-Map/HapMap#how-to-build)
 
 ## Test HapMap
 
