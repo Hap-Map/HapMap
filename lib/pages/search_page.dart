@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/api/location_api.dart';
+import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/pages/help_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
@@ -28,8 +29,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    getLocationPermission();
-    LocationApi.startLocationUpdates();
+    initialize();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
   }
 
@@ -121,6 +121,12 @@ class _SearchPageState extends State<SearchPage> {
   void dispose() {
     super.dispose();
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+  }
+
+  initialize() {
+    getLocationPermission();
+    LocationApi.startLocationUpdates();
+    ShakeApi.startOnShakeUpdates();
   }
 
   getLocationPermission() {
