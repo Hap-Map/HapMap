@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -21,7 +23,8 @@ class NavigationPage extends StatefulWidget {
 }
 
 double METERS_TO_UPDATE_PLACE = 100;
-double METERS_EPSILON = 3;
+double METERS_TO_UPDATE_INSTRUCTION = 5;
+double METERS_EPSILON = 2;
 
 class _NavigationPageState extends State<NavigationPage> {
   Position? _lastPosUpdated;
@@ -31,7 +34,8 @@ class _NavigationPageState extends State<NavigationPage> {
   Directions? _directions;
   DirectionsIterator? _iter;
   bool _destinationReached = false; // if final destination has been reached
-  bool _endReached = true; // if step end has been reached
+  String? _displayInstruction;
+  double? _distanceToEnd;
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -62,6 +66,8 @@ class _NavigationPageState extends State<NavigationPage> {
       _destination = _arguments[2];
       _directions = _arguments[3];
       _iter = DirectionsIterator(_directions);
+      _displayInstruction = _iter!.getCurrentInstruction();
+      _distanceToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
     }
 
     return Scaffold(
@@ -85,7 +91,7 @@ class _NavigationPageState extends State<NavigationPage> {
                           child: Html(
                               data: _destinationReached
                                   ? '<html><body></b>Destination Reached</b></body></html>'
-                                  : _iter!.getStepStr(),
+                                  : _displayInstruction,
                               style: {
                                 "body": Style(
                                     fontSize: FontSize(25),
@@ -159,24 +165,22 @@ class _NavigationPageState extends State<NavigationPage> {
   onLocationUpdated(Position pos) {
     setState(() {
       _currentPosition = pos;
-      if (!_endReached && isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
-        _endReached = true;
-      }
 
+      if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
+          if (_iter!.hasNext()) {
+            _iter!.moveNext();
+          } else {
+            _destinationReached = true;
+          }
+      }
     });
 
-    if (_endReached && !isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
-      // go onto next instruction when user has reached previous step
-      // but has also moved far enough away to receive next instruction
-      if (_iter!.hasNext()) {
+    if (isPastStart(_iter!.getStepStart(), _currentPosition!)) {
+      // When user gets a certain distance away from the step start, display instruction is updated
+      // to next instruction so user knows what to do when they reach the end of this step
+      if (!_destinationReached) {
         setState(() {
-          _iter!.moveNext();
-          updatePlace(pos);
-          _endReached = false;
-        });
-      } else {
-        setState(() {
-          _destinationReached = true;
+          _displayInstruction = _iter!.getNextInstruction();
         });
       }
     }
@@ -198,7 +202,7 @@ class _NavigationPageState extends State<NavigationPage> {
   double distanceLatLng(LatLng p1, Position p2) {
     var dist = Geolocator.distanceBetween(
         p1.latitude, p1.longitude, p2.latitude, p2.longitude);
-    print(dist);
+    print("distance: " + dist.toString());
     return dist;
   }
 
@@ -213,4 +217,9 @@ class _NavigationPageState extends State<NavigationPage> {
           _current = place;
         }));
   }
+
+  bool isPastStart(LatLng? p1, Position p2) {
+    return distanceLatLng(p1!, p2) > min(METERS_TO_UPDATE_INSTRUCTION, (_iter!.curStepSize / 2));
+  }
+
 }
