@@ -31,7 +31,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Progress & Issues
 - Emily: Implemented the Help page, connecting it to the search page and adding documentation for the user. There are currently no issues, just need to link an interactive tutorial once it is completed.
-- Pulkit:
+- Pulkit: Fixed overflow issue on help page, sizing issue on confirm page, added to developer documentation.
 - Simona:
 - Lauren:
 - Aditya:
@@ -39,7 +39,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 
 ## Next Steps
 - Emily: I will work on making sure the directions are announced to the user automatically (regardless of using screen reader). Currently there is no auditory feedback, the user has to look at the screen to see the next direction.
-- Pulkit:
+- Pulkit: Test to see if directions match up and complete navigation page, add implementation of onShake()
 - Simona:
 - Lauren:
 - Aditya:
