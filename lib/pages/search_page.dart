@@ -41,23 +41,6 @@ class _SearchPageState extends State<SearchPage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton:
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          FloatingActionButton(
-            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
-            heroTag: 'btn1',
-            backgroundColor: kPrimaryColor,
-            child: Semantics(
-              child: const Icon(
-                Icons.mic,
-                size: 30,
-              ),
-              label: 'Speak',
-            ),
-            // TODO: IMPLEMENT SPEECH-TO-TEXT
-            onPressed: () {
-              SemanticsService.announce(
-                  "Enabling Speech-to-text", TextDirection.ltr);
-            },
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: FittedBox(
@@ -180,7 +163,8 @@ class _SearchPageState extends State<SearchPage> {
           return Semantics(
               label: 'Search Suggestions',
               child: ListTile(
-                  leading: const Icon(Icons.place), title: Text(place.name)));
+                  leading: const Icon(Icons.place), title: Text(place.name),
+                  key: const Key('SearchSuggestion'),));
         },
         onSuggestionSelected: (Place? suggestion) {
           final place = suggestion!;
