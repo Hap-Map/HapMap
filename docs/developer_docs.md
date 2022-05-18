@@ -42,14 +42,15 @@ Navigate to the "Code" button on the repository. Ensure it is on the main branch
 * **clean_and_run.sh** - cleans, rebuilds, and runs flutter (must have a device open)
 * **pubspec.yaml** - declare the applications library, assets, and sdk dependencies
 ## Build HapMap
-Refer the README.md file for instructions on [how to build](https://github.com/Hap-Map/HapMap#how-to-build)
+Refer to the README.md file for instructions on [how to build](https://github.com/Hap-Map/HapMap#how-to-build)
 
 ## Test HapMap
-
+Refer to the README.md file for instructions on [how to test](https://github.com/Hap-Map/HapMap#how-to-test)
 ## Add New Tests
-New tests can be added under the lib/test folder, either by adding a new .dart file or creating a new test case under an existing file. Tests that use the directions API or places API can be added to the directions_test.dart and places_test.dart files respectively. New test files should import the Dart/Flutter test package [package:test](https://pub.dev/packages/test). <br>
-Network requests sent to the APIs are not tested but the resulting data members are. Models are tested via unit tests and compared using hard coded values expected to result from the returned json string. This is to ensure all data returned from APIs follows the format used by the rest of the application. To test for equivalency, models have a built in equals method that can be used with the expect method from [package:test](https://pub.dev/packages/test). <br>
-When adding unit tests, instead of using the location service API, hard coded co-ordinate points can be passed in as an optional parameter. To do this, import the LatLng package [latlng](https://pub.dev/packages/latlng) and create a LatLng object to simulate the user's current location. For any method that relies on this service, pass the hard coded location in as the position. The API call will use the latitude and longitude as if it came from the location API, allowing for a deterministic unit testing that does not depend on the location API. 
+HapMap uses the Gradle testing harness along with JUnit to automatically detect and run unit tests. New tests can be added under the lib/test folder, either by adding a new .dart file or creating a new test case under an existing file. Tests that use the directions API or places API can be added to the directions_test.dart and places_test.dart files respectively. New test files should import the Dart/Flutter test package [package:test](https://pub.dev/packages/test). New tests files that are added should follow the naming convention <what_is_being_tested>_test.dart <br><br>
+When adding unit tests, instead of using the location service API, hard coded co-ordinate points can be passed in as an optional parameter. To do this, import the LatLng package [latlng](https://pub.dev/packages/latlng) and create a LatLng object to simulate the user's current location. For any method that relies on this service, pass the hard coded location in as the position. The API call will use the latitude and longitude as if it came from the location API, allowing for a deterministic unit testing that does not depend on the location API. <br><br>
+Network requests sent to the APIs are not tested but the resulting data members are. Models are tested via unit tests and compared using hard coded values expected to result from the returned json string. This is to ensure all data returned from APIs follows the format used by the rest of the application. To test for equivalency, models have a built in equals method that can be used with the expect method from [package:test](https://pub.dev/packages/test). <br><br> 
+To add tests that verify user display, we suggest following Flutter's guide to [widget unit testing](https://docs.flutter.dev/cookbook/testing/widget/introduction)
 
 ## Build Release
 Before building a release, run the application locally from an IDE to ensure all features are functioning as expected and that the tests pass.
