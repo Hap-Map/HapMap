@@ -41,6 +41,7 @@ class _NavigationPageState extends State<NavigationPage> {
           SemanticsService.announce("Ending navigation", TextDirection.ltr);
         },
         style: kRedButtonStyle,
+        key: const Key('EndNavigation')
       );
 
   @override
@@ -131,19 +132,18 @@ class _NavigationPageState extends State<NavigationPage> {
             endNavigationButton,
           ],
         ),
-        Semantics(
-          child: TextButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.touch_app_rounded,
-                color: Colors.white,
-                size: 100,
-              ),
-              style: TextButton.styleFrom(
-                  shape: CircleBorder(),
-                  backgroundColor: kHapticTouchIconColor)),
-          label: 'Keep finger on the screen for haptic feedback',
-        ),
+        TextButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.touch_app_rounded,
+              color: Colors.white,
+              size: 100,
+              semanticLabel: 'Keep finger on the screen for haptic feedback'
+            ),
+            style: TextButton.styleFrom(
+                shape: CircleBorder(),
+                backgroundColor: kHapticTouchIconColor),
+            key: const Key('HapticButton'))
       ],
     )));
   }
