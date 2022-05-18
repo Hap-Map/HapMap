@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
 
@@ -48,6 +49,7 @@ class _NavigationPageState extends State<NavigationPage> {
     // TODO: implement initState
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.addOnShakeListener(onShake);
   }
 
   @override
@@ -152,6 +154,10 @@ class _NavigationPageState extends State<NavigationPage> {
   void dispose() {
     super.dispose();
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+  }
+
+  onShake() {
+    // TODO: Show dialog that pops up when user shakes phone.
   }
 
   onLocationUpdated(Position pos) {
