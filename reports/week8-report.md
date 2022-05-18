@@ -32,7 +32,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 ## Progress & Issues
 - Emily: Implemented the Help page, connecting it to the search page and adding documentation for the user. There are currently no issues, just need to link an interactive tutorial once it is completed.
 - Pulkit: Fixed overflow issue on help page, sizing issue on confirm page, added to developer documentation.
-- Simona:
+- Simona: Removed mic button, added accessibility labels, added a few keys for widget testing. Added widget tests for confirmation & navigation page but it's not working yet because the test is not waiting for the API call to return.
 - Lauren:
 - Aditya:
 - Jesse: Implementing settings page according to new design preferences and helped write user documentation.
@@ -40,7 +40,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 ## Next Steps
 - Emily: I will work on making sure the directions are announced to the user automatically (regardless of using screen reader). Currently there is no auditory feedback, the user has to look at the screen to see the next direction.
 - Pulkit: Test to see if directions match up and complete navigation page, add implementation of onShake()
-- Simona:
+- Simona: Finish implementing the shake response, help with settings page and tutorial page
 - Lauren:
 - Aditya:
 - Jesse: Finish the implementation for the settings page and work on tutorial pages.
