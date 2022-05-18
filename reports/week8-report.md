@@ -33,7 +33,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Emily: Implemented the Help page, connecting it to the search page and adding documentation for the user. There are currently no issues, just need to link an interactive tutorial once it is completed.
 - Pulkit: Fixed overflow issue on help page, sizing issue on confirm page, added to developer documentation.
 - Simona: Removed mic button, added accessibility labels, added a few keys for widget testing. Added widget tests for confirmation & navigation page but it's not working yet because the test is not waiting for the API call to return.
-- Lauren:
+- Lauren: Got the directions display working! Still a minor bug when determining when to move to the next step if the app doesn't detect if user has reached instruction step end (this may just be a bug with the simulator and not actually affect use but should still be looked at anyways as it may impact haptic touch). Also was able to add some places API end point tests and documentation
 - Aditya:
 - Jesse: Implementing settings page according to new design preferences and helped write user documentation.
 
@@ -41,6 +41,6 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Emily: I will work on making sure the directions are announced to the user automatically (regardless of using screen reader). Currently there is no auditory feedback, the user has to look at the screen to see the next direction.
 - Pulkit: Test to see if directions match up and complete navigation page, add implementation of onShake()
 - Simona: Finish implementing the shake response, help with settings page and tutorial page
-- Lauren:
+- Lauren: Work on the directions bug as stated above. Can also help with implementing haptic touch as this feature uses the directions iterator. 
 - Aditya:
 - Jesse: Finish the implementation for the settings page and work on tutorial pages.
