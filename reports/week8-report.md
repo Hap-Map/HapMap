@@ -35,7 +35,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Simona:
 - Lauren:
 - Aditya:
-- Jesse:
+- Jesse: Implementing settings page according to new design preferences and helped write user documentation.
 
 ## Next Steps
 - Emily: I will work on making sure the directions are announced to the user automatically (regardless of using screen reader). Currently there is no auditory feedback, the user has to look at the screen to see the next direction.
@@ -43,4 +43,4 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Simona:
 - Lauren:
 - Aditya:
-- Jesse:
+- Jesse: Finish the implementation for the settings page and work on tutorial pages.
