@@ -30,7 +30,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Jesse: Will work on the navigation page to fix up any issues and/or implement the tutorial pages. 
 
 ## Progress & Issues
-- Emily:
+- Emily: Implemented the Help page, connecting it to the search page and adding documentation for the user. There are currently no issues, just need to link an interactive tutorial once it is completed.
 - Pulkit:
 - Simona:
 - Lauren:
@@ -38,7 +38,7 @@ During our project meeting, we plan on doing progress checks. Then, we will move
 - Jesse:
 
 ## Next Steps
-- Emily:
+- Emily: I will work on making sure the directions are announced to the user automatically (regardless of using screen reader). Currently there is no auditory feedback, the user has to look at the screen to see the next direction.
 - Pulkit:
 - Simona:
 - Lauren:
