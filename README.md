@@ -11,6 +11,13 @@ HapMap is a sensory navigation application that makes independent travel more ac
 
 **HapMap/reports**: Weekly reports and meeting agenda
 
+## Set Up Environment
+There are a few installations that are needed in order to build, run, and test HapMap.
+- [Install Flutter](https://docs.flutter.dev/get-started/install)
+- [Download & Install Android Studio](https://developer.android.com/studio/install)
+- [Create a Virtual Device](https://developer.android.com/studio/run/managing-avds#system-image) (Android devices are recommended)
+  - If using an iOS Simulator, note that [CocoaPods](https://cocoapods.org) is required and that it cannot simulate a route/travel
+
 ## How to Build
 1. Clone the repository
 2. Create private folder in the api directory called .key such that the path is `lib/api/.key`
