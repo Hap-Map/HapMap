@@ -1,7 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter/foundation.dart';
 
 
 class Step{
@@ -112,7 +112,7 @@ class DirectionsIterator {
   late double curStepSize;
 
   DirectionsIterator(Directions? d) {
-    print(d.toString());
+    // print(d.toString());
     directions = d!;
     index = 0;
     numSteps = directions.totalSteps.length;
@@ -163,7 +163,7 @@ class DirectionsIterator {
       return null;
     }
     assert(index < numSteps);
-    print(directions.totalSteps[index].startLocation);
+    // print(directions.totalSteps[index].startLocation);
     return directions.totalSteps[index].startLocation;
   }
 
@@ -175,7 +175,7 @@ class DirectionsIterator {
       return null;
     }
     assert(index < numSteps);
-    print(directions.totalSteps[index].endLocation);
+    // print(directions.totalSteps[index].endLocation);
     return directions.totalSteps[index].endLocation;
   }
 

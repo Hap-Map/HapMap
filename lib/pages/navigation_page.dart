@@ -173,6 +173,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
       if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
           if (_iter!.hasNext()) {
+            print("MOVING TO NEXT STEP");
             _iter!.moveNext();
           } else {
             _destinationReached = true;
@@ -183,8 +184,9 @@ class _NavigationPageState extends State<NavigationPage> {
     if (isPastStart(_iter!.getStepStart(), _currentPosition!)) {
       // When user gets a certain distance away from the step start, display instruction is updated
       // to next instruction so user knows what to do when they reach the end of this step
-      if (!_destinationReached) {
+      if (!_destinationReached && _displayInstruction != _iter!.getNextInstruction()) {
         setState(() {
+          print("DISPLAYING NEXT INSTRUCTION");
           _displayInstruction = _iter!.getNextInstruction();
         });
       }
@@ -207,7 +209,7 @@ class _NavigationPageState extends State<NavigationPage> {
   double distanceLatLng(LatLng p1, Position p2) {
     var dist = Geolocator.distanceBetween(
         p1.latitude, p1.longitude, p2.latitude, p2.longitude);
-    print("distance: " + dist.toString());
+    // print("distance: " + dist.toString());
     return dist;
   }
 
