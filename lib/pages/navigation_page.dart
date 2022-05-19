@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
 
@@ -20,7 +23,8 @@ class NavigationPage extends StatefulWidget {
 }
 
 double METERS_TO_UPDATE_PLACE = 100;
-double METERS_EPSILON = 2.5;
+double METERS_TO_UPDATE_INSTRUCTION = 5;
+double METERS_EPSILON = 2;
 
 class _NavigationPageState extends State<NavigationPage> {
   Position? _lastPosUpdated;
@@ -29,7 +33,9 @@ class _NavigationPageState extends State<NavigationPage> {
   Place? _destination;
   Directions? _directions;
   DirectionsIterator? _iter;
-  bool _destination_reached = false;
+  bool _destinationReached = false; // if final destination has been reached
+  String? _displayInstruction;
+  double? _distanceToEnd;
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -41,6 +47,7 @@ class _NavigationPageState extends State<NavigationPage> {
           SemanticsService.announce("Ending navigation", TextDirection.ltr);
         },
         style: kRedButtonStyle,
+        key: const Key('EndNavigation')
       );
 
   @override
@@ -48,6 +55,7 @@ class _NavigationPageState extends State<NavigationPage> {
     // TODO: implement initState
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.addOnShakeListener(onShake);
   }
 
   @override
@@ -60,6 +68,8 @@ class _NavigationPageState extends State<NavigationPage> {
       _destination = _arguments[2];
       _directions = _arguments[3];
       _iter = DirectionsIterator(_directions);
+      _displayInstruction = _iter!.getCurrentInstruction();
+      _distanceToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
     }
 
     return Scaffold(
@@ -81,9 +91,9 @@ class _NavigationPageState extends State<NavigationPage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           child: Html(
-                              data: _destination_reached
+                              data: _destinationReached
                                   ? '<html><body></b>Destination Reached</b></body></html>'
-                                  : _iter!.getStepStr(),
+                                  : _displayInstruction,
                               style: {
                                 "body": Style(
                                     fontSize: FontSize(25),
@@ -131,19 +141,18 @@ class _NavigationPageState extends State<NavigationPage> {
             endNavigationButton,
           ],
         ),
-        Semantics(
-          child: TextButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.touch_app_rounded,
-                color: Colors.white,
-                size: 100,
-              ),
-              style: TextButton.styleFrom(
-                  shape: CircleBorder(),
-                  backgroundColor: kHapticTouchIconColor)),
-          label: 'Keep finger on the screen for haptic feedback',
-        ),
+        TextButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.touch_app_rounded,
+              color: Colors.white,
+              size: 100,
+              semanticLabel: 'Keep finger on the screen for haptic feedback'
+            ),
+            style: TextButton.styleFrom(
+                shape: CircleBorder(),
+                backgroundColor: kHapticTouchIconColor),
+            key: const Key('HapticButton'))
       ],
     )));
   }
@@ -154,22 +163,35 @@ class _NavigationPageState extends State<NavigationPage> {
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
   }
 
+  onShake() {
+    // TODO: Show dialog that pops up when user shakes phone.
+  }
+
   onLocationUpdated(Position pos) {
     setState(() {
       _currentPosition = pos;
+
+      if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
+          if (_iter!.hasNext()) {
+            print("MOVING TO NEXT STEP");
+            _iter!.moveNext();
+          } else {
+            _destinationReached = true;
+          }
+      }
     });
-    if (isCloseEnough(_iter!.getStepEnd()!, pos)) {
-      if (_iter!.hasNext()) {
+
+    if (isPastStart(_iter!.getStepStart(), _currentPosition!)) {
+      // When user gets a certain distance away from the step start, display instruction is updated
+      // to next instruction so user knows what to do when they reach the end of this step
+      if (!_destinationReached && _displayInstruction != _iter!.getNextInstruction()) {
         setState(() {
-          _iter!.moveNext();
-          updatePlace(pos);
-        });
-      } else {
-        setState(() {
-          _destination_reached = true;
+          print("DISPLAYING NEXT INSTRUCTION");
+          _displayInstruction = _iter!.getNextInstruction();
         });
       }
     }
+
     if (isFarEnough(_lastPosUpdated!, pos)) {
       updatePlace(pos);
     }
@@ -185,12 +207,14 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   double distanceLatLng(LatLng p1, Position p2) {
-    return Geolocator.distanceBetween(
+    var dist = Geolocator.distanceBetween(
         p1.latitude, p1.longitude, p2.latitude, p2.longitude);
+    // print("distance: " + dist.toString());
+    return dist;
   }
 
-  bool isCloseEnough(LatLng p1, Position p2) {
-    return distanceLatLng(p1, p2) < METERS_EPSILON;
+  bool isCloseEnough(LatLng? p1, Position p2) {
+    return distanceLatLng(p1!, p2) < METERS_EPSILON;
   }
 
   void updatePlace(Position pos) {
@@ -200,4 +224,9 @@ class _NavigationPageState extends State<NavigationPage> {
           _current = place;
         }));
   }
+
+  bool isPastStart(LatLng? p1, Position p2) {
+    return distanceLatLng(p1!, p2) > min(METERS_TO_UPDATE_INSTRUCTION, (_iter!.curStepSize / 2));
+  }
+
 }

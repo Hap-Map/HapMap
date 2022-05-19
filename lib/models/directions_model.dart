@@ -1,6 +1,7 @@
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class Step{
@@ -108,11 +109,24 @@ class DirectionsIterator {
   late Directions directions;
   late int index;
   late int numSteps;
+  late double curStepSize;
 
   DirectionsIterator(Directions? d) {
+    // print(d.toString());
     directions = d!;
     index = 0;
     numSteps = directions.totalSteps.length;
+    curStepSize = getStepSize();
+  }
+
+  String getStepTime() {
+    assert(index < numSteps);
+    return directions.totalSteps[index].duration;
+  }
+
+  String getStepDistance() {
+    assert(index < numSteps);
+    return directions.totalSteps[index].distance;
   }
 
   bool moveNext() {
@@ -120,6 +134,7 @@ class DirectionsIterator {
       return false;
     }
     index++;
+    curStepSize = getStepSize();
     return true;
   }
 
@@ -130,26 +145,26 @@ class DirectionsIterator {
     return false;
   }
 
-  String getStepStr() {
-    if (index >= numSteps) {
-      // iterator has reached end of steps so return empty string so last step isnt displayed
-      return "";
-    }
+  String getCurrentInstruction() {
+    assert(index < numSteps);
     return directions.totalSteps[index].htmlInstructions;
   }
 
-  String getStepTime() {
-    if (index >= numSteps) {
-      return "";
+  String getNextInstruction() {
+    assert(index < numSteps);
+    if (index == numSteps - 1) {
+      return directions.totalSteps[index].htmlInstructions;
     }
-    return directions.totalSteps[index].duration;
+    return directions.totalSteps[index + 1].htmlInstructions;
   }
 
-  String getStepDistance() {
-    if (index >= numSteps) {
-      return "";
+  LatLng? getStepStart() {
+    if (numSteps == 0) {
+      return null;
     }
-    return directions.totalSteps[index].distance;
+    assert(index < numSteps);
+    // print(directions.totalSteps[index].startLocation);
+    return directions.totalSteps[index].startLocation;
   }
 
   LatLng? getStepEnd() {
@@ -159,12 +174,23 @@ class DirectionsIterator {
       // This case shouldn't happen since we don't search for locations that are unreachable
       return null;
     }
-    if (index >= numSteps) {
-      // returns destination point if last step has been reached
-      return directions.totalSteps[numSteps == 0 ? 0 : numSteps - 1].endLocation;
-    }
+    assert(index < numSteps);
+    // print(directions.totalSteps[index].endLocation);
     return directions.totalSteps[index].endLocation;
   }
-  
+
+  double getStepSize() {
+    assert (index < numSteps);
+    return Geolocator.distanceBetween(
+        directions.totalSteps[index].startLocation.latitude,
+        directions.totalSteps[index].startLocation.longitude,
+        directions.totalSteps[index].endLocation.latitude,
+        directions.totalSteps[index].endLocation.longitude);
+  }
+
+  LatLng getNextEnd() {
+    assert (index < numSteps - 1);
+    return directions.totalSteps[index + 1].endLocation;
+  }
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hap_map/api/location_api.dart';
+import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/pages/help_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
 
@@ -28,8 +29,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    getLocationPermission();
-    LocationApi.startLocationUpdates();
+    initialize();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
   }
 
@@ -41,23 +41,6 @@ class _SearchPageState extends State<SearchPage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton:
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          FloatingActionButton(
-            shape: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
-            heroTag: 'btn1',
-            backgroundColor: kPrimaryColor,
-            child: Semantics(
-              child: const Icon(
-                Icons.mic,
-                size: 30,
-              ),
-              label: 'Speak',
-            ),
-            // TODO: IMPLEMENT SPEECH-TO-TEXT
-            onPressed: () {
-              SemanticsService.announce(
-                  "Enabling Speech-to-text", TextDirection.ltr);
-            },
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: FittedBox(
@@ -123,6 +106,12 @@ class _SearchPageState extends State<SearchPage> {
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
   }
 
+  initialize() {
+    getLocationPermission();
+    LocationApi.startLocationUpdates();
+    ShakeApi.startOnShakeUpdates();
+  }
+
   getLocationPermission() {
     LocationApi.getLocationPermission().then((permissionGiven) => {
           if (!permissionGiven) {getLocationPermission()}
@@ -152,6 +141,7 @@ class _SearchPageState extends State<SearchPage> {
                 constraints: BoxConstraints(),
                 icon: const Icon(
                   Icons.cancel,
+                  semanticLabel: 'cancel'
                 ),
                 onPressed: () {
                   setState(() {
@@ -179,7 +169,8 @@ class _SearchPageState extends State<SearchPage> {
           return Semantics(
               label: 'Search Suggestions',
               child: ListTile(
-                  leading: const Icon(Icons.place), title: Text(place.name)));
+                  leading: const Icon(Icons.place), title: Text(place.name),
+                  key: const Key('SearchSuggestion'),));
         },
         onSuggestionSelected: (Place? suggestion) {
           final place = suggestion!;
