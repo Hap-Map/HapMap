@@ -20,18 +20,22 @@ There are a few installations that are needed in order to build, run, and test H
 
 ## How to Build
 1. Clone the repository
-2. Create private folder in the api directory called .key such that the path is `lib/api/.key`
-3. Add one API key for Google Places and Directions to a dart file in `lib/api/.key` such that `const MAPS_API_KEY="API KEY"`. Make sure the file is imported into directions_api.dart and place_api.dart! We have included an empty `actions.dart` file for you to put the key in, or you may create your own. Also be sure to include the API key in `ios/Runner/AppDelegate.swift` and `android/app/src/main/AndroidManifest.xml`.
-4. Open an iOS or Android emulator or connect a physical device (such as in Android Studio)
-5. In the command line, navigate to the HapMap directory and run `bash clean_and_run.sh` to build the app
+2. Add one API key for Google Places and Directions to a dart file in `lib/api/.key` such that `const MAPS_API_KEY="API KEY"`. Make sure the file is imported into directions_api.dart and place_api.dart and that the import statement for `api/maps.dart` is removed! We have included an empty `actions.dart` file for you to put the key in, or you may create your own. Also be sure to include the API key in `ios/Runner/AppDelegate.swift` and `android/app/src/main/AndroidManifest.xml`.
+3. Open an iOS or Android emulator or [connect a physical device](https://developer.android.com/studio/run/device) in Android Studio
+4. In the command line, navigate to the HapMap directory and run `bash clean_and_run.sh` to build the app
 
 ## How to Test
+### Simulating a Route
+For tips on how to use an Android emulatior, please see the [official Android documentation](https://developer.android.com/studio/run/emulator)
+
+### Automated Tests
 1. See the "How to Build" section for instructions to set up the project locally
 2. In the top-level directory, run `flutter test` to run all test files in the /test folder
 
 To add tests, create a new file in the test folder in the format \<what_is_being_tested\>_test.dart
 
 For help with testing, view the [Dart Testing Documentation](https://dart.dev/guides/testing)
+
 
 ## Related Files
 [Figma Wireframe](https://www.figma.com/file/aBOhJMR48TNw95Jmrq3YMl/HapMap?node-id=0%3A1) \
