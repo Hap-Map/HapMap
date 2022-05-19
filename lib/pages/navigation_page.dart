@@ -22,8 +22,8 @@ class NavigationPage extends StatefulWidget {
 }
 
 double METERS_TO_UPDATE_PLACE = 100;
-double METERS_TO_UPDATE_INSTRUCTION = 25;
-double METERS_EPSILON = 10;
+double METERS_TO_UPDATE_INSTRUCTION = 5;
+double METERS_EPSILON = 2;
 
 class _NavigationPageState extends State<NavigationPage> {
   Position? _lastPosUpdated;
