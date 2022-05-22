@@ -1,6 +1,8 @@
 # HapMap
-<img src="https://github.com/Hap-Map/HapMap/blob/main/images/hapmap_logo.png?raw=true" alt="hapmap_logo" width="200"/>
-HapMap is a sensory navigation application that makes independent travel more accessible for low-vision individuals. It utilizes a combination of auditory, haptic, and vibration cues to inform users of their route. For example: as the user approaches a turn, the frequency of the haptic feedback increases to indicate their proximity to the turn. This reduces the uncertainty that comes with standard navigation systems that may abruptly give instructions.
+<img src="https://github.com/Hap-Map/HapMap/blob/main/images/hapmap_logo.png?raw=true" alt="hapmap_logo" width="150"/>
+HapMap is a sensory navigation application that makes independent travel more accessible for low-vision individuals. It utilizes a combination of auditory, haptic, and vibration cues to inform users of their route. For example: as the user approaches a turn, the frequency of the haptic feedback increases to indicate their proximity to the turn. This reduces the uncertainty that comes with standard navigation systems that may abruptly give instructions. 
+
+For more detailed information, please feel free to check out our [User Documentation](https://github.com/Hap-Map/HapMap/blob/main/docs/user_docs.md) and [Developer Documentation](https://github.com/Hap-Map/HapMap/blob/main/docs/developer_docs.md)
 
 ## Repo Layout
 **HapMap/lib**: Files to run, edit, and integrating Google Map API to the flutter app
