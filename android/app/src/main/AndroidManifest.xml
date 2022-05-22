@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <!-- Permissions for vibration and haptic touch access -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
    <application
         android:label="hap_map"
         android:name="${applicationName}"
