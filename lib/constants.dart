@@ -49,6 +49,12 @@ final kBlueButtonStyle = TextButton.styleFrom(
     backgroundColor: Colors.blueAccent,
     primary: Colors.white);
 
+final kGreenButtonStyle = TextButton.styleFrom(
+    padding: EdgeInsets.all(8.0),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    backgroundColor: Colors.greenAccent[700],
+    primary: Colors.white);
+
 final kInputBorderStyle = OutlineInputBorder(
   borderRadius: BorderRadius.circular(10),
 );
