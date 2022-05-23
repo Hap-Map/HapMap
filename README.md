@@ -28,7 +28,7 @@ There are a few installations that are needed in order to build, run, and test H
 
 ## How to Test
 ### Simulating a Route
-For tips on how to use an Android emulatior, please see the [official Android documentation](https://developer.android.com/studio/run/emulator)
+For tips on how to use an Android emulatior, please see the [official Android documentation](https://developer.android.com/studio/run/emulator). You can find more detailed information about simulating a rounte under Extended controls, settings and help in the Location feature. 
 
 ### Automated Tests
 1. See the "How to Build" section for instructions to set up the project locally
