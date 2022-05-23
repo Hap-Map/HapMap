@@ -28,7 +28,7 @@ const kSubTitleStyle = TextStyle(
 );
 
 const kBodyStyle = TextStyle(
-  fontSize: 16,
+  fontSize: 18,
 );
 
 final kButtonStyle = TextButton.styleFrom(
