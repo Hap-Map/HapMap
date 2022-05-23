@@ -35,7 +35,8 @@ class _NavigationPageState extends State<NavigationPage> {
   DirectionsIterator? _iter;
   bool _destinationReached = false; // if final destination has been reached
   String? _displayInstruction;
-  double? _distanceToEnd;
+  bool _instrSkipped = false;
+  late double _distToEnd;
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -69,7 +70,7 @@ class _NavigationPageState extends State<NavigationPage> {
       _directions = _arguments[3];
       _iter = DirectionsIterator(_directions);
       _displayInstruction = _iter!.getCurrentInstruction();
-      _distanceToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
+      _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
     }
 
     return Scaffold(
@@ -169,16 +170,50 @@ class _NavigationPageState extends State<NavigationPage> {
 
   onLocationUpdated(Position pos) {
     setState(() {
+      Position prevPosition = _currentPosition!;
       _currentPosition = pos;
+      double prevDistance = _distToEnd;
+      _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
 
       if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
-          if (_iter!.hasNext()) {
-            print("MOVING TO NEXT STEP");
-            _iter!.moveNext();
-          } else {
-            _destinationReached = true;
+        if (_iter!.hasNext()) {
+          print("MOVING TO NEXT STEP");
+          _iter!.moveNext();
+          _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
+        } else {
+          _destinationReached = true;
+        }
+
+      } else {
+        if (prevDistance <= max(_distToEnd - METERS_EPSILON, 0)) {
+          // user has either passed instruction end so we see if we should move to the next instruction
+          // or the user is lost
+          print("not making progress");
+          print("prev distance " + prevDistance.toString());
+          print("cur distance " + _distToEnd.toString());
+
+          if (_iter!.hasNext() && !_instrSkipped) {
+            double nextPrevDistance = distanceLatLng(_iter!.getNextEnd(), prevPosition);
+            double nextCurDistance =  distanceLatLng(_iter!.getNextEnd(), _currentPosition!);
+            print("next previous " + nextPrevDistance.toString());
+            print("next current " + nextCurDistance.toString());
+            if (nextPrevDistance > nextCurDistance) {
+              print("SKIP INSTR");
+
+              _iter!.moveNext();
+              _distToEnd = nextCurDistance;
+              _instrSkipped = true;
+            } else {
+              _instrSkipped = true;
+            }
+          } else if (_instrSkipped) {
+            print("user is lost");
           }
+        } else {
+          _instrSkipped = false;
+        }
       }
+
     });
 
     if (isPastStart(_iter!.getStepStart(), _currentPosition!)) {
@@ -229,4 +264,12 @@ class _NavigationPageState extends State<NavigationPage> {
     return distanceLatLng(p1!, p2) > min(METERS_TO_UPDATE_INSTRUCTION, (_iter!.curStepSize / 2));
   }
 
+  bool makingProgress(Position previous, Position current) {
+    var prevDist = distanceLatLng(_iter!.getStepEnd()!, previous);
+    var curDist = distanceLatLng(_iter!.getStepEnd()!, current);
+    print("prev dist " + prevDist.toString());
+    print("cur dist" + curDist.toString());
+
+    return prevDist >= curDist - METERS_EPSILON;
+  }
 }
