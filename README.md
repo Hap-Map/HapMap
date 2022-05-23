@@ -28,7 +28,7 @@ There are a few installations that are needed in order to build, run, and test H
 
 ## How to Test
 ### Simulating a Route
-For tips on how to use an Android emulatior, please see the [official Android documentation](https://developer.android.com/studio/run/emulator). You can find more detailed information about simulating a route in <b>Extended controls, settings and help</b> under the `Location` feature. <br>
+For tips on how to use an Android emulator, please see the [official Android documentation](https://developer.android.com/studio/run/emulator). You can find more detailed information about simulating a route in <b>Extended controls, settings and help</b> under the `Location` feature. <br>
 Currently HapMap doesn't support rerouting, so be sure to only start simulating a route once you are on the navigation page. Additionally, ensure the route you are simulating is consistent with the route chosen by HapMap in order to properly emulate the navigation function of HapMap. 
 
 ### Automated Tests
