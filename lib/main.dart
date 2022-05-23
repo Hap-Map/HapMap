@@ -20,7 +20,7 @@ class HapMap extends StatelessWidget {
       routes: {
         SearchPage.id: (context) => const SearchPage(),
         HelpPage.id: (context) => const HelpPage(),
-        SettingsPage.id: (context) => const SettingsPage(),
+        SettingsPage.id: (context) => SettingsPage(),
         ConfirmPage.id: (context) => ConfirmPage(),
         NavigationPage.id: (context) => const NavigationPage()
       },
