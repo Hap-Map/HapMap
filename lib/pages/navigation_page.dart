@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html/parser.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
@@ -36,6 +38,7 @@ class _NavigationPageState extends State<NavigationPage> {
   bool _destinationReached = false; // if final destination has been reached
   String? _displayInstruction;
   double? _distanceToEnd;
+  final FlutterTts tts = FlutterTts();
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -56,6 +59,7 @@ class _NavigationPageState extends State<NavigationPage> {
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
     ShakeApi.addOnShakeListener(onShake);
+    tts.speak("Starting route");
   }
 
   @override
@@ -188,6 +192,9 @@ class _NavigationPageState extends State<NavigationPage> {
         setState(() {
           print("DISPLAYING NEXT INSTRUCTION");
           _displayInstruction = _iter!.getNextInstruction();
+          final document = parse(_displayInstruction!);
+          final parsedString = parse(document.body?.text).documentElement?.text;
+          tts.speak(parsedString!);
         });
       }
     }
