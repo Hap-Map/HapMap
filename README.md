@@ -6,7 +6,8 @@ For more detailed information, please feel free to check out our [User Documenta
 
 ## Repo Layout
 **HapMap/lib**: Files to run, edit, and integrating Google Map API to the flutter app
-- **HapMap/lib/API/** Files related to Google Maps API endpoint and returned data structures
+- **HapMap/lib/api/** Files related to Google Maps API endpoints (including API calls and creating data models)
+- **HapMap/lib/models/** Data structures containing data returned from API calls
 - **HapMap/lib/pages** Layouts and functionality for front-end UI
 - **HapMap/lib/constants.dart** global constants
 - **HapMap/lib/main.dart** Application entry point
@@ -28,7 +29,8 @@ There are a few installations that are needed in order to build, run, and test H
 
 ## How to Test
 ### Simulating a Route
-For tips on how to use an Android emulatior, please see the [official Android documentation](https://developer.android.com/studio/run/emulator)
+For tips on how to use an Android emulator, please see the [official Android documentation](https://developer.android.com/studio/run/emulator). You can find more detailed information about simulating a route in <b>Extended controls, settings and help</b> under the `Location` feature. <br>
+Currently HapMap doesn't support rerouting, so be sure to only start simulating a route once you are on the navigation page. Additionally, ensure the route you are simulating is consistent with the route chosen by HapMap in order to properly emulate the navigation function of HapMap. 
 
 ### Automated Tests
 1. See the "How to Build" section for instructions to set up the project locally
