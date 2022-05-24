@@ -28,7 +28,7 @@ const kSubTitleStyle = TextStyle(
 );
 
 const kBodyStyle = TextStyle(
-  fontSize: 16,
+  fontSize: 18,
 );
 
 final kButtonStyle = TextButton.styleFrom(
@@ -47,6 +47,12 @@ final kBlueButtonStyle = TextButton.styleFrom(
     padding: EdgeInsets.all(8.0),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     backgroundColor: Colors.blueAccent,
+    primary: Colors.white);
+
+final kGreenButtonStyle = TextButton.styleFrom(
+    padding: EdgeInsets.all(8.0),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    backgroundColor: Colors.greenAccent[700],
     primary: Colors.white);
 
 final kInputBorderStyle = OutlineInputBorder(
