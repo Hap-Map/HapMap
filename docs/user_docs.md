@@ -32,16 +32,19 @@ If you still cannot find the app on your smartphone, verify that you followed th
 Once you have started the HapMap app, location permission will requested in order for you to get correct directions based on your location. You will need to provide permission for precise location updates while using the app in order for the app to work. If you deny permission, the system app settings page will be opened up so that you can manually allow the requested permission.
 You can then enter the desired destination and a list of suggestions will be shown (Figure 1).
 
-Figure 1: ![Alt text](../images/SearchScreenHapMap.png?raw=true "Figure 1")
+Figure 1: 
+![Alt text](../images/SearchScreenHapMap.png?raw=true "Figure 1")
 
 If you are using TalkBack/VoiceOver, the app is designed for intuitive interactions with dictation services.
 Once a particular destination is selected, you will be redirected to a confirmation page where you can see the destination, the name of the current location, and the estimated time it will take to reach the destination (Figure 2).
 
-Figure 2: ![Alt text](../images/DestinationHapMap.png?raw=true "Figure 2")
+Figure 2: 
+![Alt text](../images/DestinationHapMap.png?raw=true "Figure 2")
 
 When you click the "Start Navigation" button, the navigation starts and the directions and destination are displayed on the screen. The current location keeps updating as you move (Figure 3).
 
-Figure 3: ![Alt text](../images/NavigationHapMap.png?raw=true "Figure 3")
+Figure 3: 
+![Alt text](../images/NavigationHapMap.png?raw=true "Figure 3")
 
 Whenever you reach the next step, your phone will vibrate, give haptic feedback, and display (or announce, if using dictation services) the next direction.
 For the in-app tutorial, you can go to the help section from the search page (the "?" floating button on the lower-right corner).
