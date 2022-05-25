@@ -31,7 +31,7 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Jesse: Finish the implementation for the settings page and work on tutorial pages.
 
 ## Progress & Issues
-- Emily:
+- Emily: Added TTS to the navigation page for directions to be announced. I also updated the documentation to be clearer for developers.
 - Pulkit:
 - Simona:
 - Lauren:
@@ -39,7 +39,7 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Jesse: 
 
 ## Next Steps
-- Emily:
+- Emily: I will continue updating the documentation as needed based on observations from peer review. I'll also investigate issues brought up from the peer review as needed.
 - Pulkit:
 - Simona:
 - Lauren:
