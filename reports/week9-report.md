@@ -36,7 +36,7 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Simona:
 - Lauren:
 - Aditya:
-- Jesse: 
+- Jesse: Implemented settings page, currently working on tutorial pages
 
 ## Next Steps
 - Emily: I will continue updating the documentation as needed based on observations from peer review. I'll also investigate issues brought up from the peer review as needed.
@@ -44,4 +44,4 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Simona:
 - Lauren:
 - Aditya:
-- Jesse:
+- Jesse: Try to implement the updated tutorial pages for new users and make any modifications to previous features
