@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:hap_map/api/haptic_touch_api.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
@@ -169,7 +171,7 @@ class _NavigationPageState extends State<NavigationPage> {
           ],
         ),
         TextButton(
-            onPressed: () {},
+            onPressed: () => HapticFeedbackApi.generateFeedback(FeedbackType.heavy),
             child: Icon(
               Icons.touch_app_rounded,
               color: Colors.white,
