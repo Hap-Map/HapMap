@@ -6,7 +6,8 @@ For more detailed information, please feel free to check out our [User Documenta
 
 ## Repo Layout
 **HapMap/lib**: Files to run, edit, and integrating Google Map API to the flutter app
-- **HapMap/lib/API/** Files related to Google Maps API endpoint and returned data structures
+- **HapMap/lib/api/** Files related to Google Maps API endpoints (including API calls and creating data models)
+- **HapMap/lib/models/** Data structures containing data returned from API calls
 - **HapMap/lib/pages** Layouts and functionality for front-end UI
 - **HapMap/lib/constants.dart** global constants
 - **HapMap/lib/main.dart** Application entry point

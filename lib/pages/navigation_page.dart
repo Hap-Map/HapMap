@@ -52,6 +52,29 @@ class _NavigationPageState extends State<NavigationPage> {
         key: const Key('EndNavigation')
       );
 
+  get rerouteButton =>Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: TextButton(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.directions, size: 32,),
+            SizedBox(width: 8,),
+            const Text(
+              'Reroute',
+              style: kTitleStyle,
+            ),
+          ],
+        ),
+        onPressed: () {
+          Navigator.popUntil(context, ModalRoute.withName('confirm_page'));
+          SemanticsService.announce("Rerouting", TextDirection.ltr);
+        },
+        style: kBlueButtonStyle,
+        key: const Key('Reroute')
+    ),
+  );
+
   @override
   void initState() {
     // TODO: implement initState
@@ -136,11 +159,15 @@ class _NavigationPageState extends State<NavigationPage> {
                         ],
                       ),
                     ),
+                    rerouteButton,
                   ],
                 ),
               ),
+
             ),
+
             endNavigationButton,
+
           ],
         ),
         TextButton(
