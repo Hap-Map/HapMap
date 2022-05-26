@@ -109,7 +109,6 @@ class _SearchPageState extends State<SearchPage> {
   initialize() {
     getLocationPermission();
     LocationApi.startLocationUpdates();
-    ShakeApi.startOnShakeUpdates();
   }
 
   getLocationPermission() {

@@ -78,6 +78,7 @@ class _NavigationPageState extends State<NavigationPage> {
     // TODO: implement initState
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.startOnShakeUpdates();
     ShakeApi.addOnShakeListener(onShake);
   }
 
@@ -188,6 +189,7 @@ class _NavigationPageState extends State<NavigationPage> {
   void dispose() {
     super.dispose();
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.stopOnShakeUpdates();
   }
 
   onShake() {
