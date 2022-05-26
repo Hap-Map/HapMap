@@ -164,7 +164,20 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   onShake() {
-    // TODO: Show dialog that pops up when user shakes phone.
+    AlertDialog(
+      title: const Text('Current Location'),           // To display the title it is optional
+      content: Text(_current != null
+          ?  _current!.name
+          : "Finding Current Location..."),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Close')
+        )
+      ],
+    );
   }
 
   onLocationUpdated(Position pos) {
