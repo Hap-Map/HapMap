@@ -61,7 +61,7 @@ In the bug report template, we will ask you for a description of the bug, the ea
 
 ## Known Bug
 
-You can also navigate to the "Issues" tab following the above instructions to find out the current/identified bugs by developers and other users. Currently, because we are still in the process of implementing HapMap, most of the issues are around implementing the full functionality of HapMap. You can expect those usability/implement issues to be solved by the final release date. Otherwise, some known bugs include:
+You can also navigate to the ["Issues" tab](https://github.com/Hap-Map/HapMap/issues) following the above instructions to find out the current/identified bugs by developers and other users. Currently, because we are still in the process of implementing HapMap, most of the issues are around implementing the full functionality of HapMap. You can expect those usability/implement issues to be solved by the final release date. Otherwise, some known bugs include:
 
-* Directions on the navigation page not moving to next direction at appropriate time
-* Haptic Touch missing from navigation
+* [Direction iterator misses next que](https://github.com/Hap-Map/HapMap/issues/72)
+* [Haptic Touch missing from navigation](https://github.com/Hap-Map/HapMap/issues/45)
