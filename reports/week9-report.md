@@ -34,7 +34,7 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Emily: Added TTS to the navigation page for directions to be announced. I also updated the documentation to be clearer for developers.
 - Pulkit:
 - Simona:
-- Lauren:
+- Lauren: Fixed the navigation bug where if the user goes past an end point of an instruction, the iterator would get stuck. Now the iterator will assume the user has moved onto the next step (if the user is moving towards that end point) or declare the user is lost. If the user is lost, the iterator will stop navigation (so it doesn't move to the next instruction and confuse the user). Iterator will also check if the destination is reached in this case so this should fix the other end navigation bug hopefully. The location API isnt working for me though so I'm having a difficult time testing if this fix is working!
 - Aditya: Implemented the haptic touch API and started working on vibration. Also working on implementing and testing shake response on navigation page.
 - Jesse: Implemented settings page, currently working on tutorial pages
 
@@ -42,6 +42,6 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Emily: I will continue updating the documentation as needed based on observations from peer review. I'll also investigate issues brought up from the peer review as needed.
 - Pulkit:
 - Simona:
-- Lauren:
+- Lauren: Location API needs to be working so I can test and merge changes. I also need to work on the end navigation case and add some additional error checking in the iterator. 
 - Aditya: Completing the vibration API and working on implementation of both in the app depending on user settings.
 - Jesse: Try to implement the updated tutorial pages for new users and make any modifications to previous features
