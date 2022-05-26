@@ -38,6 +38,7 @@ class _NavigationPageState extends State<NavigationPage> {
   bool _destinationReached = false; // if final destination has been reached
   String? _displayInstruction;
   double? _distanceToEnd;
+  bool feedbackButtonHeld = false;
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -173,6 +174,7 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         TextButton(
             onPressed: () => HapticFeedbackApi.generateFeedback(FeedbackType.heavy),
+            onFocusChange: (hasFocus) => feedbackButtonHeld = hasFocus,
             child: Icon(
               Icons.touch_app_rounded,
               color: Colors.white,
@@ -206,6 +208,7 @@ class _NavigationPageState extends State<NavigationPage> {
           if (_iter!.hasNext()) {
             print("MOVING TO NEXT STEP");
             _iter!.moveNext();
+            HapticFeedbackApi.generateFeedback(FeedbackType.impact);
           } else {
             _destinationReached = true;
           }
