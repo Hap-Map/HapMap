@@ -35,7 +35,7 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Pulkit:
 - Simona:
 - Lauren:
-- Aditya:
+- Aditya: Implemented the haptic touch API and started working on vibration. Also working on implementing and testing shake response on navigation page.
 - Jesse: Implemented settings page, currently working on tutorial pages
 
 ## Next Steps
@@ -43,5 +43,5 @@ During our project meeting, we'll do some progress checks on remaining features,
 - Pulkit:
 - Simona:
 - Lauren:
-- Aditya:
+- Aditya: Completing the vibration API and working on implementation of both in the app depending on user settings.
 - Jesse: Try to implement the updated tutorial pages for new users and make any modifications to previous features
