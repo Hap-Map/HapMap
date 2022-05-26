@@ -37,6 +37,7 @@ class _NavigationPageState extends State<NavigationPage> {
   String? _displayInstruction;
   bool _instrSkipped = false;
   late double _distToEnd;
+  bool _userLost = false;
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -176,13 +177,21 @@ class _NavigationPageState extends State<NavigationPage> {
       _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
 
       if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
-        if (_iter!.hasNext()) {
+        if (!_iter!.hasNext()) {
+          _destinationReached = true;
+        } else if (!_userLost) {
           print("MOVING TO NEXT STEP");
           _iter!.moveNext();
           _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
-        } else {
-          _destinationReached = true;
         }
+
+        //if (_iter!.hasNext() && !_userLost) {
+        //  print("MOVING TO NEXT STEP");
+        //  _iter!.moveNext();
+        //  _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
+        //} else if (!_iter!.hasNext()) {
+        //  _destinationReached = true;
+        //}
 
       } else {
         if (prevDistance <= max(_distToEnd - METERS_EPSILON, 0)) {
@@ -192,7 +201,11 @@ class _NavigationPageState extends State<NavigationPage> {
           print("prev distance " + prevDistance.toString());
           print("cur distance " + _distToEnd.toString());
 
-          if (_iter!.hasNext() && !_instrSkipped) {
+          if (!_iter!.hasNext()) {
+            _destinationReached = true;
+          } else if (_instrSkipped) {
+            _userLost = true;
+          } else {
             double nextPrevDistance = distanceLatLng(_iter!.getNextEnd(), prevPosition);
             double nextCurDistance =  distanceLatLng(_iter!.getNextEnd(), _currentPosition!);
             print("next previous " + nextPrevDistance.toString());
@@ -206,9 +219,30 @@ class _NavigationPageState extends State<NavigationPage> {
             } else {
               _instrSkipped = true;
             }
-          } else if (_instrSkipped) {
-            print("user is lost");
           }
+
+        //  if (_iter!.hasNext() && !_instrSkipped) {
+         //   double nextPrevDistance = distanceLatLng(_iter!.getNextEnd(), prevPosition);
+        //    double nextCurDistance =  distanceLatLng(_iter!.getNextEnd(), _currentPosition!);
+        //    print("next previous " + nextPrevDistance.toString());
+        //    print("next current " + nextCurDistance.toString());
+        //    if (nextPrevDistance > nextCurDistance) {
+        //      print("SKIP INSTR");
+
+          //    _iter!.moveNext();
+          //    _distToEnd = nextCurDistance;
+          //    _instrSkipped = true;
+          //  } else {
+          //    _instrSkipped = true;
+          //  }
+          //} else if (!_iter!.hasNext()) {
+          //  print("destination reached");
+          //  _destinationReached = true;
+          //} else if (_instrSkipped) {
+            // user is not moving in the direction of previous end or the next end so assume user is lost
+          //  print("user is lost");
+           // _userLost = true;
+          //}
         } else {
           _instrSkipped = false;
         }
