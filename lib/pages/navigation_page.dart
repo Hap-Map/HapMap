@@ -217,6 +217,7 @@ class _NavigationPageState extends State<NavigationPage> {
         // we iterate to the next instruction
         if (!_iter!.hasNext()) {
           _destinationReached = true;
+          tts.speak("Destination Reached");
         } else if (!_userLost) {
           _iter!.moveNext();
           _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
@@ -227,6 +228,7 @@ class _NavigationPageState extends State<NavigationPage> {
           // or the user is lost
           if (!_iter!.hasNext()) {
             _destinationReached = true;
+            tts.speak("Destination Reached");
           } else if (_instrSkipped) {
             _userLost = true;
           } else {
