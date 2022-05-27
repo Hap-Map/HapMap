@@ -104,13 +104,29 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         SizedBox(height: 25),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, NavigationPage.id,
-                                arguments: [
-                                  _position,
-                                  _current,
-                                  _destination,
-                                  _directions
-                                ]);
+                            if (DirectionsIterator(_directions).isGood()) {
+                              Navigator.pushNamed(context, NavigationPage.id,
+                                  arguments: [
+                                    _position,
+                                    _current,
+                                    _destination,
+                                    _directions
+                                  ]);
+                            } else {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('No Route Found'),
+                                  content: const Text('Please try again'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           },
                           style: kBlueButtonStyle,
                           child: Padding(
