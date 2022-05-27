@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html/parser.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
@@ -39,6 +41,8 @@ class _NavigationPageState extends State<NavigationPage> {
   bool _instrSkipped = false;       // if an instruction is skipped, we dont want to skip more than one (otherwise assume user is lost)
   bool _userLost = false;           // if after skipping an instruction and user is still not making progress towards end point
                                     // we assume user is lost and stop iterating over directions (and displaying new ones to user)
+  double? _distanceToEnd;
+  final FlutterTts tts = FlutterTts();
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -81,7 +85,9 @@ class _NavigationPageState extends State<NavigationPage> {
     // TODO: implement initState
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.startOnShakeUpdates();
     ShakeApi.addOnShakeListener(onShake);
+    tts.speak("Starting route");
   }
 
   @override
@@ -191,6 +197,7 @@ class _NavigationPageState extends State<NavigationPage> {
   void dispose() {
     super.dispose();
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.stopOnShakeUpdates();
   }
 
   onShake() {
@@ -248,6 +255,9 @@ class _NavigationPageState extends State<NavigationPage> {
       if (!_destinationReached && _displayInstruction != _iter!.getNextInstruction()) {
         setState(() {
           _displayInstruction = _iter!.getNextInstruction();
+          final document = parse(_displayInstruction!);
+          final parsedString = parse(document.body?.text).documentElement?.text;
+          tts.speak(parsedString!);
         });
       }
     }

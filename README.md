@@ -20,6 +20,8 @@ There are a few installations that are needed in order to build, run, and test H
 - [Download & Install Android Studio](https://developer.android.com/studio/install)
 - [Create a Virtual Device](https://developer.android.com/studio/run/managing-avds#system-image) (Android devices are recommended)
   - If using an iOS Simulator, note that [CocoaPods](https://cocoapods.org) is required and that it cannot simulate a route/travel
+- Make a Google API key by following [Google's official documentation](https://cloud.google.com/docs/authentication/api-keys)
+  - When setting up your key, make sure you enable the Google Places and Google Directions APIs
 
 ## How to Build
 1. Clone the repository
