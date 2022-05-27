@@ -33,11 +33,12 @@ class _NavigationPageState extends State<NavigationPage> {
   Place? _destination;
   Directions? _directions;
   DirectionsIterator? _iter;
-  bool _destinationReached = false; // if final destination has been reached
   String? _displayInstruction;
-  bool _instrSkipped = false;
   late double _distToEnd;
-  bool _userLost = false;
+  bool _destinationReached = false; // if final destination has been reached
+  bool _instrSkipped = false;       // if an instruction is skipped, we dont want to skip more than one (otherwise assume user is lost)
+  bool _userLost = false;           // if after skipping an instruction and user is still not making progress towards end point
+                                    // we assume user is lost and stop iterating over directions (and displaying new ones to user)
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -204,77 +205,41 @@ class _NavigationPageState extends State<NavigationPage> {
       _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
 
       if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
+        // User is close enough to the endpoint so as long as user isnt presumed lost
+        // or this isn't the last instruction (destination reached)
+        // we iterate to the next instruction
         if (!_iter!.hasNext()) {
           _destinationReached = true;
         } else if (!_userLost) {
-          print("MOVING TO NEXT STEP");
           _iter!.moveNext();
           _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
         }
-
-        //if (_iter!.hasNext() && !_userLost) {
-        //  print("MOVING TO NEXT STEP");
-        //  _iter!.moveNext();
-        //  _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
-        //} else if (!_iter!.hasNext()) {
-        //  _destinationReached = true;
-        //}
-
       } else {
         if (prevDistance <= max(_distToEnd - METERS_EPSILON, 0)) {
           // user has either passed instruction end so we see if we should move to the next instruction
           // or the user is lost
-          print("not making progress");
-          print("prev distance " + prevDistance.toString());
-          print("cur distance " + _distToEnd.toString());
-
           if (!_iter!.hasNext()) {
             _destinationReached = true;
           } else if (_instrSkipped) {
             _userLost = true;
           } else {
-            double nextPrevDistance = distanceLatLng(_iter!.getNextEnd(), prevPosition);
-            double nextCurDistance =  distanceLatLng(_iter!.getNextEnd(), _currentPosition!);
-            print("next previous " + nextPrevDistance.toString());
-            print("next current " + nextCurDistance.toString());
-            if (nextPrevDistance > nextCurDistance) {
-              print("SKIP INSTR");
+            double nextPrevDistance = distanceLatLng(_iter!.getNextEnd()!, prevPosition);
+            double nextCurDistance =  distanceLatLng(_iter!.getNextEnd()!, _currentPosition!);
 
+            if (nextPrevDistance > nextCurDistance) {
+              // User is moving towards the next end point so we skip instruction by default and assume user is on track
               _iter!.moveNext();
               _distToEnd = nextCurDistance;
               _instrSkipped = true;
             } else {
               _instrSkipped = true;
+              _userLost = false;
             }
           }
-
-        //  if (_iter!.hasNext() && !_instrSkipped) {
-         //   double nextPrevDistance = distanceLatLng(_iter!.getNextEnd(), prevPosition);
-        //    double nextCurDistance =  distanceLatLng(_iter!.getNextEnd(), _currentPosition!);
-        //    print("next previous " + nextPrevDistance.toString());
-        //    print("next current " + nextCurDistance.toString());
-        //    if (nextPrevDistance > nextCurDistance) {
-        //      print("SKIP INSTR");
-
-          //    _iter!.moveNext();
-          //    _distToEnd = nextCurDistance;
-          //    _instrSkipped = true;
-          //  } else {
-          //    _instrSkipped = true;
-          //  }
-          //} else if (!_iter!.hasNext()) {
-          //  print("destination reached");
-          //  _destinationReached = true;
-          //} else if (_instrSkipped) {
-            // user is not moving in the direction of previous end or the next end so assume user is lost
-          //  print("user is lost");
-           // _userLost = true;
-          //}
         } else {
           _instrSkipped = false;
         }
       }
-
     });
 
     if (isPastStart(_iter!.getStepStart(), _currentPosition!)) {
@@ -282,7 +247,6 @@ class _NavigationPageState extends State<NavigationPage> {
       // to next instruction so user knows what to do when they reach the end of this step
       if (!_destinationReached && _displayInstruction != _iter!.getNextInstruction()) {
         setState(() {
-          print("DISPLAYING NEXT INSTRUCTION");
           _displayInstruction = _iter!.getNextInstruction();
         });
       }
@@ -305,7 +269,6 @@ class _NavigationPageState extends State<NavigationPage> {
   double distanceLatLng(LatLng p1, Position p2) {
     var dist = Geolocator.distanceBetween(
         p1.latitude, p1.longitude, p2.latitude, p2.longitude);
-    // print("distance: " + dist.toString());
     return dist;
   }
 
@@ -328,8 +291,6 @@ class _NavigationPageState extends State<NavigationPage> {
   bool makingProgress(Position previous, Position current) {
     var prevDist = distanceLatLng(_iter!.getStepEnd()!, previous);
     var curDist = distanceLatLng(_iter!.getStepEnd()!, current);
-    print("prev dist " + prevDist.toString());
-    print("cur dist" + curDist.toString());
 
     return prevDist >= curDist - METERS_EPSILON;
   }

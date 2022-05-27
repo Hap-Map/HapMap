@@ -57,7 +57,7 @@ class LocationApi {
     if (await getLocationPermission()) {
       positionStream ??= Geolocator.getPositionStream(locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.bestForNavigation,
-          distanceFilter: 1
+          distanceFilter: 0
       )).listen(
                     (Position? position) {
                   for (var onLocationUpdateListener in LocationApi
