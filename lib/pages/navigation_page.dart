@@ -205,21 +205,33 @@ class _NavigationPageState extends State<NavigationPage> {
     showMessage(context);
   }
 
-  // methods that shows the dialog
+  // method that shows the dialog
   showMessage(BuildContext context) {
     AlertDialog alert = AlertDialog(
-      title: const Text('Current Location'),
-      content: Text(_current != null
-          ?  _current!.name
-          : "Finding Current Location..."),
+      title: const Text('Route Updates'),
+      content: Text(
+          _current != null && _distanceToEnd != null
+              ?  'Current Location:' + _current!.name + "\n"
+              + "Distance to Destination:" + _distanceToEnd!.toString()
+              : "Retrieving current location information...",
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: Colors.black),
+          textAlign: TextAlign.center),
       actions: [
         TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Close')
+            child: const Text('Close',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue))
         )
       ],
+      elevation: 10,
     );
 
     showDialog(
