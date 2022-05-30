@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hap_map/constants.dart';
+import 'package:hap_map/pages/tutorial_page1.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = 'settings_page';
@@ -147,7 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.pushNamed(context, TutorialPage1.id);
                         },
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(6.0),

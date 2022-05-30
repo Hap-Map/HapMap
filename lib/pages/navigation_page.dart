@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
@@ -10,6 +11,7 @@ import 'package:hap_map/api/haptic_touch_api.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
+import 'package:html/parser.dart';
 
 import '../api/location_api.dart';
 import '../api/place_api.dart';
@@ -35,23 +37,31 @@ class _NavigationPageState extends State<NavigationPage> {
   Place? _destination;
   Directions? _directions;
   DirectionsIterator? _iter;
-  bool _destinationReached = false; // if final destination has been reached
   String? _displayInstruction;
   double? _distanceToEnd;
   bool feedbackButtonHeld = false;
+  late double _distToEnd;
+  bool _destinationReached = false; // if final destination has been reached
+  bool _instrSkipped = false;       // if an instruction is skipped, we dont want to skip more than one (otherwise assume user is lost)
+  bool _userLost = false;           // if after skipping an instruction and user is still not making progress towards end point
+                                    // we assume user is lost and stop iterating over directions (and displaying new ones to user)
+  final FlutterTts tts = FlutterTts();
 
-  get endNavigationButton => TextButton(
-        child: const Text(
-          'End Navigation',
-          style: kTitleStyle,
+  get endNavigationButton => Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: TextButton(
+          child: const Text(
+            'End Navigation',
+            style: kTitleStyle,
+          ),
+          onPressed: () {
+            Navigator.popUntil(context, ModalRoute.withName('search_page'));
+            SemanticsService.announce("Ending navigation", TextDirection.ltr);
+          },
+          style: kRedButtonStyle,
+          key: const Key('EndNavigation')
         ),
-        onPressed: () {
-          Navigator.popUntil(context, ModalRoute.withName('search_page'));
-          SemanticsService.announce("Ending navigation", TextDirection.ltr);
-        },
-        style: kRedButtonStyle,
-        key: const Key('EndNavigation')
-      );
+  );
 
   get rerouteButton =>Padding(
     padding: const EdgeInsets.all(16.0),
@@ -76,6 +86,25 @@ class _NavigationPageState extends State<NavigationPage> {
     ),
   );
 
+  get hapticButton => ConstrainedBox(
+    constraints: BoxConstraints.loose(Size(100, 100)),
+    child: TextButton(
+        onPressed: () {},
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Icon(
+              Icons.touch_app_rounded,
+              size: 100,
+              color: Colors.white,
+              semanticLabel: 'Keep finger on the screen for haptic feedback'
+          ),
+        ),
+        style: TextButton.styleFrom(
+            shape: CircleBorder(),
+            backgroundColor: kHapticTouchIconColor),
+        key: const Key('HapticButton')),
+  );
+
   @override
   void initState() {
     // TODO: implement initState
@@ -83,6 +112,7 @@ class _NavigationPageState extends State<NavigationPage> {
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
     ShakeApi.startOnShakeUpdates();
     ShakeApi.addOnShakeListener(onShake);
+    tts.speak("Starting route");
   }
 
   @override
@@ -94,9 +124,9 @@ class _NavigationPageState extends State<NavigationPage> {
       _current = _arguments[1];
       _destination = _arguments[2];
       _directions = _arguments[3];
-      _iter = DirectionsIterator(_directions);
+      _iter = DirectionsIterator(_directions!);
       _displayInstruction = _iter!.getCurrentInstruction();
-      _distanceToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
+      _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
     }
 
     return Scaffold(
@@ -107,14 +137,15 @@ class _NavigationPageState extends State<NavigationPage> {
         Column(
           children: [
             Card(
-              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
+              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
               shadowColor: Colors.blueGrey,
               child: MergeSemantics(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(distToDisplay(), style: kSubTitleStyle.copyWith(fontWeight: FontWeight.bold),),
                     Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           child: Html(
@@ -167,24 +198,10 @@ class _NavigationPageState extends State<NavigationPage> {
               ),
 
             ),
-
             endNavigationButton,
-
+            hapticButton
           ],
         ),
-        TextButton(
-            onPressed: () => HapticFeedbackApi.generateFeedback(FeedbackType.heavy),
-            onFocusChange: (hasFocus) => feedbackButtonHeld = hasFocus,
-            child: Icon(
-              Icons.touch_app_rounded,
-              color: Colors.white,
-              size: 100,
-              semanticLabel: 'Keep finger on the screen for haptic feedback'
-            ),
-            style: TextButton.styleFrom(
-                shape: CircleBorder(),
-                backgroundColor: kHapticTouchIconColor),
-            key: const Key('HapticButton'))
       ],
     )));
   }
@@ -202,16 +219,49 @@ class _NavigationPageState extends State<NavigationPage> {
 
   onLocationUpdated(Position pos) {
     setState(() {
+      Position prevPosition = _currentPosition!;
       _currentPosition = pos;
+      double prevDistance = _distToEnd;
+      _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
 
       if (isCloseEnough(_iter!.getStepEnd(), _currentPosition!)) {
-          if (_iter!.hasNext()) {
-            print("MOVING TO NEXT STEP");
-            _iter!.moveNext();
-            HapticFeedbackApi.generateFeedback(FeedbackType.impact);
-          } else {
+        // User is close enough to the endpoint so as long as user isnt presumed lost
+        // or this isn't the last instruction (destination reached)
+        // we iterate to the next instruction
+        if (!_iter!.hasNext()) {
+          _destinationReached = true;
+          tts.speak("Destination Reached");
+        } else if (!_userLost) {
+          _iter!.moveNext();
+          _distToEnd = distanceLatLng(_iter!.getStepEnd()!, _currentPosition!);
+        }
+      } else {
+        if (prevDistance <= max(_distToEnd - METERS_EPSILON, 0)) {
+          // user has either passed instruction end so we see if we should move to the next instruction
+          // or the user is lost
+          if (!_iter!.hasNext()) {
             _destinationReached = true;
+            tts.speak("Destination Reached");
+          } else if (_instrSkipped) {
+            _userLost = true;
+          } else {
+            double nextPrevDistance = distanceLatLng(_iter!.getNextEnd()!, prevPosition);
+            double nextCurDistance =  distanceLatLng(_iter!.getNextEnd()!, _currentPosition!);
+
+            if (nextPrevDistance > nextCurDistance) {
+              // User is moving towards the next end point so we skip instruction by default and assume user is on track
+              _iter!.moveNext();
+              _displayInstruction = _iter!.getCurrentInstruction();
+              _distToEnd = nextCurDistance;
+              _instrSkipped = true;
+            } else {
+              _instrSkipped = true;
+              _userLost = false;
+            }
           }
+        } else {
+          _instrSkipped = false;
+        }
       }
     });
 
@@ -220,8 +270,10 @@ class _NavigationPageState extends State<NavigationPage> {
       // to next instruction so user knows what to do when they reach the end of this step
       if (!_destinationReached && _displayInstruction != _iter!.getNextInstruction()) {
         setState(() {
-          print("DISPLAYING NEXT INSTRUCTION");
           _displayInstruction = _iter!.getNextInstruction();
+          final document = parse(_displayInstruction!);
+          final parsedString = parse(document.body?.text).documentElement?.text;
+          tts.speak(parsedString!);
         });
       }
     }
@@ -243,7 +295,6 @@ class _NavigationPageState extends State<NavigationPage> {
   double distanceLatLng(LatLng p1, Position p2) {
     var dist = Geolocator.distanceBetween(
         p1.latitude, p1.longitude, p2.latitude, p2.longitude);
-    // print("distance: " + dist.toString());
     return dist;
   }
 
@@ -263,4 +314,18 @@ class _NavigationPageState extends State<NavigationPage> {
     return distanceLatLng(p1!, p2) > min(METERS_TO_UPDATE_INSTRUCTION, (_iter!.curStepSize / 2));
   }
 
+  bool makingProgress(Position previous, Position current) {
+    var prevDist = distanceLatLng(_iter!.getStepEnd()!, previous);
+    var curDist = distanceLatLng(_iter!.getStepEnd()!, current);
+
+    return prevDist >= curDist - METERS_EPSILON;
+  }
+
+  String distToDisplay() {
+    if (_distToEnd > 1000) {
+      return 'In ' + (_distToEnd / 1000).toStringAsPrecision(2) + ' km';
+    } else {
+      return 'In ' + _distToEnd.round().toString() + ' m';
+    }
+  }
 }

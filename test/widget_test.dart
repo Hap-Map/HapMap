@@ -7,18 +7,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:hap_map/main.dart';
-import 'package:hap_map/models/place_model.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hap_map/api/place_api.dart';
 
 void main() {
   //LatLng origin = const LatLng(47.6534424035837, -122.30589365409594); // Paul G. Allen Center
 
   testWidgets('HapMap loading smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const HapMap());
+    await tester.pumpWidget(HapMap());
 
     // Verify that HapMap is loaded and that the three buttons are showing
     expect(find.byKey(const Key('HapMap')), findsOneWidget);

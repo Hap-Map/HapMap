@@ -116,41 +116,53 @@ class DirectionsIterator {
     directions = d!;
     index = 0;
     numSteps = directions.totalSteps.length;
-    curStepSize = getStepSize();
+    curStepSize = getStepSize()!;
   }
 
-  String getStepTime() {
-    assert(index < numSteps);
-    return directions.totalSteps[index].duration;
+  bool isGood() {
+    return numSteps > 0;
   }
 
-  String getStepDistance() {
+  String? getStepTime() {
+      if (numSteps == 0) {
+        return null;
+      }
+      assert(index < numSteps);
+      return directions.totalSteps[index].duration;
+  }
+
+  String? getStepDistance() {
+    if (numSteps == 0) {
+      return null;
+    }
     assert(index < numSteps);
     return directions.totalSteps[index].distance;
   }
 
-  bool moveNext() {
-    if (index >= numSteps) {
-      return false;
-    }
+  void moveNext() {
     index++;
-    curStepSize = getStepSize();
-    return true;
+    curStepSize = getStepSize()!;
   }
 
   bool hasNext() {
-    if (index < numSteps) {
+    if (index < numSteps - 1) {
       return true;
     }
     return false;
   }
 
-  String getCurrentInstruction() {
+  String? getCurrentInstruction() {
+    if (numSteps == 0) {
+      return null;
+    }
     assert(index < numSteps);
     return directions.totalSteps[index].htmlInstructions;
   }
 
-  String getNextInstruction() {
+  String? getNextInstruction() {
+    if (numSteps == 0) {
+      return null;
+    }
     assert(index < numSteps);
     if (index == numSteps - 1) {
       return directions.totalSteps[index].htmlInstructions;
@@ -179,7 +191,10 @@ class DirectionsIterator {
     return directions.totalSteps[index].endLocation;
   }
 
-  double getStepSize() {
+  double? getStepSize() {
+    if (numSteps == 0) {
+      return null;
+    }
     assert (index < numSteps);
     return Geolocator.distanceBetween(
         directions.totalSteps[index].startLocation.latitude,
@@ -188,7 +203,10 @@ class DirectionsIterator {
         directions.totalSteps[index].endLocation.longitude);
   }
 
-  LatLng getNextEnd() {
+  LatLng? getNextEnd() {
+    if (numSteps == 0) {
+      return null;
+    }
     assert (index < numSteps - 1);
     return directions.totalSteps[index + 1].endLocation;
   }
