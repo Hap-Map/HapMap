@@ -4,8 +4,6 @@ PODS:
     - Flutter
   - flutter_tts (0.0.1):
     - Flutter
-  - flutter_vibrate (0.0.1):
-    - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
   - google_maps_flutter (0.0.1):
@@ -35,7 +33,6 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
-  - flutter_vibrate (from `.symlinks/plugins/flutter_vibrate/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - location (from `.symlinks/plugins/location/ios`)
@@ -57,8 +54,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
-  flutter_vibrate:
-    :path: ".symlinks/plugins/flutter_vibrate/ios"
   geolocator_apple:
     :path: ".symlinks/plugins/geolocator_apple/ios"
   google_maps_flutter:
@@ -82,7 +77,6 @@ SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
-  flutter_vibrate: 9f4c2ab57008965f78969472367c329dd77eb801
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   google_maps_flutter: c59fc576c0d0c7f4dc4bd63832c862d22d5a7c6d
   GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad

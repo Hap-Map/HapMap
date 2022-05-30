@@ -197,6 +197,7 @@ class _NavigationPageState extends State<NavigationPage> {
   void dispose() {
     super.dispose();
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.removeOnShakeListener(onShake);
     ShakeApi.stopOnShakeUpdates();
   }
 
