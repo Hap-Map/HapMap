@@ -219,9 +219,9 @@ class _NavigationPageState extends State<NavigationPage> {
     AlertDialog alert = AlertDialog(
       title: const Text('Route Updates'),
       content: Text(
-          _current != null && _distanceToEnd != null
+          _current != null
               ?  'Current Location:' + _current!.name + "\n"
-              + "Distance to Destination:" + _distanceToEnd!.toString()
+              + "Distance to Destination:" + _distToEnd.toString()
               : "Retrieving current location information...",
           style: const TextStyle(
               fontSize: 18,
