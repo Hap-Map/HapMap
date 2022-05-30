@@ -4,9 +4,9 @@ import 'package:hap_map/pages/help_page.dart';
 import 'package:hap_map/pages/navigation_page.dart';
 import 'package:hap_map/pages/search_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hap_map/pages/tutorial_page1.dart';
 import 'package:hap_map/pages/tutorial_page2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +22,6 @@ class HapMap extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    Future<bool> isFirst = _checkFirstLaunch();
-    var firstRoute = SearchPage.id;
-    if (isFirst == true) {
-      firstRoute == TutorialPage1.id;
-    }
     return MaterialApp(
       key: const Key('HapMap'),
       // TODO: Add TutorialPage here vvv
