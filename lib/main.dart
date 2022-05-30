@@ -4,21 +4,22 @@ import 'package:hap_map/pages/help_page.dart';
 import 'package:hap_map/pages/navigation_page.dart';
 import 'package:hap_map/pages/search_page.dart';
 import 'package:hap_map/pages/settings_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hap_map/pages/tutorial_page1.dart';
 import 'package:hap_map/pages/tutorial_page2.dart';
-import 'package:is_first_run/is_first_run.dart';
 
-void main() {
-  runApp(const HapMap());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool first = !prefs.containsKey('first_run');
+  prefs.setBool('first_run', false);
+  runApp(HapMap(firstRun: first));
 }
 
 class HapMap extends StatelessWidget {
-  const HapMap({Key? key}) : super(key: key);
-
-  Future<bool> _checkFirstLaunch() async {
-    return await IsFirstRun.isFirstCall();
-  }
-
+  final bool firstRun;
+  HapMap({Key? key, this.firstRun = false}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     Future<bool> isFirst = _checkFirstLaunch();
@@ -28,7 +29,8 @@ class HapMap extends StatelessWidget {
     }
     return MaterialApp(
       key: const Key('HapMap'),
-      initialRoute: firstRoute,
+      // TODO: Add TutorialPage here vvv
+      initialRoute: firstRun? TutorialPage1.id : SearchPage.id,
       routes: {
         SearchPage.id: (context) => const SearchPage(),
         HelpPage.id: (context) => const HelpPage(),
