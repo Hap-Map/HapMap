@@ -47,6 +47,7 @@ dependencies:
   shake: ^2.1.0
   flutter_tts: ^3.3.3
   html: ^0.15.0
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
