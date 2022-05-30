@@ -39,7 +39,7 @@ class _NavigationPageState extends State<NavigationPage> {
   DirectionsIterator? _iter;
   String? _displayInstruction;
   double? _distanceToEnd;
-  bool feedbackButtonHeld = false;
+  bool _feedbackButtonHeld = false;
   late double _distToEnd;
   bool _destinationReached = false; // if final destination has been reached
   bool _instrSkipped = false;       // if an instruction is skipped, we dont want to skip more than one (otherwise assume user is lost)
@@ -90,6 +90,7 @@ class _NavigationPageState extends State<NavigationPage> {
     constraints: BoxConstraints.loose(Size(100, 100)),
     child: TextButton(
         onPressed: () {},
+        onFocusChange: (focused) => _feedbackButtonHeld = focused,
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Icon(
@@ -107,7 +108,6 @@ class _NavigationPageState extends State<NavigationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     LocationApi.addOnLocationUpdateListener(onLocationUpdated);
     ShakeApi.startOnShakeUpdates();
@@ -215,6 +215,12 @@ class _NavigationPageState extends State<NavigationPage> {
 
   onShake() {
     // TODO: Show dialog that pops up when user shakes phone.
+  }
+
+  generateHapticFeedback(StepType stepType) {
+    if (_feedbackButtonHeld) {
+      HapticFeedbackApi.generateFeedbackFromStepType(stepType);
+    }
   }
 
   onLocationUpdated(Position pos) {
