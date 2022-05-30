@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:hap_map/api/haptic_touch_api.dart';
@@ -46,6 +45,7 @@ class _NavigationPageState extends State<NavigationPage> {
   bool _userLost = false;           // if after skipping an instruction and user is still not making progress towards end point
                                     // we assume user is lost and stop iterating over directions (and displaying new ones to user)
   final FlutterTts tts = FlutterTts();
+  StepType _currentStepType = StepType.other;
 
   get endNavigationButton => Padding(
     padding: const EdgeInsets.only(bottom: 8.0),
@@ -89,8 +89,17 @@ class _NavigationPageState extends State<NavigationPage> {
   get hapticButton => ConstrainedBox(
     constraints: BoxConstraints.loose(Size(100, 100)),
     child: TextButton(
-        onPressed: () {},
-        onFocusChange: (focused) => _feedbackButtonHeld = focused,
+        onPressed: () => _feedbackButtonHeld = true,
+        onLongPress: () {
+          _feedbackButtonHeld = true;
+          generateHapticFeedback();
+        },
+        onFocusChange: (focused) {
+          _feedbackButtonHeld = focused;
+          if (_feedbackButtonHeld) {
+            generateHapticFeedback();
+          }
+        },
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Icon(
@@ -217,9 +226,9 @@ class _NavigationPageState extends State<NavigationPage> {
     // TODO: Show dialog that pops up when user shakes phone.
   }
 
-  generateHapticFeedback(StepType stepType) {
+  generateHapticFeedback() {
     if (_feedbackButtonHeld) {
-      HapticFeedbackApi.generateFeedbackFromStepType(stepType);
+      HapticFeedbackApi.generateFeedbackFromStepType(_currentStepType);
     }
   }
 
@@ -235,7 +244,8 @@ class _NavigationPageState extends State<NavigationPage> {
         // or this isn't the last instruction (destination reached)
         // we iterate to the next instruction
         if (!_iter!.hasNext()) {
-          generateHapticFeedback(StepType.destinationReached);
+          _currentStepType = StepType.destinationReached;
+          generateHapticFeedback();
           _destinationReached = true;
           tts.speak("Destination Reached");
         } else if (!_userLost) {
@@ -247,7 +257,8 @@ class _NavigationPageState extends State<NavigationPage> {
           // user has either passed instruction end so we see if we should move to the next instruction
           // or the user is lost
           if (!_iter!.hasNext()) {
-            generateHapticFeedback(StepType.destinationReached);
+            _currentStepType = StepType.destinationReached;
+            generateHapticFeedback();
             _destinationReached = true;
             tts.speak("Destination Reached");
           } else if (_instrSkipped) {
@@ -283,13 +294,18 @@ class _NavigationPageState extends State<NavigationPage> {
           final parsedString = parse(document.body?.text).documentElement?.text;
           String checkDirectionString = parsedString!.toLowerCase();
           if (checkDirectionString.contains('left')) {
-            generateHapticFeedback(StepType.left);
+            _currentStepType = StepType.left;
           } else if (checkDirectionString.contains('right')) {
-            generateHapticFeedback(StepType.right);
+            _currentStepType = StepType.right;
+          } else if (checkDirectionString.contains('north')) {
+            _currentStepType = StepType.north;
+          } else if (checkDirectionString.contains('south')) {
+            _currentStepType = StepType.south;
           } else {
-            generateHapticFeedback(StepType.other);
+            _currentStepType = StepType.other;
           }
-          tts.speak(parsedString!);
+          generateHapticFeedback();
+          tts.speak(parsedString);
         });
       }
     }
