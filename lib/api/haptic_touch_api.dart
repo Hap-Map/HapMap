@@ -3,7 +3,8 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 enum StepType {
   left,
   right,
-  destinationReached
+  destinationReached,
+  other
 }
 
 class HapticFeedbackApi {
@@ -38,6 +39,12 @@ class HapticFeedbackApi {
     generateFeedbackSequence(feedbackTypes, intervalDurationsMillis, repetitions: 10);
   }
 
+  static generateOtherFeedback() {
+    List<FeedbackType> feedbackTypes = [FeedbackType.error, FeedbackType.light];
+    List<int> intervalDurationsMillis = [500, 500];
+    generateFeedbackSequence(feedbackTypes, intervalDurationsMillis, repetitions: 3);
+  }
+
   static generateFeedbackFromStepType(StepType type) {
     if (type == StepType.left) {
       generateLeftFeedback();
@@ -45,6 +52,8 @@ class HapticFeedbackApi {
       generateRightFeedback();
     } else if (type == StepType.destinationReached) {
       generateDestinationFeedback();
+    } else if (type == StepType.other) {
+      generateOtherFeedback();
     }
   }
 }
