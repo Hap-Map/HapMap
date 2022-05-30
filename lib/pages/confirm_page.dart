@@ -104,7 +104,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                         SizedBox(height: 25),
                         TextButton(
                           onPressed: () {
-                            if (DirectionsIterator(_directions).isGood()) {
+                            if (_directions != null &&  _directions!.totalSteps.isNotEmpty && DirectionsIterator(_directions!).isGood()) {
                               Navigator.pushNamed(context, NavigationPage.id,
                                   arguments: [
                                     _position,
