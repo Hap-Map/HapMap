@@ -235,6 +235,7 @@ class _NavigationPageState extends State<NavigationPage> {
         // or this isn't the last instruction (destination reached)
         // we iterate to the next instruction
         if (!_iter!.hasNext()) {
+          generateHapticFeedback(StepType.destinationReached);
           _destinationReached = true;
           tts.speak("Destination Reached");
         } else if (!_userLost) {
@@ -246,6 +247,7 @@ class _NavigationPageState extends State<NavigationPage> {
           // user has either passed instruction end so we see if we should move to the next instruction
           // or the user is lost
           if (!_iter!.hasNext()) {
+            generateHapticFeedback(StepType.destinationReached);
             _destinationReached = true;
             tts.speak("Destination Reached");
           } else if (_instrSkipped) {
@@ -279,6 +281,14 @@ class _NavigationPageState extends State<NavigationPage> {
           _displayInstruction = _iter!.getNextInstruction();
           final document = parse(_displayInstruction!);
           final parsedString = parse(document.body?.text).documentElement?.text;
+          String checkDirectionString = parsedString!.toLowerCase();
+          if (checkDirectionString.contains('left')) {
+            generateHapticFeedback(StepType.left);
+          } else if (checkDirectionString.contains('right')) {
+            generateHapticFeedback(StepType.right);
+          } else {
+            generateHapticFeedback(StepType.other);
+          }
           tts.speak(parsedString!);
         });
       }
