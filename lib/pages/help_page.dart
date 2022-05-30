@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hap_map/constants.dart';
+import 'package:hap_map/pages/tutorial_page1.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HelpPage extends StatefulWidget {
@@ -83,7 +84,9 @@ class _HelpPage extends State<HelpPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, TutorialPage1.id);
+                  },
                   style: kBlueButtonStyle,
                   child: const Padding(
                       padding: EdgeInsets.all(8.0),
