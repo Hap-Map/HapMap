@@ -48,6 +48,7 @@ dependencies:
   flutter_tts: ^3.3.3
   html: ^0.15.0
   shared_preferences: ^2.0.15
+  is_first_run:
 
 dev_dependencies:
   flutter_test:
