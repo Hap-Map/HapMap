@@ -83,7 +83,7 @@ class _NavigationPageState extends State<NavigationPage> {
   );
 
   get hapticButton => ConstrainedBox(
-    constraints: BoxConstraints.tight(Size(100, 100)),
+    constraints: BoxConstraints.loose(Size(100, 100)),
     child: TextButton(
         onPressed: () {},
         child: FittedBox(
