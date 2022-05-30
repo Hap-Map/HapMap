@@ -16,7 +16,6 @@ class _TutorialPage1State extends State<TutorialPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageBackground(
-        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -120,7 +119,6 @@ class _TutorialPage1State extends State<TutorialPage1> {
             ],
           ),
         )
-        ),
     );
   }
 }
