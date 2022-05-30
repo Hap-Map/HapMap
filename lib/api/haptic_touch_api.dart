@@ -1,5 +1,11 @@
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 
+enum StepType {
+  left,
+  right,
+  destinationReached
+}
+
 class HapticFeedbackApi {
   static generateFeedback(FeedbackType type) {
     Vibrate.feedback(type);
@@ -30,5 +36,15 @@ class HapticFeedbackApi {
     List<FeedbackType> feedbackTypes = [FeedbackType.success];
     List<int> intervalDurationsMillis = [250];
     generateFeedbackSequence(feedbackTypes, intervalDurationsMillis, repetitions: 10);
+  }
+
+  static generateFeedbackFromStepType(StepType type) {
+    if (type == StepType.left) {
+      generateLeftFeedback();
+    } else if (type == StepType.right) {
+      generateRightFeedback();
+    } else if (type == StepType.destinationReached) {
+      generateDestinationFeedback();
+    }
   }
 }
