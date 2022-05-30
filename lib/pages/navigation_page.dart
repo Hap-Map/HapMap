@@ -43,7 +43,6 @@ class _NavigationPageState extends State<NavigationPage> {
                                     // we assume user is lost and stop iterating over directions (and displaying new ones to user)
   double? _distanceToEnd;
   final FlutterTts tts = FlutterTts();
-  GlobalKey _scaffold = GlobalKey();
 
   get endNavigationButton => TextButton(
         child: const Text(
@@ -106,7 +105,6 @@ class _NavigationPageState extends State<NavigationPage> {
     }
 
     return Scaffold(
-      key: _scaffold,
         body: PageBackground(
             child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -204,7 +202,7 @@ class _NavigationPageState extends State<NavigationPage> {
   }
 
   onShake() {
-    showMessage(_scaffold.currentContext!);
+    showMessage(context);
   }
 
   // methods that shows the dialog
