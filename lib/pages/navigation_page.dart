@@ -221,7 +221,7 @@ class _NavigationPageState extends State<NavigationPage> {
       content: Text(
           _current != null
               ?  'Current Location:' + _current!.name + "\n"
-              + "Distance to Destination:" + _distToEnd.toString()
+              + "Distance to Destination: " + _distToEnd.toStringAsFixed(0) + " metres"
               : "Retrieving current location information...",
           style: const TextStyle(
               fontSize: 18,
