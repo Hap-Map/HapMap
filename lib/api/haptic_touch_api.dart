@@ -5,7 +5,12 @@ class HapticFeedbackApi {
     Vibrate.feedback(type);
   }
 
-  static generateFeedbackSequence(List intervalDurations, List feedbackTypes) {
-    // TODO: Generate multiple feedbacks in a series of durations.
+  static generateFeedbackSequence(List feedbackTypes, List intervalDurationsMillis, {int repetitions = 1}) {
+    assert (feedbackTypes.length == intervalDurationsMillis.length);
+
+    for (int i = 0; i < feedbackTypes.length; i++) {
+      generateFeedback(feedbackTypes[i]);
+      Future.delayed(Duration(milliseconds: intervalDurationsMillis[i]));
+    }
   }
 }
