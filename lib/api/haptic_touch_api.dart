@@ -15,9 +15,11 @@ class HapticFeedbackApi {
   static generateFeedbackSequence(List<FeedbackType> feedbackTypes, List<int> intervalDurationsMillis, {int repetitions = 1}) {
     assert (feedbackTypes.length == intervalDurationsMillis.length);
 
-    for (int i = 0; i < feedbackTypes.length; i++) {
-      generateFeedback(feedbackTypes[i]);
-      Future.delayed(Duration(milliseconds: intervalDurationsMillis[i]));
+    for (int k = 0; k < repetitions; k++) {
+      for (int i = 0; i < feedbackTypes.length; i++) {
+        generateFeedback(feedbackTypes[i]);
+        Future.delayed(Duration(milliseconds: intervalDurationsMillis[i]));
+      }
     }
   }
 
