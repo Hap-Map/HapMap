@@ -16,107 +16,109 @@ class _TutorialPage1State extends State<TutorialPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageBackground(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Align(alignment: Alignment.topLeft, child: BackButton()),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: Text(
-                            "Welcome to HapMap!",
-                            style: kTitleStyle,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Align(alignment: Alignment.topLeft, child: BackButton()),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text(
+                              "Welcome to HapMap!",
+                              style: kTitleStyle,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'A free app that helps you navigate your neighborhood with just a few shakes, words, or clicks. ',
-                          style: kBodyStyle,
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+                          Text(
+                            'A free app that helps you navigate your neighborhood with just a few shakes, words, or clicks. ',
+                            style: kBodyStyle,
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'How it Works:',
-                            style: kSubTitleStyle,
-                            textAlign: TextAlign.center,
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'How it Works:',
+                              style: kSubTitleStyle,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Search for a location using the search bar',
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '1. Search for a location using the search bar',
+                              style: kBodyStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '2. Start Navigation',
+                              style: kBodyStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '3. Listen to the app for the next directions',
+                              style: kBodyStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                            '4. Touch the screen (haptic touch) to detect when to make a turn',
                             style: kBodyStyle,
                             textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '2. Start Navigation',
-                            style: kBodyStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '3. Listen to the app for the next directions',
-                            style: kBodyStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                          '4. Touch the screen (haptic touch) to detect when to make a turn',
-                          style: kBodyStyle,
-                          textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: (){
+                    Navigator.pushNamed(context, TutorialPage2.id);
+                  },
+                  style: kBlueButtonStyle,
+                  child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Next Page',
+                          style: kTitleStyle)),
+                ),
               ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: (){
-                  Navigator.pushNamed(context, TutorialPage2.id);
-                },
-                style: kBlueButtonStyle,
-                child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Next Page',
-                        style: kTitleStyle)),
-              ),
+              ],
             ),
-            ],
           ),
         )
     );
