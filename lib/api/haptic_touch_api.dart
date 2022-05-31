@@ -43,7 +43,7 @@ class HapticFeedbackApi {
 
     if (startPosition < feedbackTypes.length - 1) {
       Timer(Duration(milliseconds: intervalDurationsMillis[startPosition]),
-          _generateFeedbackFromPosition(feedbackTypes, intervalDurationsMillis, startPosition: startPosition + 1));
+          () => _generateFeedbackFromPosition(feedbackTypes, intervalDurationsMillis, startPosition: startPosition + 1));
     }
   }
 
