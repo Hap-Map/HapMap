@@ -1,105 +1,65 @@
+import 'dart:async';
+
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 class VibrateApi {
-  static generateRightFeedback() {
-    final Iterable<Duration> pauses = [
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 500)
-    ];
+  static _generateFeedbackSequence(List<int> intervalDurationsMillis, {int repetitions = 1}) {
+    assert (repetitions > 0);
 
-    Vibrate.vibrateWithPauses(pauses);
+    int totalDurationOneRepetition = 0;
+
+    for (int i = 0; i < intervalDurationsMillis.length; i++) {
+      totalDurationOneRepetition += intervalDurationsMillis[i];
+    }
+
+    Timer.periodic(Duration(milliseconds: totalDurationOneRepetition), (timer) {
+      _generateFeedbackFromPosition(intervalDurationsMillis);
+
+      repetitions--;
+      if (repetitions == 0) {
+        timer.cancel();
+      }
+    });
+  }
+
+  static _generateFeedbackFromPosition(List<int> intervalDurationsMillis, {int startPosition = 0}) {
+    assert (startPosition >= 0);
+
+    Vibrate.vibrate();
+
+    if (startPosition < intervalDurationsMillis.length - 1) {
+      Timer(Duration(milliseconds: intervalDurationsMillis[startPosition]),
+              () => _generateFeedbackFromPosition(intervalDurationsMillis, startPosition: startPosition + 1));
+    }
+  }
+
+  static generateRightFeedback() {
+    List<int> intervalDurationsMillis = [1000];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
   }
 
   static generateNorthFeedback() {
-    final Iterable<Duration> pauses = [
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300)
-    ];
-
-    Vibrate.vibrateWithPauses(pauses);
+    List<int> intervalDurationsMillis = [600, 1000];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
   }
 
   static generateLeftFeedback() {
-    final Iterable<Duration> pauses = [
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300)
-    ];
-
-    Vibrate.vibrateWithPauses(pauses);
+    List<int> intervalDurationsMillis = [600, 600, 1000];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
   }
 
   static generateSouthFeedback() {
-    final Iterable<Duration> pauses = [
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300)
-    ];
-
-    Vibrate.vibrateWithPauses(pauses);
+    List<int> intervalDurationsMillis = [600, 600, 600, 1000];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
   }
 
   static generateOtherFeedback() {
-    final Iterable<Duration> pauses = [
-      const Duration(milliseconds: 400),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 400),
-      const Duration(milliseconds: 500),
-      const Duration(milliseconds: 400)
-    ];
-
-    Vibrate.vibrateWithPauses(pauses);
+    List<int> intervalDurationsMillis = [800, 1000];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 3);
   }
 
   static generateDestinationFeedback() {
-    final Iterable<Duration> pauses = [
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300),
-      const Duration(milliseconds: 300)
-    ];
-
-    Vibrate.vibrateWithPauses(pauses);
+    List<int> intervalDurationsMillis = [600];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 10);
   }
 }
