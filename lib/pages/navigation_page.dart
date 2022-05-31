@@ -206,11 +206,49 @@ class _NavigationPageState extends State<NavigationPage> {
   void dispose() {
     super.dispose();
     LocationApi.removeOnLocationUpdateListener(onLocationUpdated);
+    ShakeApi.removeOnShakeListener(onShake);
     ShakeApi.stopOnShakeUpdates();
   }
 
   onShake() {
-    // TODO: Show dialog that pops up when user shakes phone.
+    showMessage(context);
+  }
+
+  // method that shows the dialog
+  showMessage(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: const Text('Route Updates'),
+      content: Text(
+          _current != null
+              ?  'Current Location:' + _current!.name + "\n"
+              + "Distance to Destination: " + _distToEnd.toStringAsFixed(0) + " metres"
+              : "Retrieving current location information...",
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: Colors.black),
+          textAlign: TextAlign.center),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Close',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue))
+        )
+      ],
+      elevation: 10,
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   onLocationUpdated(Position pos) {
