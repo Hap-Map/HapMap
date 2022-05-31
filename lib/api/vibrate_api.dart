@@ -35,31 +35,31 @@ class VibrateApi {
 
   static generateRightFeedback() {
     List<int> intervalDurationsMillis = [1000];
-    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 2);
   }
 
   static generateNorthFeedback() {
     List<int> intervalDurationsMillis = [600, 1000];
-    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 2);
   }
 
   static generateLeftFeedback() {
     List<int> intervalDurationsMillis = [600, 600, 1000];
-    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 2);
   }
 
   static generateSouthFeedback() {
     List<int> intervalDurationsMillis = [600, 600, 600, 1000];
-    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 2);
   }
 
   static generateOtherFeedback() {
     List<int> intervalDurationsMillis = [800, 1000];
-    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 3);
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 1);
   }
 
   static generateDestinationFeedback() {
-    List<int> intervalDurationsMillis = [600];
-    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 10);
+    List<int> intervalDurationsMillis = [400];
+    _generateFeedbackSequence(intervalDurationsMillis, repetitions: 5);
   }
 }
