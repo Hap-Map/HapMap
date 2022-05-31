@@ -112,15 +112,18 @@ class _SettingsPageState extends State<SettingsPage> {
                           textAlign: TextAlign.center,
                           style: kBodyStyle,
                         ),
-                        Switch(
-                          value:  SettingsPage.isSwitchedHaptic,
-                          onChanged: (value) {
-                            setState(() {
-                              SettingsPage.isSwitchedHaptic = value;
-                            });
-                          },
-                          activeTrackColor: Colors.lightGreenAccent,
-                          activeColor: Colors.green,
+                        Semantics(
+                          child: Switch(
+                            value:  SettingsPage.isSwitchedHaptic,
+                            onChanged: (value) {
+                              setState(() {
+                                SettingsPage.isSwitchedHaptic = value;
+                              });
+                            },
+                            activeTrackColor: Colors.lightGreenAccent,
+                            activeColor: Colors.green,
+                          ),
+                          label: 'Haptic Feedback'
                         ),
                       ],
                     ),
@@ -132,15 +135,18 @@ class _SettingsPageState extends State<SettingsPage> {
                           textAlign: TextAlign.center,
                           style: kBodyStyle,
                         ),
-                        Switch(
-                          value:  SettingsPage.isSwitchedVibration,
-                          onChanged: (value) {
-                            setState(() {
-                              SettingsPage.isSwitchedVibration = value;
-                            });
-                          },
-                          activeTrackColor: Colors.lightGreenAccent,
-                          activeColor: Colors.green,
+                        Semantics(
+                          child: Switch(
+                            value:  SettingsPage.isSwitchedVibration,
+                            onChanged: (value) {
+                              setState(() {
+                                SettingsPage.isSwitchedVibration = value;
+                              });
+                            },
+                            activeTrackColor: Colors.lightGreenAccent,
+                            activeColor: Colors.green,
+                          ),
+                          label: "Vibration"
                         ),
                       ],
                     ),
