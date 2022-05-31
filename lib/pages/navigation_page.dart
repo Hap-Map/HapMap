@@ -6,12 +6,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
-import 'package:hap_map/api/haptic_touch_api.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
 import 'package:html/parser.dart';
 
+import '../api/feedback_handler.dart';
 import '../api/location_api.dart';
 import '../api/place_api.dart';
 import '../models/place_model.dart';
@@ -43,24 +43,26 @@ class _NavigationPageState extends State<NavigationPage> {
   bool _destinationReached = false; // if final destination has been reached
   bool _instrSkipped = false;       // if an instruction is skipped, we dont want to skip more than one (otherwise assume user is lost)
   bool _userLost = false;           // if after skipping an instruction and user is still not making progress towards end point
-                                    // we assume user is lost and stop iterating over directions (and displaying new ones to user)
+  // we assume user is lost and stop iterating over directions (and displaying new ones to user)
   final FlutterTts tts = FlutterTts();
   StepType _currentStepType = StepType.other;
+  // TODO: Update value based on User Settings
+  UserFeedback _currentUserFeedback = UserFeedback.vibrate;
 
   get endNavigationButton => Padding(
     padding: const EdgeInsets.only(bottom: 8.0),
     child: TextButton(
-          child: const Text(
-            'End Navigation',
-            style: kTitleStyle,
-          ),
-          onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('search_page'));
-            SemanticsService.announce("Ending navigation", TextDirection.ltr);
-          },
-          style: kRedButtonStyle,
-          key: const Key('EndNavigation')
+        child: const Text(
+          'End Navigation',
+          style: kTitleStyle,
         ),
+        onPressed: () {
+          Navigator.popUntil(context, ModalRoute.withName('search_page'));
+          SemanticsService.announce("Ending navigation", TextDirection.ltr);
+        },
+        style: kRedButtonStyle,
+        key: const Key('EndNavigation')
+    ),
   );
 
   get rerouteButton =>Padding(
@@ -141,78 +143,78 @@ class _NavigationPageState extends State<NavigationPage> {
     return Scaffold(
         body: PageBackground(
             child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
-          children: [
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-              shadowColor: Colors.blueGrey,
-              child: MergeSemantics(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
                   children: [
-                    Text(distToDisplay(), style: kSubTitleStyle.copyWith(fontWeight: FontWeight.bold),),
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Html(
-                              data: _destinationReached
-                                  ? '<html><body></b>Destination Reached</b></body></html>'
-                                  : _displayInstruction,
-                              style: {
-                                "body": Style(
-                                    fontSize: FontSize(25),
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                    textAlign: TextAlign.center)
-                              }),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                  _destination != null
-                                      ? "To: " + _destination!.name
-                                      : "Loading Destination...",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black),
-                                  textAlign: TextAlign.center)),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                    _current != null
-                                        ? "Current Location: " + _current!.name
-                                        : "Finding Current Location...",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black),
-                                    textAlign: TextAlign.center)),
-                          ),
-                        ],
+                    Card(
+                      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+                      shadowColor: Colors.blueGrey,
+                      child: MergeSemantics(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(distToDisplay(), style: kSubTitleStyle.copyWith(fontWeight: FontWeight.bold),),
+                            Padding(
+                                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Html(
+                                      data: _destinationReached
+                                          ? '<html><body></b>Destination Reached</b></body></html>'
+                                          : _displayInstruction,
+                                      style: {
+                                        "body": Style(
+                                            fontSize: FontSize(25),
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black,
+                                            textAlign: TextAlign.center)
+                                      }),
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Text(
+                                          _destination != null
+                                              ? "To: " + _destination!.name
+                                              : "Loading Destination...",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center)),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        child: Text(
+                                            _current != null
+                                                ? "Current Location: " + _current!.name
+                                                : "Finding Current Location...",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black),
+                                            textAlign: TextAlign.center)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            rerouteButton,
+                          ],
+                        ),
                       ),
+
                     ),
-                    rerouteButton,
+                    endNavigationButton,
+                    hapticButton
                   ],
                 ),
-              ),
-
-            ),
-            endNavigationButton,
-            hapticButton
-          ],
-        ),
-      ],
-    )));
+              ],
+            )));
   }
 
   @override
@@ -266,7 +268,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
   generateHapticFeedback() {
     if (_feedbackButtonHeld) {
-      HapticFeedbackApi.generateFeedbackFromStepType(_currentStepType);
+      FeedbackHandlerApi.generateFeedbackFromStepType(_currentStepType, _currentUserFeedback);
     }
   }
 
@@ -374,10 +376,10 @@ class _NavigationPageState extends State<NavigationPage> {
 
   void updatePlace(Position pos) {
     PlaceApi.getPlace(pos).then((place) => setState(() {
-          _currentPosition = pos;
-          _lastPosUpdated = _currentPosition;
-          _current = place;
-        }));
+      _currentPosition = pos;
+      _lastPosUpdated = _currentPosition;
+      _current = place;
+    }));
   }
 
   bool isPastStart(LatLng? p1, Position p2) {
