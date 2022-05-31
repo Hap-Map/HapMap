@@ -6,12 +6,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:hap_map/api/haptic_touch_api.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
 import 'package:html/parser.dart';
 
-import '../api/feedback_handler.dart';
 import '../api/location_api.dart';
 import '../api/place_api.dart';
 import '../models/place_model.dart';
@@ -46,8 +46,6 @@ class _NavigationPageState extends State<NavigationPage> {
                                     // we assume user is lost and stop iterating over directions (and displaying new ones to user)
   final FlutterTts tts = FlutterTts();
   StepType _currentStepType = StepType.other;
-  // TODO: Update value based on User Settings
-  UserFeedback _currentUserFeedback = UserFeedback.vibrate;
 
   get endNavigationButton => Padding(
     padding: const EdgeInsets.only(bottom: 8.0),
@@ -268,7 +266,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
   generateHapticFeedback() {
     if (_feedbackButtonHeld) {
-      FeedbackHandlerApi.generateFeedbackFromStepType(_currentStepType, _currentUserFeedback);
+      HapticFeedbackApi.generateFeedbackFromStepType(_currentStepType);
     }
   }
 
