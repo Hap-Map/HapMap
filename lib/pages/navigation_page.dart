@@ -125,10 +125,10 @@ class _NavigationPageState extends State<NavigationPage> {
     ShakeApi.startOnShakeUpdates();
     ShakeApi.addOnShakeListener(onShake);
     tts.speak("Starting route");
-    if (SettingsPage.isSwitchedVibration) {
-      _currentUserFeedback = UserFeedback.vibrate;
-    } else if (SettingsPage.isSwitchedHaptic) {
+    if (SettingsPage.isSwitchedHaptic) {
       _currentUserFeedback = UserFeedback.hapticTouch;
+    } else  {
+      _currentUserFeedback = UserFeedback.vibrate;
     }
   }
 

@@ -12,7 +12,6 @@ class SettingsPage extends StatefulWidget {
   ];
   static String dropDownValue = shortcuts.first;
   static bool isSwitchedHaptic = true;
-  static bool isSwitchedVibration = false;
   SettingsPage({Key? key}) : super(key: key);
 
   @override
@@ -77,30 +76,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             });
                           },
                         ),
-                        // Column(
-                        //   children: [
-                        //     Container(
-                        //       decoration: BoxDecoration(
-                        //           border: Border.all(color: Colors.greenAccent, width: 2.0),
-                        //           borderRadius: const BorderRadius.all(Radius.circular(5))
-                        //       ),
-                        //       child: const Text(
-                        //         'Shake Phone',
-                        //         textAlign: TextAlign.center,
-                        //         style: kBodyStyle,
-                        //       ),
-                        //     ),
-                        //     const Text(
-                        //       'Triple-Tap Screen',
-                        //       textAlign: TextAlign.center,
-                        //       style: kBodyStyle,
-                        //     ),
-                        //     const Text(
-                        //       'Only Dictation',
-                        //       textAlign: TextAlign.center,
-                        //       style: kBodyStyle,
-                        //     ),
-                        //   ],
                         // ),
                       ],
                     ),
@@ -137,10 +112,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         Semantics(
                           child: Switch(
-                            value:  SettingsPage.isSwitchedVibration,
+                            value:  !SettingsPage.isSwitchedHaptic,
                             onChanged: (value) {
                               setState(() {
-                                SettingsPage.isSwitchedVibration = value;
+                                SettingsPage.isSwitchedHaptic = !SettingsPage.isSwitchedHaptic;
                               });
                             },
                             activeTrackColor: Colors.lightGreenAccent,
@@ -188,7 +163,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     setState(() {
                       SettingsPage.dropDownValue = SettingsPage.shortcuts.first;
                       SettingsPage.isSwitchedHaptic = true;
-                      SettingsPage.isSwitchedVibration = false;
                     });
                   },
                   style: kRedButtonStyle,
