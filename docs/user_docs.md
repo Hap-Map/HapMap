@@ -8,7 +8,7 @@ supports searching for locations and helping provide real-time feedback to the u
 user interface.
 
 ## Installation
-HapMap is available for Android on our official Github Repository and the Google Play Store (link in progress)! It is not currently released for iOS.
+HapMap is available for Android on our official Github Repository! It is not currently released in the App Store or Google Play Store due to resource limitations.
 
 ### Install from the Repository
 Navigate to our [most recent build release](https://github.com/Hap-Map/HapMap/releases), download the APK file, and follow [this article's](https://www.lifewire.com/install-apk-on-android-4177185) directions to install the app on your android device.
