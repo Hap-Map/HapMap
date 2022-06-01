@@ -28,7 +28,7 @@ HapMap is not currently uploaded to the Play Store or App Store due to resource 
 - Pulkit:
 - Simona:
 - Lauren: Finished debugging our directions iterator and got the location and the routing in sync. Worked on final release presentation. 
-- Aditya:
+- Aditya: Finished implementing, debugging, and testing the haptic feedback, vibration, and shake APIs and integrated them into the navigation page workflow. Worked on the final release demo video, APK build, and documentation.
 - Jesse: Implemented the two tutorial pages and helped create the presentation slides. Helped edit documentation.
 
 ## Next Steps
