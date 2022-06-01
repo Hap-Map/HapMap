@@ -29,7 +29,7 @@ HapMap is not currently uploaded to the Play Store or App Store due to resource 
 - Simona:
 - Lauren:
 - Aditya:
-- Jesse:
+- Jesse: Implemented the two tutorial pages and helped create the presentation slides. Helped edit documentation.
 
 ## Next Steps
 
