@@ -9,6 +9,7 @@ import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:hap_map/api/shake_api.dart';
 import 'package:hap_map/constants.dart';
 import 'package:hap_map/models/directions_model.dart';
+import 'package:hap_map/pages/settings_page.dart';
 import 'package:html/parser.dart';
 
 import '../api/feedback_handler.dart';
@@ -124,6 +125,11 @@ class _NavigationPageState extends State<NavigationPage> {
     ShakeApi.startOnShakeUpdates();
     ShakeApi.addOnShakeListener(onShake);
     tts.speak("Starting route");
+    if (SettingsPage.isSwitchedHaptic) {
+      _currentUserFeedback = UserFeedback.hapticTouch;
+    } else  {
+      _currentUserFeedback = UserFeedback.vibrate;
+    }
   }
 
   @override
