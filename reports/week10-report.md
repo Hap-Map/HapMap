@@ -27,7 +27,7 @@ HapMap is not currently uploaded to the Play Store or App Store due to resource 
 - Emily: Worked on building the final release, putting together the demo video, and updating documentation.
 - Pulkit:
 - Simona:
-- Lauren:
+- Lauren: Finished debugging our directions iterator and got the location and the routing in sync. Worked on final release presentation. 
 - Aditya:
 - Jesse: Implemented the two tutorial pages and helped create the presentation slides. Helped edit documentation.
 
