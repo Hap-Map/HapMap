@@ -26,7 +26,7 @@ HapMap is not currently uploaded to the Play Store or App Store due to resource 
 ## Progress & Issues
 - Emily: Worked on building the final release, putting together the demo video, and updating documentation.
 - Pulkit: Added distance to next step, fixed some frontend issues. Tried to add a logo but faced issues with android simulator.
-- Simona:
+- Simona: Finished implementing shake response, did accessibility testing with android simulator, added accessibility tag. Added a manual test script. Recorded demo and edited presentation slide for final release
 - Lauren: Finished debugging our directions iterator and got the location and the routing in sync. Worked on final release presentation. 
 - Aditya: Finished implementing, debugging, and testing the haptic feedback, vibration, and shake APIs and integrated them into the navigation page workflow. Worked on the final release demo video, APK build, and documentation.
 - Jesse: Implemented the two tutorial pages and helped create the presentation slides. Helped edit documentation.
